@@ -17,7 +17,13 @@ in emacsWithPackages (epkgs:
   general
   no-littering
   org-roam
+  org-roam-bibtex
   org-ref
+  org-superstar
+  org-cliplink
+  visual-fill-column
+  elfeed
+  elfeed-org
   ebib
   which-key
   rainbow-delimiters
@@ -28,23 +34,39 @@ in emacsWithPackages (epkgs:
   ob-async
   ox-clip
   ox-hugo
-  prescient
   ivy-posframe
   ivy-rich
   counsel
+  prescient
+  company-prescient
   ivy-prescient
   company
-  company-prescient
   citeproc-org
   ace-window
   projectile
   helpful
   nix-mode
   direnv
+  envrc
+  nov
+  company-shell
   smartparens
   elisp-demos
   format-all
   sly
+  geiser
+  geiser-guile
+  geiser-mit
+  amx
+  ivy-avy
+  sdcv
+  wiki-summary
+  wordnut
+  deft
+  emr
+  elpy
+  pdf-tools
+  blacken
   helm-system-packages
   helm-selector
   evil-smartparens
@@ -52,6 +74,7 @@ in emacsWithPackages (epkgs:
   yasnippet
   hl-todo
   flycheck
+  flyspell-correct-ivy
   highlight-indent-guides
   lispy
   lispyville
@@ -65,11 +88,13 @@ in emacsWithPackages (epkgs:
   evil-args
   evil-lion
   undo-fu
+  undo-fu-session
   link-hint
   dumb-jump
   iedit
 ]) ++
 (with epkgs.elpaPackages; [
+  exwm
   modus-themes
 ]) ++
 [ epkgs.orgPackages.org-plus-contrib ])
