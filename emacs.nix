@@ -5,93 +5,95 @@ let
   emacsWithPackages = (pkgs.emacsPackagesGen myEmacs).emacsWithPackages;
 in emacsWithPackages (epkgs:
 (with epkgs.melpaPackages; [
-  use-package
-  evil
-  evil-org
-  evil-collection
-  evil-goggles
-  evil-surround
-  evil-nerd-commenter
-  py-isort
-  magit
-  general
-  no-littering
-  org-roam
-  org-roam-bibtex
-  org-ref
-  org-superstar
-  org-cliplink
-  visual-fill-column
+  ace-window
+  amx
+  avy
+  blacken
+  citeproc-org
+  company
+  company-prescient
+  company-shell
+  counsel
+  counsel-projectile
+  deft
+  direnv
+  dumb-jump
+  ebib
   elfeed
   elfeed-org
-  ebib
-  which-key
-  rainbow-delimiters
-  ranger
-  git-gutter
-  git-gutter-fringe
-  eyebrowse
-  ob-async
-  ox-clip
-  ox-hugo
-  ivy-posframe
-  ivy-rich
-  counsel
-  prescient
-  company-prescient
-  ivy-prescient
-  company
-  citeproc-org
-  ace-window
-  projectile
-  helpful
-  nix-mode
-  direnv
-  envrc
-  nov
-  company-shell
-  smartparens
+  elisp-def
   elisp-demos
+  elpy
+  emr
+  envrc
+  ess
+  ess-R-data-view
+  evil
+  evil-args
+  evil-collection
+  evil-easymotion
+  evil-exchange
+  evil-goggles
+  evil-lion
+  evil-nerd-commenter
+  evil-org
+  evil-smartparens
+  evil-surround
+  eyebrowse
+  flycheck
+  flyspell-correct-ivy
   format-all
-  sly
+  gcmh
   geiser
   geiser-guile
   geiser-mit
-  amx
-  ivy-avy
-  sdcv
-  wiki-summary
-  wordnut
-  deft
-  emr
-  elpy
-  pdf-tools
-  blacken
-  helm-system-packages
+  general
+  git-gutter
+  git-gutter-fringe
   helm-selector
-  evil-smartparens
-  gcmh
-  yasnippet
-  hl-todo
-  flycheck
-  flyspell-correct-ivy
-  highlight-indent-guides
-  lispy
-  lispyville
+  helm-system-packages
+  helpful
   highlight-defined
   highlight-function-calls
-  elisp-def
-  counsel-projectile
-  evil-easymotion
-  avy
-  evil-exchange
-  evil-args
-  evil-lion
+  highlight-indent-guides
+  hl-todo
+  iedit
+  ivy-avy
+  ivy-posframe
+  ivy-prescient
+  ivy-rich
+  link-hint
+  lispy
+  lispyville
+  magit
+  nix-mode
+  no-littering
+  nov
+  ob-async
+  org-cliplink
+  org-ref
+  org-roam
+  org-roam-bibtex
+  org-superstar
+  ox-clip
+  ox-hugo
+  pdf-tools
+  prescient
+  projectile
+  py-isort
+  rainbow-delimiters
+  ranger
+  sdcv
+  sly
+  smartparens
   undo-fu
   undo-fu-session
-  link-hint
-  dumb-jump
-  iedit
+  use-package
+  visual-fill-column
+  which-key
+  wiki-summary
+  wordnut
+  yasnippet
 ]) ++
 (with epkgs.elpaPackages; [
   exwm

@@ -16,7 +16,7 @@
     }))
   ];
 
-  home.packages = with pkgs; [
+  home.packages = (with pkgs; [
     alacritty
     (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
     binutils
@@ -25,19 +25,22 @@
     htop
     neovim
     nixfmt
+    pandoc
     pass
     qutebrowser
     rclone
     redshift
     restic
     ripgrep
+    midori
     rsync
     scrot
-    stow
     shfmt
     sqlite
+    stow
     tectonic
     tmux
+    tree
     unzip
     w3m
     wget
@@ -54,7 +57,9 @@
       type = "Application";
       mimeType = "x-scheme-handler/org-protocol";
     })
-  ];
+  ] ++
+  [ gitAndTools.pass-git-helper ]
+);
 
   # https://github.com/rasendubi/dotfiles#emacs
   programs.emacs = {
