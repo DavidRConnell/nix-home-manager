@@ -28,7 +28,7 @@
     xkbOptions = "ctrl:nocaps";
     # Enable Desktop Environment.
     displayManager.lightdm.enable = true;
-    desktopManager.gnome3.enable = true;
+    desktopManager.gnome.enable = true;
     windowManager.stumpwm.enable = true;
     # windowManager.stumpwm.command = ''
     #   ${pkgs.local.stumpwm}/bin/stumpwm-lisp-launcher.sh \

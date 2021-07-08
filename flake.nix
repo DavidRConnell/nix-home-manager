@@ -2,8 +2,8 @@
   description = "NixOs configuration using flakes and home manager";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-21.05";
+    nixpkgs.url = "github:NixOs/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOs/nixpkgs/nixos-21.05";
     home-manager = {
       url =  "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -37,19 +37,12 @@
       };
       channelsConfig.allowUnfree = true;
 
-      hostDefaults = {
-        modules = [
-          utils.nixosModules.saneFlakeDefaults {
-            # home-manager.useGlobalPkgs = true;
-            # home-manager.useUserPackages = true;
-          }
-        ];
-        system = "x86_64-linux";
-        channelName = "unstable";
-      };
+      sharedModules = [
+        utils.nixosModules.saneFlakeDefaults
+      ];
 
       hosts.thevoidII.modules = [
-        # home-manager.nixosModules.home-manager
+        home-manager.nixosModules.home-manager
         ./hosts/thevoidII
       ];
 
