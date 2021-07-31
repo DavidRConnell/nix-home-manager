@@ -54,6 +54,7 @@
           extraSpecialArgs = { inherit inputs; };
           generateHome = home-manager.lib.homeManagerConfiguration;
           nixpkgs.config.allowUnfree = true;
+          nixpkgs.overlays = [ inputs.emacs-overlay.overlay ];
         in
           {
             default = generateHome {
