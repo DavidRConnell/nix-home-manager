@@ -26,7 +26,9 @@
     ripgrep
     midori
     rsync
+    sbcl
     scrot
+    sdcv
     shfmt
     sqlite
     stow
