@@ -18,15 +18,11 @@
     keyMap = "dvorak";
   };
 
-  # home.packages = with pkgs; [
-  #   local.stumpwm
-  # ];
 
   services.xserver = {
     enable = true;
     layout = "dvorak";
     xkbOptions = "ctrl:nocaps";
-    # Enable Desktop Environment.
     displayManager.lightdm.enable = true;
     desktopManager.gnome.enable = true;
     windowManager.stumpwm.enable = true;

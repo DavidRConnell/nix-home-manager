@@ -53,7 +53,6 @@
   [ gitAndTools.pass-git-helper ]
 );
 
-  # https://github.com/rasendubi/dotfiles#emacs
   programs.emacs = {
     enable = true;
     package = import ./emacs.nix { inherit pkgs; };
