@@ -103,3 +103,4 @@ in emacsWithPackages (epkgs:
     bibtex-actions
 
   ]) ++ (with epkgs.elpaPackages; [ modus-themes corfu vertico ])
+  ++ [ epkgs.orgPackages.org-plus-contrib ])
