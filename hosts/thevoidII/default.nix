@@ -36,7 +36,6 @@
 
   sound.enable = true;
   hardware.pulseaudio.enable = true;
-  programs.zsh.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.voidee = {
@@ -48,9 +47,4 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   fonts.fonts = with pkgs; [ hack-font roboto-mono ];
-
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
 }
