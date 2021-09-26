@@ -6,7 +6,6 @@ let
 in emacsWithPackages (epkgs:
   (with epkgs.melpaPackages; [
     ace-window
-    amx
     avy
     blacken
     citeproc-org
@@ -36,7 +35,6 @@ in emacsWithPackages (epkgs:
     evil-surround
     eyebrowse
     flycheck
-    flyspell-correct-ivy
     format-all
     gcmh
     geiser
@@ -45,18 +43,12 @@ in emacsWithPackages (epkgs:
     general
     git-gutter
     git-gutter-fringe
-    helm-selector
-    helm-system-packages
     helpful
     highlight-defined
     highlight-function-calls
     highlight-indent-guides
     hl-todo
     iedit
-    ivy-avy
-    ivy-posframe
-    ivy-prescient
-    ivy-rich
     link-hint
     lispy
     lispyville
@@ -102,5 +94,5 @@ in emacsWithPackages (epkgs:
     mini-frame
     bibtex-actions
 
-  ]) ++ (with epkgs.elpaPackages; [ modus-themes corfu vertico ])
+  ]) ++ (with epkgs.elpaPackages; [ modus-themes vertico ])
   ++ [ epkgs.orgPackages.org-plus-contrib ])
