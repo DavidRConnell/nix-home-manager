@@ -10,11 +10,6 @@ in emacsWithPackages (epkgs:
     avy
     blacken
     citeproc-org
-    company
-    company-prescient
-    company-shell
-    counsel
-    counsel-projectile
     deft
     direnv
     dumb-jump
@@ -95,6 +90,16 @@ in emacsWithPackages (epkgs:
     wiki-summary
     wordnut
     yasnippet
-  ]) ++ (with epkgs.elpaPackages; [ modus-themes ]) ++ [
-    epkgs.orgPackages.org-plus-contrib
-  ])
+
+    # Completion
+    orderless
+    consult
+    consult-flycheck
+    flyspell-correct
+    embark
+    embark-consult
+    marginalia
+    mini-frame
+    bibtex-actions
+
+  ]) ++ (with epkgs.elpaPackages; [ modus-themes corfu vertico ])
