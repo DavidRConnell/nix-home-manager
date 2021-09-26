@@ -12,6 +12,8 @@
     alacritty
     (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
     binutils
+    facetimehd-firmware
+    feh
     fzf
     git
     htop
@@ -24,7 +26,6 @@
     redshift
     restic
     ripgrep
-    midori
     rsync
     sbcl
     scrot
@@ -61,6 +62,7 @@
   };
 
   services.emacs.enable = true;
+
   services.redshift = {
     enable = true;
     provider = "geoclue2";
