@@ -15,11 +15,6 @@
       flake = false;
     };
 
-    nix-matlab = {
-      url = "gitlab:doronbehar/nix-matlab";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     emacs-overlay.url = "github:nix-community/emacs-overlay";
   };
 
