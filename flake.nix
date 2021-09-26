@@ -8,7 +8,7 @@
       url =  "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus/staging";
+    utils.url = "github:gytis-ivaskevicius/flake-utils-plus/";
 
     nixos-hardware = {
       url = "github:nixos/nixos-hardware";
@@ -26,7 +26,7 @@
   outputs = { self, nixpkgs, utils, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
-    in utils.lib.systemFlake {
+    in utils.lib.mkFlake {
       inherit self inputs;
 
       supportedSystems = [ "x86_64-linux" ];
