@@ -8,7 +8,7 @@
     stateVersion = "20.09";
   };
 
-  imports = [ ./modules/shell.nix ];
+  imports = [ ./modules/shell.nix ./modules/emacs ];
 
   home.packages = (with pkgs;
     [
@@ -43,25 +43,9 @@
       wordnet
       zathura
       zip
-
-      (makeDesktopItem {
-        name = "org-protocol";
-        exec = "emacsclient %u";
-        comment = "Org protocol";
-        desktopName = "org-protocol";
-        type = "Application";
-        mimeType = "x-scheme-handler/org-protocol";
-      })
     ] ++ [ gitAndTools.pass-git-helper ]);
 
   manual.manpages.enable = true;
-
-  programs.emacs = {
-    enable = true;
-    package = import ./emacs.nix { inherit pkgs; };
-  };
-
-  services.emacs.enable = true;
 
   services.redshift = {
     enable = true;

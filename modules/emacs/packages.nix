@@ -19,7 +19,6 @@ in emacsWithPackages (epkgs:
     elisp-demos
     elpy
     emr
-    envrc
     ess
     ess-R-data-view
     evil
@@ -84,15 +83,14 @@ in emacsWithPackages (epkgs:
     yasnippet
 
     # Completion
-    orderless
+    bibtex-actions
     consult
     consult-flycheck
     flyspell-correct
     embark
     embark-consult
     marginalia
-    mini-frame
-    bibtex-actions
+    orderless
 
   ]) ++ (with epkgs.elpaPackages; [ modus-themes vertico ])
   ++ [ epkgs.orgPackages.org-plus-contrib ])
