@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }: {
 
   home.packages = (with pkgs; [
-    irony-server
+    ccls
 
     (makeDesktopItem {
       name = "org-protocol";

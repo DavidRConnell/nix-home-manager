@@ -8,6 +8,7 @@ in emacsWithPackages (epkgs:
     ace-window
     avy
     blacken
+    ccls
     citeproc-org
     deft
     direnv
@@ -91,6 +92,9 @@ in emacsWithPackages (epkgs:
     embark-consult
     marginalia
     orderless
+
+    # LSP
+    lsp-mode
 
   ]) ++ (with epkgs.elpaPackages; [ modus-themes vertico ])
   ++ [ epkgs.orgPackages.org-plus-contrib ])
