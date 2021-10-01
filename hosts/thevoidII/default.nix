@@ -47,4 +47,9 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   fonts.fonts = with pkgs; [ hack-font roboto-mono ];
+
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
 }
