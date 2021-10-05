@@ -1,20 +1,16 @@
 { config, pkgs, lib, ... }: {
+
   programs.zsh = {
     enable = true;
     history.ignoreDups = true;
+    history.path = "${config.xdg.dataHome}/zsh/history";
     dotDir = ".config/zsh";
     defaultKeymap = "viins";
     oh-my-zsh.enable = false;
 
-    sessionVariables = {
-      XDG_CONFIG_HOME = "$HOME/.config";
-      XDG_DATA_HOME = "$HOME/.local/share";
-      XDG_CACHE_HOME = "$HOME/.cache";
-      EDITOR = "emacsclient -ca ''";
-      VISUAL = "emacsclient -ca ''";
-      STOW_DIR = "$HOME/.dotfiles";
-      PATH = "$HOME/bin:$HOME/.local/bin:$PATH";
-    };
+    envExtra = ''
+      source $ZDOTDIR/realenv.zsh
+'';
 
     shellAliases = {
       e = "emacsclient -ca ''";
