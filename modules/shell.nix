@@ -1,5 +1,10 @@
 { config, pkgs, ... }: {
 
+  home.packages = (with pkgs; [
+    tree
+    exa
+  ]);
+
   programs.zsh = {
     enable = true;
     history.ignoreDups = true;
@@ -26,8 +31,9 @@
       du = "du -h";
       free = "free -h";
 
-      ls = "ls --color --dereference-command-line";
-      l = "ls -lah";
+      ls = "exa --group-directories-first";
+      l = "exa -la --git --group-directories-first";
+      lt = "exa --tree --level=2 --group-directories-first";
 
       svg = "feh -x --reload 1 --conversion-timeout 1";
       md2pdf =
