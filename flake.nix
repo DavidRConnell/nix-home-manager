@@ -6,14 +6,14 @@
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
-      ref = "nixos-21.05";
+      ref = "nixos-21.11";
     };
 
     home-manager = {
-      type =  "github";
+      type = "github";
       owner = "nix-community";
       repo = "home-manager";
-      ref = "release-21.05";
+      ref = "release-21.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus/";
@@ -23,7 +23,13 @@
       flake = false;
     };
 
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    emacs-overlay = {
+      type = "github";
+      owner = "nix-community";
+      repo = "emacs-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs = { self, nixpkgs, utils, home-manager, ... }@inputs:
