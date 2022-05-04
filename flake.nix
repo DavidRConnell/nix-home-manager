@@ -34,8 +34,7 @@
   };
 
   outputs = { self, nixpkgs, utils, home-manager, ... }@inputs:
-    let
-      system = "x86_64-linux";
+    let system = "x86_64-linux";
     in utils.lib.mkFlake {
       inherit self inputs;
 

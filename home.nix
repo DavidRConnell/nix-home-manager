@@ -80,9 +80,7 @@
     nix-direnv.enableFlakes = true;
   };
 
-  programs.gpg = {
-    enable = true;
-  };
+  programs.gpg.enable = true;
 
   systemd.user.sessionVariables = {
     XDG_CONFIG_HOME = "$HOME/.config";
