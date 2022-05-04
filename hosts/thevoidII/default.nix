@@ -55,7 +55,13 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  fonts.fonts = with pkgs; [ hack-font roboto-mono ];
+  fonts.fonts = with pkgs; [
+    hack-font
+    roboto-mono
+    roboto
+    noto-fonts
+    liberation_ttf
+  ];
 
   programs.gnupg.agent = {
     enable = true;
