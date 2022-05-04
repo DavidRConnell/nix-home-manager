@@ -18,7 +18,6 @@
     keyMap = "dvorak";
   };
 
-
   services.xserver = {
     enable = true;
     layout = "dvorak";
@@ -33,6 +32,11 @@
     #   --eval '(stumpwm:stumpwm)'
     # '';
   };
+
+
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
+    "zoom"
+  ];
 
   sound.enable = true;
   hardware.pulseaudio.enable = true;
