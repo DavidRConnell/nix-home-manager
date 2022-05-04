@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> { } }:
 
 let
-  myEmacs = pkgs.emacs;
+  myEmacs = pkgs.emacsNativeComp;
   emacsWithPackages = (pkgs.emacsPackagesGen myEmacs).emacsWithPackages;
 in emacsWithPackages (epkgs:
   (with epkgs.melpaPackages; [
