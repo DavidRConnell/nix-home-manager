@@ -50,7 +50,7 @@
     '';
 
     enableAutosuggestions = true;
-    enableCompletion = true;
+    enableCompletion = false;
     plugins = with pkgs; [
       {
         name = "zsh-vi-mode";
