@@ -89,4 +89,5 @@
     XDG_CACHE_HOME = "$HOME/.cache";
     XDG_DATA_HOME = "$HOME/.local/share";
   };
+  xsession.numlock.enable = true;
 }
