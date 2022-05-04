@@ -35,6 +35,10 @@
       l = "exa -la --git --group-directories-first";
       lt = "exa --tree --level=2 --group-directories-first";
 
+      chgrp = "chgrp --preserve-root";
+      chown = "chown --preserve-root";
+      chmod = "chmod --preserve-root";
+
       svg = "feh -x --reload 1 --conversion-timeout 1";
       md2pdf =
         "pandoc -V geometry:margin=1in --pdf-engine=xelatex --variable mainfont=Helvetica -t pdf -f gfm -i";
