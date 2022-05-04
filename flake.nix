@@ -30,6 +30,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    ltex-ls.url = "gitlab:davidrconnell/ltex-ls-flake";
   };
 
   outputs = { self, nixpkgs, utils, home-manager, ... }@inputs:
@@ -42,30 +43,27 @@
 
       channelsConfig.allowUnfree = true;
 
-      hosts.thevoidII.modules = [
-        home-manager.nixosModules.home-manager
-        ./hosts/thevoidII
-      ];
+      hosts.thevoidII.modules =
+        [ home-manager.nixosModules.home-manager ./hosts/thevoidII ];
 
-      homeConfigurations =
-        let
-          username = "voidee";
-          homeDirectory = "/home/voidee";
-          system = "x86_64-linux";
-          extraSpecialArgs = { inherit inputs; };
-          generateHome = home-manager.lib.homeManagerConfiguration;
-          nixpkgs.config.allowUnfree = true;
-          nixpkgs.overlays = [ inputs.emacs-overlay.overlay ];
-        in
-          {
-            default = generateHome {
-              inherit system username homeDirectory extraSpecialArgs;
-              pkgs = self.pkgs.x86_64-linux.nixpkgs;
-              configuration = {
-                imports = [ ./home.nix ];
-                inherit nixpkgs;
-              };
-            };
+      homeConfigurations = let
+        username = "voidee";
+        homeDirectory = "/home/voidee";
+        system = "x86_64-linux";
+        extraSpecialArgs = { inherit inputs; };
+        generateHome = home-manager.lib.homeManagerConfiguration;
+        nixpkgs.config.allowUnfree = true;
+        nixpkgs.overlays =
+          [ inputs.emacs-overlay.overlay inputs.ltex-ls.overlay ];
+      in {
+        default = generateHome {
+          inherit system username homeDirectory extraSpecialArgs;
+          pkgs = self.pkgs.x86_64-linux.nixpkgs;
+          configuration = {
+            imports = [ ./home.nix ];
+            inherit nixpkgs;
           };
+        };
+      };
     };
 }
