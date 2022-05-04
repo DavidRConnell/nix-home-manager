@@ -1,16 +1,16 @@
 { pkgs, ... }: {
 
   home.packages = (with pkgs; [
-    ccls
+    ccls # For c-mode lsp
+    ltex-ls
+    nixfmt
+    nix-linter
+    nodePackages.bash-language-server
+    rnix-lsp
+    rtags
+    shfmt
+    sqlite # For org-roam
 
-    (makeDesktopItem {
-      name = "org-protocol";
-      exec = "emacsclient %u";
-      comment = "Org protocol";
-      desktopName = "org-protocol";
-      type = "Application";
-      mimeType = "x-scheme-handler/org-protocol";
-    })
   ]);
 
   programs.emacs = {

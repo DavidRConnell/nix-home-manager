@@ -7,9 +7,10 @@ in emacsWithPackages (epkgs:
   (with epkgs.melpaPackages; [
     ace-window
     avy
+    bats-mode
     blacken
     ccls
-    citeproc-org
+    citeproc
     deft
     direnv
     dumb-jump
@@ -18,6 +19,7 @@ in emacsWithPackages (epkgs:
     elfeed-org
     elisp-def
     elisp-demos
+    elpher
     elpy
     emr
     ess
@@ -43,6 +45,7 @@ in emacsWithPackages (epkgs:
     general
     git-gutter
     git-gutter-fringe
+    gnuplot-mode
     helpful
     highlight-defined
     highlight-function-calls
@@ -58,43 +61,53 @@ in emacsWithPackages (epkgs:
     no-littering
     nov
     ob-async
+    org-appear
     org-cliplink
     org-ref
     org-roam
     org-roam-bibtex
+    org-roam-ui
     org-superstar
     ox-clip
     ox-hugo
+    ox-pandoc
     pdf-tools
+    popper
     prescient
     projectile
     py-isort
     rainbow-delimiters
     ranger
-    sdcv
+    rtags
+    # sdcv
+    sentence-navigation
     sly
     smartparens
+    transient
+    transient-posframe
+    tree-sitter
+    tree-sitter-langs
     undo-fu
     undo-fu-session
     use-package
     visual-fill-column
+    vlf
     which-key
     wiki-summary
     wordnut
     yasnippet
+    yatemplate
 
     # Completion
-    bibtex-actions
     consult
     consult-flycheck
-    flyspell-correct
+    citar
     embark
     embark-consult
+    flyspell-correct
     marginalia
     orderless
 
-    # LSP
-    lsp-mode
-
+    eglot
   ]) ++ (with epkgs.elpaPackages; [ modus-themes vertico ])
-  ++ [ epkgs.orgPackages.org-plus-contrib ])
+  ++ [ epkgs.org-contrib ])
