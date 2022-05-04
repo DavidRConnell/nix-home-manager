@@ -8,7 +8,7 @@
     stateVersion = "20.09";
   };
 
-  imports = [ ./modules/shell.nix ./modules/emacs ];
+  imports = [ ./modules/shell.nix ./modules/emacs ./modules/mail.nix ];
 
   home.packages = (with pkgs;
     [
