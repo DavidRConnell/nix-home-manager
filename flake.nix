@@ -45,6 +45,9 @@
       hosts.thevoidII.modules =
         [ home-manager.nixosModules.home-manager ./hosts/thevoidII ];
 
+      hosts.thenihility.modules =
+        [ home-manager.nixosModules.home-manager ./hosts/thenihility ];
+
       homeConfigurations = let
         username = "voidee";
         homeDirectory = "/home/voidee";
