@@ -7,6 +7,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.device = "/dev/sda";
 
+  system.stateVersion = "20.09";
+
   networking.networkmanager.enable = true;
   time.timeZone = "America/Chicago";
 

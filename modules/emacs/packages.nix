@@ -2,7 +2,7 @@
 
 let
   myEmacs = pkgs.emacsNativeComp;
-  emacsWithPackages = (pkgs.emacsPackagesGen myEmacs).emacsWithPackages;
+  emacsWithPackages = (pkgs.emacsPackagesFor myEmacs).emacsWithPackages;
 in emacsWithPackages (epkgs:
   (with epkgs.melpaPackages; [
     ace-window
