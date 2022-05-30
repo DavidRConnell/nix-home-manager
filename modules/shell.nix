@@ -3,6 +3,9 @@
   home.packages = (with pkgs; [
     tree
     exa
+    bat
+    tealdeer
+    difftastic
   ]);
 
   programs.zsh = {

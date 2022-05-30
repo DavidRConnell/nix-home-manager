@@ -10,6 +10,7 @@
     rtags
     shfmt
     sqlite # For org-roam
+    java-language-server
 
   ]);
 

@@ -38,6 +38,7 @@
     stow
     tmux
     unzip
+    visidata
     w3m
     wget
     wordnet
