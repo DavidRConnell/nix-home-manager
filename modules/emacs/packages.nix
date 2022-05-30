@@ -9,18 +9,25 @@ in emacsWithPackages (epkgs:
     avy
     bats-mode
     blacken
+    cape
     ccls
+    citar
     citeproc
+    consult
+    consult-flycheck
     deft
     direnv
     dumb-jump
     ebib
+    eglot
     elfeed
     elfeed-org
     elisp-def
     elisp-demos
     elpher
     elpy
+    embark
+    embark-consult
     emr
     ess
     ess-R-data-view
@@ -37,6 +44,8 @@ in emacsWithPackages (epkgs:
     evil-surround
     eyebrowse
     flycheck
+    flyspell-correct
+    forge
     format-all
     gcmh
     geiser
@@ -56,13 +65,17 @@ in emacsWithPackages (epkgs:
     lispy
     lispyville
     magit
+    marginalia
     markdown-mode
     nix-mode
     no-littering
     nov
     ob-async
+    orderless
     org-appear
     org-cliplink
+    orgit
+    orgit-forge
     org-ref
     org-roam
     org-roam-bibtex
@@ -77,16 +90,10 @@ in emacsWithPackages (epkgs:
     projectile
     py-isort
     rainbow-delimiters
-    ranger
-    rtags
-    # sdcv
-    sentence-navigation
+    sdcv
     sly
     smartparens
     transient
-    transient-posframe
-    tree-sitter
-    tree-sitter-langs
     undo-fu
     undo-fu-session
     use-package
@@ -97,17 +104,6 @@ in emacsWithPackages (epkgs:
     wordnut
     yasnippet
     yatemplate
-
-    # Completion
-    consult
-    consult-flycheck
-    citar
-    embark
-    embark-consult
-    flyspell-correct
-    marginalia
-    orderless
-
-    eglot
   ]) ++ (with epkgs.elpaPackages; [ modus-themes vertico ])
-  ++ [ epkgs.org-contrib ])
+
+  ++ (with epkgs; [ org-contrib corfu cypher-mode git-timemachine ]))
