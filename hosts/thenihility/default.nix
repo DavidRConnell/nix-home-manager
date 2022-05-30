@@ -25,7 +25,7 @@
     enable = true;
     layout = "dvorak";
     xkbOptions = "ctrl:nocaps";
-    displayManager.gdm.enable = true;
+    displayManager.lightdm.enable = true;
     desktopManager.gnome.enable = true;
     windowManager.stumpwm.enable = true;
     # windowManager.stumpwm.command = ''
@@ -35,7 +35,6 @@
     #   --eval '(stumpwm:stumpwm)'
     # '';
   };
-
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "zoom"
