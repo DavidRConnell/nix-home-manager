@@ -41,6 +41,14 @@
   ];
 
   services.fstrim.enable = true;
+  fileSystems."/data" = {
+    device = "/dev/disk/by-label/data";
+    fsType = "ext4";
+  };
+  fileSystems."/run/media/backup" = {
+    device = "/dev/disk/by-label/backup";
+    fsType = "ext4";
+  };
 
   sound.enable = true;
   hardware = {
