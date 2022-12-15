@@ -39,7 +39,7 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     initialPassword = "password";
-    openssh.authorizedKeys.keyFiles = [ ../../users/mercury/authorized_keys ]
+    openssh.authorizedKeys.keyFiles = [ ../../users/mercury/authorized_keys ];
   };
 
   environment.systemPackages = with pkgs; [ vim ];
