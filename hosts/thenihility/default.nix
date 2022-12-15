@@ -50,12 +50,6 @@
     displayManager.lightdm.enable = true;
     desktopManager.gnome.enable = true;
     windowManager.stumpwm.enable = true;
-    # windowManager.stumpwm.command = ''
-    #   ${pkgs.local.stumpwm}/bin/stumpwm-lisp-launcher.sh \
-    #   --eval '(require :asdf)' \
-    #   --eval '(asdf:load-system :stumpwm)' \
-    #   --eval '(stumpwm:stumpwm)'
-    # '';
   };
 
   nixpkgs.config.allowUnfreePredicate = pkg:
@@ -66,15 +60,9 @@
     device = "/dev/disk/by-label/data";
     fsType = "ext4";
   };
-  fileSystems."/run/media/backup" = {
-    device = "/dev/disk/by-label/backup";
-    fsType = "ext4";
-  };
 
   sound.enable = true;
-  hardware = {
-    pulseaudio.enable = true;
-  };
+  hardware = { pulseaudio.enable = true; };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.voidee = {
@@ -98,6 +86,7 @@
     enable = true;
     enableSSHSupport = true;
   };
+
   virtualisation = {
     podman = {
       enable = true;
