@@ -17,21 +17,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Consider removing and using normal methods.
-    utils = {
-      type = "github";
-      owner = "gytis-ivaskevicius";
-      repo = "flake-utils-plus";
-      ref = "master";
-    };
-
-    nixos-hardware = {
-      type = "github";
-      owner = "nixos";
-      repo = "nixos-hardware";
-      ref = "master";
-    };
-
     emacs-overlay = {
       type = "github";
       owner = "nix-community";
@@ -48,20 +33,49 @@
     };
   };
 
-  outputs = { self, nixpkgs, utils, home-manager, ... }@inputs:
-    let system = "x86_64-linux";
-    in utils.lib.mkFlake {
-      inherit self inputs;
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [ inputs.emacs-overlay.overlay inputs.ltex-ls.overlay ]
+          ++ self.overlays;
+        config.allowUnfreePredicate = pkg:
+          builtins.elem (pkgs.lib.getName pkg) [ "anydesk" "zoom" ];
+      };
 
+      nixosSystem = { modules }:
+        nixpkgs.lib.nixosSystem { inherit system modules; };
+    in {
       supportedSystems = [ system ];
 
-      channelsConfig.allowUnfree = true;
+      overlays = [ ./overlays/stumpwm.nix ];
 
-      hosts.thevoidII.modules =
-        [ home-manager.nixosModules.home-manager ./hosts/thevoidII ];
+      nixosConfigurations = {
+        thevoidII = nixosSystem {
+          modules = [
+            home-manager.nixosModules.home-manager
+            ./hosts/thevoidII
+            ./modules/host/desktop.nix
+            ./modules/host/nix.nix
+            ./modules/host/firejail.nix
+            ./modules/host/nextdns.nix
+          ];
+        };
 
-      hosts.thenihility.modules =
-        [ home-manager.nixosModules.home-manager ./hosts/thenihility ];
+        thenihility = nixosSystem {
+          modules = [
+            home-manager.nixosModules.home-manager
+            ./hosts/thenihility
+            ./modules/host/desktop.nix
+            ./modules/host/nix.nix
+            ./modules/host/firejail.nix
+            ./modules/host/nextdns.nix
+          ];
+        };
+
+        # olympus = nixpkgs
+      };
 
       homeConfigurations = let
         username = "voidee";
@@ -69,10 +83,7 @@
         system = "x86_64-linux";
         extraSpecialArgs = { inherit inputs; };
         generateHome = home-manager.lib.homeManagerConfiguration;
-        nixpkgs.config.allowUnfree = true;
-        nixpkgs.overlays =
-          [ inputs.emacs-overlay.overlay inputs.ltex-ls.overlay ];
-        home = { pkgs, ... }: import ./home.nix { inherit pkgs; };
+        home = { pkgs, ... }: import ./users/voidee.nix { inherit pkgs; };
       in {
         default = generateHome {
           inherit system username homeDirectory extraSpecialArgs;
