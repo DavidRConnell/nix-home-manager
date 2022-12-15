@@ -20,6 +20,7 @@
     };
     enableContainers = false;
   };
+
   system.stateVersion = "20.09";
 
   networking.networkmanager.enable = true;
