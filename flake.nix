@@ -36,26 +36,42 @@
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
+      pkgs = nixpkgs.legacyPackages.${system};
+      pkg-module.nixpkgs = {
         overlays = [ inputs.emacs-overlay.overlay inputs.ltex-ls.overlay ]
           ++ self.overlays;
         config.allowUnfreePredicate = pkg:
           builtins.elem (pkgs.lib.getName pkg) [ "anydesk" "zoom" ];
       };
 
-      nixosSystem = { modules }:
+      nixosSystem = { modules, users }:
         nixpkgs.lib.nixosSystem {
           inherit system;
-          modules = [ home-manager.nixosModules.home-manager ] ++ modules;
+          modules = [ pkg-module home-manager.nixosModules.home-manager ]
+            ++ users ++ modules;
         };
+
+      user = { name, home }: {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.users."${name}" = import home;
+      };
+      voidee = user {
+        name = "voidee";
+        home = ./users/voidee.nix;
+      };
+      mercury = user {
+        name = "mercury";
+        home = ./users/mercury;
+      };
     in {
       supportedSystems = [ system ];
 
-      overlays = [ ./overlays/stumpwm.nix ];
+      overlays = [ ];
 
       nixosConfigurations = {
         thevoidII = nixosSystem {
+          users = [ voidee ];
           modules = [
             ./hosts/thevoidII
             ./modules/host/desktop.nix
@@ -66,6 +82,7 @@
         };
 
         thenihility = nixosSystem {
+          users = [ voidee ];
           modules = [
             ./hosts/thenihility
             ./modules/host/desktop.nix
@@ -75,26 +92,28 @@
           ];
         };
 
-        olympus =
-          nixosSystem { modules = [ ./hosts/olympus ./modules/host/nix.nix ]; };
-      };
-
-      homeConfigurations = let
-        username = "voidee";
-        homeDirectory = "/home/voidee";
-        system = "x86_64-linux";
-        extraSpecialArgs = { inherit inputs; };
-        generateHome = home-manager.lib.homeManagerConfiguration;
-        home = { pkgs, ... }: import ./users/voidee.nix { inherit pkgs; };
-      in {
-        default = generateHome {
-          inherit system username homeDirectory extraSpecialArgs;
-          pkgs = self.pkgs.x86_64-linux.nixpkgs;
-          configuration = {
-            imports = [ home ];
-            inherit nixpkgs;
-          };
+        olympus = nixosSystem {
+          users = [ mercury ];
+          modules = [ ./hosts/olympus ./modules/host/nix.nix ];
         };
       };
+
+      # homeConfigurations = let
+      #   username = "voidee";
+      #   homeDirectory = "/home/voidee";
+      #   system = "x86_64-linux";
+      #   extraSpecialArgs = { inherit inputs; };
+      #   generateHome = home-manager.lib.homeManagerConfiguration;
+      #   home = { pkgs, ... }: import ./users/voidee.nix { inherit pkgs; };
+      # in {
+      #   default = generateHome {
+      #     inherit system username homeDirectory extraSpecialArgs;
+      #     pkgs = self.pkgs.x86_64-linux.nixpkgs;
+      #     configuration = {
+      #       imports = [ home ];
+      #       inherit nixpkgs;
+      #     };
+      #   };
+      # };
     };
 }
