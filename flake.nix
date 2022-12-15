@@ -97,23 +97,5 @@
           modules = [ ./hosts/olympus ./modules/host/nix.nix ];
         };
       };
-
-      # homeConfigurations = let
-      #   username = "voidee";
-      #   homeDirectory = "/home/voidee";
-      #   system = "x86_64-linux";
-      #   extraSpecialArgs = { inherit inputs; };
-      #   generateHome = home-manager.lib.homeManagerConfiguration;
-      #   home = { pkgs, ... }: import ./users/voidee.nix { inherit pkgs; };
-      # in {
-      #   default = generateHome {
-      #     inherit system username homeDirectory extraSpecialArgs;
-      #     pkgs = self.pkgs.x86_64-linux.nixpkgs;
-      #     configuration = {
-      #       imports = [ home ];
-      #       inherit nixpkgs;
-      #     };
-      #   };
-      # };
     };
 }
