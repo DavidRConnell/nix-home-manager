@@ -1,10 +1,14 @@
 { pkgs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix /etc/nixos/cachix.nix ];
+  imports = [ ./hardware-configuration.nix ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+    grub.device = "/dev/sda";
+  };
+  system.stateVersion = "20.09";
 
   networking.networkmanager.enable = true;
   time.timeZone = "America/Chicago";
@@ -25,18 +29,7 @@
     displayManager.lightdm.enable = true;
     desktopManager.gnome.enable = true;
     windowManager.stumpwm.enable = true;
-    # windowManager.stumpwm.command = ''
-    #   ${pkgs.local.stumpwm}/bin/stumpwm-lisp-launcher.sh \
-    #   --eval '(require :asdf)' \
-    #   --eval '(asdf:load-system :stumpwm)' \
-    #   --eval '(stumpwm:stumpwm)'
-    # '';
   };
-
-
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-    "zoom"
-  ];
 
   services.fstrim.enable = true;
 
@@ -51,10 +44,9 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
+    initialPassword = "password";
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   fonts.fonts = with pkgs; [
     hack-font
     roboto-mono
