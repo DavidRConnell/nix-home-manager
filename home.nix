@@ -128,10 +128,22 @@
 
   programs.gpg.enable = true;
 
-  systemd.user.sessionVariables = {
-    XDG_CONFIG_HOME = "$HOME/.config";
-    XDG_CACHE_HOME = "$HOME/.cache";
-    XDG_DATA_HOME = "$HOME/.local/share";
+  # See: https://github.com/TLATER/dotfiles/blob/master/nixpkgs/configurations/xdg-settings.nix
+  xdg = {
+    enable = true;
+    mimeApps.enable = true;
+    mimeApps.defaultApplications = {
+      "text/html" = [ "org.qutebrowser.qutebrowser.desktop" ];
+      "x-scheme-handler/https" = [ "org.qutebrowser.qutebrowser.desktop" ];
+      "x-scheme-handler/http" = [ "org.qutebrowser.qutebrowser.desktop" ];
+      "application/pdf" = [ "org.pwmt.zathura.desktop" ];
+      "image/jpeg" = [ "feh.desktop" ];
+      "image/jpg" = [ "feh.desktop" ];
+      "image/png" = [ "feh.desktop" ];
+      "x-scheme-handler/org-protocol" = [ "org-protocol.desktop" ];
+      "text/plain" = [ "emacsclient.desktop" ];
+      "inode/directory" = [ "thunar.desktop" ];
+    };
   };
   xsession.numlock.enable = true;
 }
