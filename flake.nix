@@ -45,7 +45,10 @@
       };
 
       nixosSystem = { modules }:
-        nixpkgs.lib.nixosSystem { inherit system modules; };
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [ home-manager.nixosModules.home-manager ] ++ modules;
+        };
     in {
       supportedSystems = [ system ];
 
@@ -54,7 +57,6 @@
       nixosConfigurations = {
         thevoidII = nixosSystem {
           modules = [
-            home-manager.nixosModules.home-manager
             ./hosts/thevoidII
             ./modules/host/desktop.nix
             ./modules/host/nix.nix
@@ -65,7 +67,6 @@
 
         thenihility = nixosSystem {
           modules = [
-            home-manager.nixosModules.home-manager
             ./hosts/thenihility
             ./modules/host/desktop.nix
             ./modules/host/nix.nix
@@ -74,7 +75,8 @@
           ];
         };
 
-        # olympus = nixpkgs
+        olympus =
+          nixosSystem { modules = [ ./hosts/olympus ./modules/host/nix.nix ]; };
       };
 
       homeConfigurations = let
