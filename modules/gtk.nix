@@ -16,5 +16,4 @@
     };
     gtk4 = { extraConfig = { gtk-recent-files-enabled = false; }; };
   };
-
 }

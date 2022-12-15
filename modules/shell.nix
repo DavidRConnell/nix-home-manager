@@ -1,12 +1,6 @@
 { config, pkgs, ... }: {
 
-  home.packages = (with pkgs; [
-    tree
-    exa
-    bat
-    tealdeer
-    difftastic
-  ]);
+  home.packages = (with pkgs; [ tree exa bat tealdeer difftastic ]);
 
   programs.zsh = {
     enable = true;
@@ -18,7 +12,7 @@
 
     envExtra = ''
       source $ZDOTDIR/realenv.zsh
-'';
+    '';
 
     shellAliases = {
       e = "emacsclient -ca ''";
@@ -46,10 +40,17 @@
       md2pdf =
         "pandoc -V geometry:margin=1in --pdf-engine=xelatex --variable mainfont=Helvetica -t pdf -f gfm -i";
       open = "xdg-open";
+
+      fzf =
+        "fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'";
+      cat = "bat";
+
+      # TODO: Really should be with the tmux configuration.
+      tmux = "direnv exec / tmux";
     };
 
     initExtra = ''
-        source $ZDOTDIR/realrc.zsh
+      source $ZDOTDIR/realrc.zsh
     '';
 
     enableAutosuggestions = true;
@@ -57,13 +58,8 @@
     plugins = with pkgs; [
       {
         name = "zsh-vi-mode";
-        src = fetchFromGitHub {
-          owner = "jeffreytse";
-          repo = "zsh-vi-mode";
-          rev = "9178e6bea2c8b4f7e998e59ef755820e761610c7";
-          sha256 = "0a1rvc03rl66v8rgzvxpq0vw55hxn5b9dkmhdqghvi2f4dvi8fzx";
-        };
         file = "zsh-vi-mode.plugin.zsh";
+        src = "${pkgs.zsh-vi-mode}/share/zsh-vi-mode";
       }
       {
         name = "zsh-nix-shell";
@@ -82,13 +78,13 @@
       }
       {
         name = "zsh-autopair";
+        file = "autopair.zsh";
         src = fetchFromGitHub {
           owner = "hlissner";
           repo = "zsh-autopair";
-          rev = "34a8bca0c18fcf3ab1561caef9790abffc1d3d49";
+          rev = "v1.0";
           sha256 = "1h0vm2dgrmb8i2pvsgis3lshc5b0ad846836m62y8h3rdb3zmpy1";
         };
-        file = "autopair.zsh";
       }
     ];
   };
@@ -107,4 +103,6 @@
     enable = true;
     enableZshIntegration = true;
   };
+
+  programs.git.delta = { enable = true; };
 }

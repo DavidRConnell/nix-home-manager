@@ -16,11 +16,20 @@
       ref = "release-22.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus/";
+
+    # Consider removing and using normal methods.
+    utils = {
+      type = "github";
+      owner = "gytis-ivaskevicius";
+      repo = "flake-utils-plus";
+      ref = "master";
+    };
 
     nixos-hardware = {
-      url = "github:nixos/nixos-hardware";
-      flake = false;
+      type = "github";
+      owner = "nixos";
+      repo = "nixos-hardware";
+      ref = "master";
     };
 
     emacs-overlay = {
@@ -31,7 +40,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ltex-ls.url = "gitlab:davidrconnell/ltex-ls-flake";
+    ltex-ls = {
+      type = "gitlab";
+      owner = "davidrconnell";
+      repo = "ltex-ls-flake";
+      ref = "master";
+    };
   };
 
   outputs = { self, nixpkgs, utils, home-manager, ... }@inputs:
@@ -39,7 +53,7 @@
     in utils.lib.mkFlake {
       inherit self inputs;
 
-      supportedSystems = [ "x86_64-linux" ];
+      supportedSystems = [ system ];
 
       channelsConfig.allowUnfree = true;
 
@@ -58,12 +72,13 @@
         nixpkgs.config.allowUnfree = true;
         nixpkgs.overlays =
           [ inputs.emacs-overlay.overlay inputs.ltex-ls.overlay ];
+        home = { pkgs, ... }: import ./home.nix { inherit pkgs; };
       in {
         default = generateHome {
           inherit system username homeDirectory extraSpecialArgs;
           pkgs = self.pkgs.x86_64-linux.nixpkgs;
           configuration = {
-            imports = [ ./home.nix ];
+            imports = [ home ];
             inherit nixpkgs;
           };
         };

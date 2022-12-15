@@ -2,13 +2,26 @@
 
 {
   programs.home-manager.enable = true;
-  home = {
+  home = rec {
     username = "voidee";
-    homeDirectory = "/home/voidee";
+    homeDirectory = "/home/${username}";
     stateVersion = "20.09";
+    sessionPath = [ "$HOME/bin" ];
+    sessionVariables = {
+      RESTIC_PASSWORD_COMMAND = "${pkgs.pass}/bin/pass show backup";
+      XDG_DATA_HOME = homeDirectory + "/.local/share";
+      XDG_CACHE_HOME = homeDirectory + "/.cache";
+      XDG_CONFIG_HOME = homeDirectory + "/.config";
+    };
+
   };
 
-  imports = [ ./modules/shell.nix ./modules/emacs ./modules/mail.nix ];
+  imports = [
+    ./modules/shell.nix
+    ./modules/emacs
+    ./modules/mail.nix
+    ./modules/gtk.nix
+  ];
 
   home.packages = (with pkgs; [
     alacritty
