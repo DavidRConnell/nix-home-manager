@@ -29,13 +29,20 @@
     (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
     binutils
     cachix
+    fd
     feh
+    firefox
     git
     gitAndTools.pass-git-helper
+    google-cloud-sdk
+    killall
     krita
+    libsForQt5.xdg-desktop-portal-kde
     man-pages
     man-pages-posix
+    mpv
     neovim
+    nushell
     pandoc
     pass
     pulseaudio-ctl
@@ -49,13 +56,17 @@
     scrot
     sdcv
     stow
+    stumpish
     tmux
+    udiskie
     unzip
     visidata
     w3m
     wget
     wordnet
     xclip
+    xfce.thunar
+    yt-dlp
     zathura
     zip
     zoom-us

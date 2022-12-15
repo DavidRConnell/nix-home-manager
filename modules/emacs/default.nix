@@ -2,16 +2,26 @@
 
   home.packages = (with pkgs; [
     ccls # For c-mode lsp
+    delta # For magit-delta
     ltex-ls
     nixfmt
     nix-linter
-    nodePackages.bash-language-server
     rnix-lsp
-    rtags
-    shfmt
-    sqlite # For org-roam
-    java-language-server
 
+    nodePackages.bash-language-server
+    shfmt
+    rtags
+    sqlite # For org-roam
+    jdt-language-server
+
+    (makeDesktopItem {
+      name = "org-protocol";
+      exec = "emacsclient %u";
+      comment = "Org protocol";
+      desktopName = "org-protocol";
+      type = "Application";
+      mimeTypes = [ "x-scheme-handler/org-protocol" ];
+    })
   ]);
 
   programs.emacs = {

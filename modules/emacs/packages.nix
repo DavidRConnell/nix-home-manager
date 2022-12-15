@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> { } }:
 
 let
-  myEmacs = pkgs.emacsNativeComp;
+  myEmacs = pkgs.emacsUnstable;
   emacsWithPackages = (pkgs.emacsPackagesFor myEmacs).emacsWithPackages;
 in emacsWithPackages (epkgs:
   (with epkgs.melpaPackages; [
@@ -12,9 +12,11 @@ in emacsWithPackages (epkgs:
     cape
     ccls
     citar
+    citar-embark
     citeproc
     consult
     consult-flycheck
+    cython-mode
     deft
     direnv
     dumb-jump
@@ -65,6 +67,8 @@ in emacsWithPackages (epkgs:
     lispy
     lispyville
     magit
+    magit-annex
+    magit-delta
     marginalia
     markdown-mode
     nix-mode
@@ -89,21 +93,39 @@ in emacsWithPackages (epkgs:
     prescient
     projectile
     py-isort
+    python-pytest
     rainbow-delimiters
-    sdcv
     sly
     smartparens
     transient
-    undo-fu
-    undo-fu-session
     use-package
-    visual-fill-column
     vlf
     which-key
     wiki-summary
     wordnut
     yasnippet
     yatemplate
-  ]) ++ (with epkgs.elpaPackages; [ modus-themes vertico ])
+  ]) ++ (with epkgs.elpaPackages; [ modus-themes vertico vundo ])
 
-  ++ (with epkgs; [ org-contrib corfu cypher-mode git-timemachine ]))
+  ++ (with epkgs; [
+    org-contrib
+    corfu
+    cypher-mode
+    ement
+    # visual-fill-column
+    # undo-fu
+    # undo-fu-session
+    # git-timemachine
+    tree-sitter
+    (tree-sitter-langs.withPlugins (p:
+      tree-sitter-langs.plugins ++ (with p; [
+        tree-sitter-bibtex
+        tree-sitter-elisp
+        tree-sitter-make
+        tree-sitter-markdown
+        tree-sitter-r
+        tree-sitter-toml
+        tree-sitter-yaml
+      ])))
+    evil-textobj-tree-sitter
+  ]))

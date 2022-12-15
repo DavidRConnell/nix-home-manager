@@ -36,9 +36,8 @@
     # '';
   };
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-    "zoom"
-  ];
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (pkgs.lib.getName pkg) [ "anydesk" "zoom" ];
 
   services.fstrim.enable = true;
   fileSystems."/data" = {
