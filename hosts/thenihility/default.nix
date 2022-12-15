@@ -3,9 +3,6 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.device = "/dev/sda";
   nix.settings = {
     substituters =
       [ "https://cache.nixos.org" "https://nix-community.cachix.org" ];
@@ -15,6 +12,14 @@
     ];
   };
 
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+      grub.device = "/dev/sda";
+    };
+    enableContainers = false;
+  };
   system.stateVersion = "20.09";
 
   networking.networkmanager.enable = true;
@@ -83,5 +88,11 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+  };
+  virtualisation = {
+    podman = {
+      enable = true;
+      dockerCompat = true;
+    };
   };
 }
