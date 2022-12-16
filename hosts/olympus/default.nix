@@ -38,13 +38,8 @@
 
   environment.systemPackages = with pkgs; [ vim git ];
 
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
-
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  sound.enable = false;
+  hardware.pulseaudio.enable = false;
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
