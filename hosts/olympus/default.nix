@@ -36,7 +36,7 @@
     openssh.authorizedKeys.keyFiles = [ ../../users/mercury/authorized_keys ];
   };
 
-  environment.systemPackages = with pkgs; [ vim ];
+  environment.systemPackages = with pkgs; [ vim git ];
 
   programs.gnupg.agent = {
     enable = true;
