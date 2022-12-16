@@ -98,7 +98,8 @@
             ./hosts/olympus
             ./modules/host/nix.nix
             ./modules/host/headless.nix
-            ./modules/host/gitlab.nix
+            ./modules/host/nextcloud.nix
+            ./modules/host/jellyfin.nix
           ];
         };
       };

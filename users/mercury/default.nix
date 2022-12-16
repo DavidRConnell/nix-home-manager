@@ -1,10 +1,12 @@
 { config, pkgs, ... }:
 
 {
+  imports = [ ../../modules/user/udiskie.nix ];
+
   home = rec {
     username = "mercury";
     homeDirectory = "/home/${username}";
-    packages = [ pkgs.htop pkgs.yt-dlp pkgs.protonvpn-cli ];
+    packages = with pkgs; [ htop yt-dlp protonvpn-cli losslesscut-bin ];
     stateVersion = "22.11";
   };
 
