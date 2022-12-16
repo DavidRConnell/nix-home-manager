@@ -94,7 +94,11 @@
 
         olympus = nixosSystem {
           users = [ mercury ];
-          modules = [ ./hosts/olympus ./modules/host/nix.nix ];
+          modules = [
+            ./hosts/olympus
+            ./modules/host/nix.nix
+            ./modules/host/headless.nix
+          ];
         };
       };
     };
