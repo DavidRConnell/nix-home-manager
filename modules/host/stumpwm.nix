@@ -42,6 +42,21 @@ let
       url = "https://github.com/stumpwm/stumpwm/archive/refs/tags/22.11.tar.gz";
       hash = "sha256-zXj17ucgyFhv7P0qEr4cYSVRPGrL1KEIofXWN2trr/M=";
     };
+    buildInputs = with pkgs; [ autoconf gnumake ];
+    configurePhase = ''
+      ./autogen.sh
+      export SBCL_PATH="${pkgs.sbcl}/bin/sbcl"
+      export SBCL_HOME="${pkgs.sbcl}/lib/sbcl"
+      ./configure
+    '';
+    buildPhase = ''
+      export HOME=/tmp/home
+      make
+    '';
+    installPhase = ''
+      mkdir -p "$out/bin"
+      cp "stumpwm" "$out/bin"
+    '';
     lisp = sbcl;
     lispLibs = [ alexandria cl-ppcre clx ];
   });
