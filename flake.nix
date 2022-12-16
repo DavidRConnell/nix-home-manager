@@ -98,6 +98,7 @@
             ./hosts/olympus
             ./modules/host/nix.nix
             ./modules/host/headless.nix
+            ./modules/host/gitlab.nix
           ];
         };
       };
