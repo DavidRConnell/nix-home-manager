@@ -100,6 +100,7 @@
             ./modules/host/headless.nix
             ./modules/host/nextcloud.nix
             ./modules/host/jellyfin.nix
+            ./modules/host/gitlab.nix
           ];
         };
       };
