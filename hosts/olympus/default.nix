@@ -42,7 +42,8 @@
     kbdInteractiveAuthentication = false;
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [ 53 80 443 ];
+  networking.firewall.allowedUDPPorts = [ 53 443 ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

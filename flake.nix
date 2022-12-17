@@ -77,7 +77,6 @@
             ./modules/host/desktop.nix
             ./modules/host/nix.nix
             ./modules/host/firejail.nix
-            ./modules/host/nextdns.nix
           ];
         };
 
@@ -88,7 +87,6 @@
             ./modules/host/desktop.nix
             ./modules/host/nix.nix
             ./modules/host/firejail.nix
-            ./modules/host/nextdns.nix
           ];
         };
 
@@ -98,9 +96,13 @@
             ./hosts/olympus
             ./modules/host/nix.nix
             ./modules/host/headless.nix
+            ./modules/host/startpage.nix
+            ./modules/host/adguard.nix
             ./modules/host/nextcloud.nix
             ./modules/host/jellyfin.nix
-            ./modules/host/gitlab.nix
+            ./modules/host/audiobook.nix
+            ./modules/host/metube.nix
+            ./modules/host/gitea.nix
           ];
         };
       };
