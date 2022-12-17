@@ -5,7 +5,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ./reverse-proxy.nix ];
+  imports = [ ./hardware-configuration.nix ./reverse-proxy.nix ./restic.nix ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -13,12 +13,6 @@
   boot.loader.grub.device = "/dev/sda";
 
   networking.hostName = "olympus";
-
-  # fileSystems."/data" = {
-  #   device = "/dev/disk/by-label/data";
-  #   fsType = "ext4";
-  #   options = [ "x-systemd.automount" "noauto" ];
-  # };
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
@@ -40,7 +34,6 @@
 
   sound.enable = false;
   hardware.pulseaudio.enable = false;
-  # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   services.openssh = {
