@@ -59,7 +59,6 @@
     stow
     stumpish
     tmux
-    udiskie
     unzip
     visidata
     w3m
