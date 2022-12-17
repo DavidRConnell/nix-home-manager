@@ -8,7 +8,7 @@
     stateVersion = "20.09";
     sessionPath = [ "$HOME/bin" ];
     sessionVariables = {
-      RESTIC_PASSWORD_COMMAND = "${pkgs.pass}/bin/pass show backup";
+      RESTIC_PASSWORD_COMMAND = "${pkgs.pass}/bin/pass show restic/thenihility";
       XDG_DATA_HOME = homeDirectory + "/.local/share";
       XDG_CACHE_HOME = homeDirectory + "/.cache";
       XDG_CONFIG_HOME = homeDirectory + "/.config";
