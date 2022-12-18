@@ -5,7 +5,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ./reverse-proxy.nix ./restic.nix ];
+  imports = [ ./hardware-configuration.nix ./reverse-proxy.nix ./backup.nix ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -30,7 +30,7 @@
     openssh.authorizedKeys.keyFiles = [ ../../users/mercury/authorized_keys ];
   };
 
-  environment.systemPackages = with pkgs; [ vim git ];
+  environment.systemPackages = with pkgs; [ vim git parted ];
 
   sound.enable = false;
   hardware.pulseaudio.enable = false;
