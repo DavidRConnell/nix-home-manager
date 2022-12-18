@@ -9,7 +9,7 @@ in {
   virtualisation.oci-containers.containers."${subdomain}" = {
     autoStart = true;
     image = "alexta69/metube:latest";
-    ports = [ "8086:8081" ];
+    ports = [ "${port}:8081" ];
     volumes = [ "/home/mercury/downloads/metube:/downloads" ];
   };
 }

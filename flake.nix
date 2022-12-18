@@ -67,7 +67,7 @@
     in {
       supportedSystems = [ system ];
 
-      overlays = [ ];
+      overlays = [ (import ./overlays/lib.nix) ];
 
       nixosConfigurations = {
         thevoidII = nixosSystem {
@@ -96,6 +96,7 @@
             ./hosts/olympus
             ./modules/host/nix.nix
             ./modules/host/headless.nix
+            ./modules/host/nginx.nix
             ./modules/host/startpage.nix
             ./modules/host/adguard.nix
             ./modules/host/nextcloud.nix

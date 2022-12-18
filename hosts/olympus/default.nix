@@ -5,7 +5,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ./reverse-proxy.nix ./backup.nix ];
+  imports = [ ./hardware-configuration.nix ./backup.nix ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -44,6 +44,8 @@
 
   networking.firewall.allowedTCPPorts = [ 53 80 443 ];
   networking.firewall.allowedUDPPorts = [ 53 443 ];
+  services.nginx.virtualHosts."trap.home".locations."/".proxyPass =
+    "http://127.0.0.1:8082";
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

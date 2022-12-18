@@ -1,10 +1,15 @@
-{ ... }:
+{ pkgs, ... }:
 
-{
-  virtualisation.oci-containers.containers."audiobook" = {
+let
+  mkVHost = pkgs.lib.mkVHost;
+  subdomain = "audio";
+  port = "8083";
+in {
+  services.nginx.virtualHosts = mkVHost { inherit subdomain port; };
+  virtualisation.oci-containers.containers."${subdomain}" = {
     autoStart = true;
     image = "ghcr.io/advplyr/audiobookshelf";
-    ports = [ "8083:80" ];
+    ports = [ "${port}:80" ];
     volumes = [
       "/data/audiobook/config:/config"
       "/data/audiobook/metadata:/metadata"

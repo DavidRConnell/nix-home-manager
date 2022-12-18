@@ -1,7 +1,12 @@
-{ ... }:
+{ pkgs, ... }:
 
-{
-  virtualisation.oci-containers.containers."jellyfin" = {
+let
+  mkVHost = pkgs.lib.mkVHost;
+  subdomain = "jellyfin";
+  port = "8084";
+in {
+  services.nginx.virtualHosts = mkVHost { inherit subdomain port; };
+  virtualisation.oci-containers.containers."${subdomain}" = {
     autoStart = true;
     image = "jellyfin/jellyfin:latest";
     volumes = [
@@ -10,7 +15,7 @@
       "/var/log/jellyfin:/log"
       "/data/jellyfin/data:/media:ro"
     ];
-    ports = [ "8084:8096" ];
+    ports = [ "${port}:8096" ];
     environment = { JELLYFIN_LOG_DIR = "/log"; };
   };
 }
