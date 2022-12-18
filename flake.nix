@@ -30,6 +30,7 @@
       owner = "davidrconnell";
       repo = "ltex-ls-flake";
       ref = "master";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
