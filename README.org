@@ -1,0 +1,28 @@
+* NixOS Configs
+My configs for setting up NixOS hosts using home-manager.
+
+** Installation
+#+begin_src bash
+# nixos-rebuild switch --flake "github:davidrconnell/nix-home-manager#$host"
+#+end_src
+
+eg:
+#+begin_src bash
+# nixos-rebuild switch --flake ".#thenihility"
+#+end_src
+
+To build ~thenihility~ from the local copy of this repo.
+** Goals
+Not achieved perfectly yet.
+1. To be completely reproducible. It should be possible set up a new computer by only installing nixos (via the manual), adding a new host to the hosts directory, and adding the host to the attribute set of hosts in ~flake.nix~ then rebuilding. If reusing user, the user's environment should be identical to that user's environment on another host.
+2. Goal 1 should be achieved in a modular way. This means users are defined and can be added to different hosts and services should be defined in standalone modules that can be added or removed from a hosts list of modules.
+** Manual tweaks
+*** Setting up the network
+New servers need to be assigned a static IP in the router's settings.
+With adguard running on a local server, a DNS rewrite should be set to send \*.home to the main server running nginx/adguard.
+*** Setting up SSH keys
+See the [[https://nixos.wiki/wiki/SSH_public_key_authentication][SSH public key authentication page]] on nixos.wiki
+** Todo
+1. Add in my dot files. Right now the install depends on manually cloning my dot file repo and using stow to install the desired configs. Home manager should handle this. Ideally the major configs will exist in their own repos that are submodules to this repo then nixos-rebuild installs the configs relevant where they need to be (ideally all go to ~.config~). However, I do not want them to be read-only because that makes them a pain to develop.
+2. Overly ambitiously, all configs should be managed by home-manager. This means no generated configs sitting around. I have too many configuration files that I did not create and I don't what are important and what aren't. I also want to keep ~$HOME~ clean of dotfiles.
+3. There should be a clear seperation between configs, user data, app data, and caches. This allows us to easily clear anything that should be reproducible and regenerate it (i.e. configs and caches) to ensure the system is stateless. This also allows for better backup rules, configs are backup in multiple git remotes, user and app data are backed-up with a normal backup (and maybe with syncthing to allow for perfect reproduction of user environment between computers), and caches are not backed-up at all.
