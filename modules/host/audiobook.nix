@@ -4,6 +4,7 @@ let
   mkVHost = pkgs.lib.mkVHost;
   subdomain = "audio";
   port = "8083";
+  dataPath = "/data/audiobook";
 in {
   services.nginx.virtualHosts = mkVHost { inherit subdomain port; };
   virtualisation.oci-containers.containers."${subdomain}" = {
@@ -11,10 +12,10 @@ in {
     image = "ghcr.io/advplyr/audiobookshelf";
     ports = [ "${port}:80" ];
     volumes = [
-      "/data/audiobook/config:/config"
-      "/data/audiobook/metadata:/metadata"
-      "/data/audiobook/audiobooks:/audiobooks"
-      "/data/audiobook/podcasts:/podcasts"
+      "${dataPath}/config:/config"
+      "${dataPath}/metadata:/metadata"
+      "${dataPath}/audiobooks:/audiobooks"
+      "${dataPath}/podcasts:/podcasts"
     ];
   };
 }

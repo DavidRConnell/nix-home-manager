@@ -4,6 +4,7 @@ let
   mkVHost = pkgs.lib.mkVHost;
   subdomain = "adguard";
   port = "8080";
+  dataPath = "/data/adguard";
 in {
   services.nginx.virtualHosts = mkVHost { inherit subdomain port; };
   virtualisation.oci-containers.containers."${subdomain}" = {
@@ -18,8 +19,8 @@ in {
       "3000:3000/tcp"
     ];
     volumes = [
-      "/data/adguard/work:/opt/adguardhome/work"
-      "/data/adguard/conf:/opt/adguardhome/conf"
+      "${dataPath}/work:/opt/adguardhome/work"
+      "${dataPath}/conf:/opt/adguardhome/conf"
     ];
   };
 }
