@@ -20,6 +20,7 @@
   networking = {
     useDHCP = false;
     interfaces.enp0s31f6.useDHCP = true;
+    hostName = "thenihility";
   };
 
   i18n.defaultLocale = "en_US.UTF-8";
