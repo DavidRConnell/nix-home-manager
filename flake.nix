@@ -97,7 +97,7 @@
             ./hosts/olympus
             ./modules/host/nix.nix
             ./modules/host/headless.nix
-            ./modules/host/nginx.nix
+            ./modules/host/reverse-proxy.nix
             ./modules/host/startpage.nix
             ./modules/host/adguard.nix
             ./modules/host/nextcloud.nix
@@ -105,6 +105,12 @@
             ./modules/host/audiobook.nix
             ./modules/host/metube.nix
             ./modules/host/gitea.nix
+            ./modules/host/recipes.nix
+            ./modules/host/pocket.nix
+            ./modules/host/dozzle.nix
+            ./modules/host/paperless.nix
+            ./modules/host/photos.nix
+            ./modules/host/podcasts.nix
           ];
         };
       };
