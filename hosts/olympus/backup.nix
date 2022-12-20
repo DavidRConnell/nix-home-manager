@@ -1,12 +1,24 @@
-{ ... }:
+{ pkgs, ... }:
 
-let mountpoint = "/backup";
+let
+  mountpoint = "/backup";
+  device = "/dev/disk/by-label/backup";
 in {
   fileSystems."${mountpoint}" = {
-    device = "/dev/disk/by-label/backup";
+    device = "${device}";
     fsType = "ext4";
     options = [ "x-systemd.automount" "noauto" ];
   };
+
+  # 241 means 30 min for some reason (see man hdparm).
+  powerManagement.powerUpCommands = ''
+    ${pkgs.hdparm}/sbin/hdparm -S 241 ${device};
+  '';
+
+  # Drive does not power down when the server does otherwise.
+  powerManagement.powerDownCommands = ''
+    ${pkgs.udiskie}/bin/udiskie-umount ${device} --detach
+  '';
 
   services.restic.backups.local = {
     paths = [ "/data" ];

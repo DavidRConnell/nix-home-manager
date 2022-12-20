@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ./backup.nix ];
@@ -20,6 +20,8 @@
   networking.useDHCP = false;
   networking.interfaces.enp2s0.useDHCP = true;
   networking.interfaces.wlp1s0.useDHCP = true;
+
+  powerManagement.powertop.enable = true;
 
   services.xserver.enable = false;
 
