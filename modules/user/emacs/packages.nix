@@ -123,9 +123,7 @@ in emacsWithPackages (epkgs:
         tree-sitter-elisp
         tree-sitter-make
         tree-sitter-markdown
-        tree-sitter-r
         tree-sitter-toml
-        tree-sitter-yaml
       ])))
     evil-textobj-tree-sitter
   ]))
