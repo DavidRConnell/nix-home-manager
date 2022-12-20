@@ -22,6 +22,11 @@ New servers need to be assigned a static IP in the router's settings.
 With adguard running on a local server, a DNS rewrite should be set to send \*.home to the main server running nginx/adguard.
 *** Setting up SSH keys
 See the [[https://nixos.wiki/wiki/SSH_public_key_authentication][SSH public key authentication page]] on nixos.wiki
+*** Adding photos to photoview (http://photos.home)
+Go into settings and select type in a directory relative to nextcloud's data directory. Should be something along the lines of: ~$user/$folder~ where ~$user~ is the name of the nextcloud user and ~$folder~ is the path from the top of the users files to the photo directory.
+** Caveats
+- The photos service (photoview) depends on nextcloud's data directory. It will likely create this itself and work fine without nextcloud but nextcloud's directory is hardcoded into it's definition to allow photoview and nextcloud to share data. This allows all photo importing to be performed through nextcloud (including automatic import of phone photos) and photoviews directories can then be read only.
+- The user's (mercury's) home directory is hardcoded into the metube service to allow it to download to the regular download directory. This could be improved through a symlink.
 ** Todo
 1. Add in my dot files. Right now the install depends on manually cloning my dot file repo and using stow to install the desired configs. Home manager should handle this. Ideally the major configs will exist in their own repos that are submodules to this repo then nixos-rebuild installs the configs relevant where they need to be (ideally all go to ~.config~). However, I do not want them to be read-only because that makes them a pain to develop.
 2. Overly ambitiously, all configs should be managed by home-manager. This means no generated configs sitting around. I have too many configuration files that I did not create and I don't what are important and what aren't. I also want to keep ~$HOME~ clean of dotfiles.
