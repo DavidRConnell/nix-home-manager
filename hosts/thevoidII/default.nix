@@ -28,7 +28,7 @@
     xkbOptions = "ctrl:nocaps";
     displayManager.lightdm.enable = true;
     desktopManager.gnome.enable = true;
-    windowManager.stumpwm.enable = true;
+    windowManager.stumpwm-custom.enable = true;
   };
 
   services.fstrim.enable = true;

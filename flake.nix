@@ -42,7 +42,11 @@
         overlays = [ inputs.emacs-overlay.overlay inputs.ltex-ls.overlay ]
           ++ self.overlays;
         config.allowUnfreePredicate = pkg:
-          builtins.elem (pkgs.lib.getName pkg) [ "anydesk" "zoom" ];
+          builtins.elem (pkgs.lib.getName pkg) [
+            "anydesk"
+            "zoom"
+            "facetimehd-firmware"
+          ];
       };
 
       nixosSystem = { modules, users }:
