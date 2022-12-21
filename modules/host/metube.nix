@@ -10,6 +10,6 @@ in {
     autoStart = true;
     image = "alexta69/metube:latest";
     ports = [ "${port}:8081" ];
-    volumes = [ "/home/mercury/downloads/metube:/downloads" ];
+    volumes = [ "/data/metube/downloads:/downloads" ];
   };
 }
