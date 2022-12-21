@@ -23,6 +23,7 @@ in {
           "photoview:password@tcp(${subdomain}-db)/photoview";
         PHOTOVIEW_LISTEN_IP = "127.0.0.1";
         PHOTOVIEW_LISTEN_PORT = "80";
+        PHOTOVIEW_SERVE_UI = "1";
         PHOTOVIEW_MEDIA_CACHE = "/app/cache";
       };
       dependsOn = [ "${subdomain}-db" ];
