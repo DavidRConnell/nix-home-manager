@@ -18,6 +18,7 @@ in {
         "${dataPath}/media:/usr/src/paperless/media"
         "${dataPath}/export:/usr/src/paperless/export"
         "${dataPath}/consume:/usr/src/paperless/consume"
+        "${dataPath}/trash:/usr/src/paperless/trash"
       ];
       environment = {
         PAPERLESS_URL = "http://${subdomain}.home";
@@ -26,7 +27,7 @@ in {
         PAPERLESS_AUTO_LOGIN_USERNAME = "admin";
         PAPERLESS_ADMIN_USER = "admin";
         PAPERLESS_ADMIN_PASSWORD = "password";
-        PAPERLESS_TRASH_DIR = "/tmp/paperless/trash";
+        PAPERLESS_TRASH_DIR = "/usr/src/paperless/trash";
       };
       dependsOn = [ "${subdomain}-redis" ];
       extraOptions = [ "--network=${subdomain}-bridge" ];
