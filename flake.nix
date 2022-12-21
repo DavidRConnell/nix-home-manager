@@ -99,7 +99,7 @@
             ./modules/host/headless.nix
             ./modules/host/reverse-proxy.nix
             ./modules/host/startpage.nix
-            ./modules/host/adguard.nix
+            (import ./modules/host/adguard.nix "192.168.0.17")
             ./modules/host/nextcloud.nix
             ./modules/host/jellyfin.nix
             ./modules/host/audiobook.nix

@@ -1,3 +1,4 @@
+hostIp:
 { pkgs, ... }:
 
 let
@@ -12,7 +13,7 @@ in {
     image = "adguard/adguardhome:latest";
     ports = [
       "53:53/tcp"
-      "53:53/udp"
+      "${hostIp}:53:53/udp"
       "${port}:80/tcp"
       "443:443/tcp"
       "443:443/udp"
