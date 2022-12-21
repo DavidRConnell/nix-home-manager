@@ -38,11 +38,7 @@
   hardware.pulseaudio.enable = false;
 
   # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-    passwordAuthentication = false;
-    kbdInteractiveAuthentication = false;
-  };
+  services.openssh = { enable = true; };
 
   networking.firewall.allowedTCPPorts = [ 53 80 443 ];
   networking.firewall.allowedUDPPorts = [ 53 443 ];
