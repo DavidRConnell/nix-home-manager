@@ -18,10 +18,9 @@
   time.timeZone = "America/Chicago";
 
   networking = {
-    nameservers = [ "127.0.0.1" "::1" ];
     useDHCP = false;
     interfaces.enp0s31f6.useDHCP = true;
-    # firewall.allowedTCPPorts = [ 80 443 ];
+    hostName = "thenihility";
   };
 
   i18n.defaultLocale = "en_US.UTF-8";

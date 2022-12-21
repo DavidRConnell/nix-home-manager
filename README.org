@@ -1,0 +1,39 @@
+* NixOS Configs
+My configs for setting up NixOS hosts using home-manager.
+
+** Installation
+#+begin_src bash
+# nixos-rebuild switch --flake "github:davidrconnell/nix-home-manager#$host"
+#+end_src
+
+eg:
+#+begin_src bash
+# nixos-rebuild switch --flake ".#thenihility"
+#+end_src
+
+To build ~thenihility~ from the local copy of this repo.
+** Goals
+Not achieved perfectly yet.
+1. To be completely reproducible. It should be possible set up a new computer by only installing nixos (via the manual), adding a new host to the hosts directory, and adding the host to the attribute set of hosts in ~flake.nix~ then rebuilding. If reusing user, the user's environment should be identical to that user's environment on another host.
+2. Goal 1 should be achieved in a modular way. This means users are defined and can be added to different hosts and services should be defined in standalone modules that can be added or removed from a hosts list of modules.
+** Manual tweaks
+*** Setting up the network
+New servers need to be assigned a static IP in the router's settings.
+With adguard running on a local server, a DNS rewrite should be set to send \*.home to the main server running nginx/adguard.
+*** Setting up SSH keys
+See the [[https://nixos.wiki/wiki/SSH_public_key_authentication][SSH public key authentication page]] on nixos.wiki
+*** Adding photos to photoview (http://photos.home)
+Go into settings and select type in a directory relative to nextcloud's data directory. Should be something along the lines of: ~$user/$folder~ where ~$user~ is the name of the nextcloud user and ~$folder~ is the path from the top of the users files to the photo directory.
+*** Paperless needs a trash directory
+- Paperless may not automatically make a trash directory at ~/data/paperless/trash~. Additionally, this must be owned by the user.
+- It's also possible to set paperless's consume directory to a nextcloud directory if desired like is done with [[*Adding photos to photoview (http://photos.home)][Adding photos to photoview]]
+
+** Notes / and needs improvement
+- The photos service (photoview) depends on nextcloud's data directory. It will likely create this itself and work fine without nextcloud but nextcloud's directory is hardcoded into it's definition to allow photoview and nextcloud to share data. This allows all photo importing to be performed through nextcloud (including automatic import of phone photos) and photoviews directories can then be read only.
+- Some problem with how docker containers resolve DNS requests is leading to the need to have the host's intranet IP hardcoded into the adguard container (see https://discourse.pi-hole.net/t/solve-dns-resolution-in-other-containers-when-using-docker-pihole/31413). It was working fine then all containers were getting bad name and try again errors and ~ping~ would work only if you gave it an IP address. However, adguard had the containers requests in it's logs and showed it gave a response (which could be passed to ~ping~ inside a container and succeeded), but for some reason the containers were unable to handle the response.
+
+  Fixing the issue by making a function that generates an adguard module from the host's static IP address. This makes the adguard module non-intuitive as it is added differently than other modules. There may be a better way to do this such as dynamically getting the hosts IP from somewhere in ~config.networking~.
+** Todo
+1. Add in my dot files. Right now the install depends on manually cloning my dot file repo and using stow to install the desired configs. Home manager should handle this. Ideally the major configs will exist in their own repos that are submodules to this repo then nixos-rebuild installs the configs relevant where they need to be (ideally all go to ~.config~). However, I do not want them to be read-only because that makes them a pain to develop.
+2. Overly ambitiously, all configs should be managed by home-manager. This means no generated configs sitting around. I have too many configuration files that I did not create and I don't what are important and what aren't. I also want to keep ~$HOME~ clean of dotfiles.
+3. There should be a clear seperation between configs, user data, app data, and caches. This allows us to easily clear anything that should be reproducible and regenerate it (i.e. configs and caches) to ensure the system is stateless. This also allows for better backup rules, configs are backup in multiple git remotes, user and app data are backed-up with a normal backup (and maybe with syncthing to allow for perfect reproduction of user environment between computers), and caches are not backed-up at all.

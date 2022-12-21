@@ -30,6 +30,7 @@
       owner = "davidrconnell";
       repo = "ltex-ls-flake";
       ref = "master";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -67,7 +68,7 @@
     in {
       supportedSystems = [ system ];
 
-      overlays = [ ];
+      overlays = [ (import ./overlays/lib.nix) ];
 
       nixosConfigurations = {
         thevoidII = nixosSystem {
@@ -77,7 +78,6 @@
             ./modules/host/desktop.nix
             ./modules/host/nix.nix
             ./modules/host/firejail.nix
-            ./modules/host/nextdns.nix
           ];
         };
 
@@ -88,13 +88,30 @@
             ./modules/host/desktop.nix
             ./modules/host/nix.nix
             ./modules/host/firejail.nix
-            ./modules/host/nextdns.nix
           ];
         };
 
         olympus = nixosSystem {
           users = [ mercury ];
-          modules = [ ./hosts/olympus ./modules/host/nix.nix ];
+          modules = [
+            ./hosts/olympus
+            ./modules/host/nix.nix
+            ./modules/host/headless.nix
+            ./modules/host/reverse-proxy.nix
+            ./modules/host/startpage.nix
+            (import ./modules/host/adguard.nix "192.168.0.17")
+            ./modules/host/nextcloud.nix
+            ./modules/host/jellyfin.nix
+            ./modules/host/audiobook.nix
+            ./modules/host/metube.nix
+            ./modules/host/gitea.nix
+            ./modules/host/recipes.nix
+            ./modules/host/pocket.nix
+            ./modules/host/dozzle.nix
+            ./modules/host/paperless.nix
+            ./modules/host/photos.nix
+            ./modules/host/podcasts.nix
+          ];
         };
       };
     };
