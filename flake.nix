@@ -109,12 +109,28 @@
             ./modules/host/audiobook.nix
             ./modules/host/metube.nix
             ./modules/host/gitea.nix
+            ./modules/host/pocket.nix
+            ./modules/host/dozzle.nix
+          ];
+        };
+
+        connellnet = nixosSystem {
+          users = [ mercury ];
+          modules = [
+            ./hosts/connellnet
+            ./modules/host/nix.nix
+            ./modules/host/headless.nix
+            ./modules/host/reverse-proxy.nix
+            ./modules/host/startpage.nix
+            # TODO: change when given IP in new home
+            (import ./modules/host/adguard.nix "192.168.0.14")
+            ./modules/host/nextcloud.nix
+            ./modules/host/jellyfin.nix
             ./modules/host/recipes.nix
             ./modules/host/pocket.nix
             ./modules/host/dozzle.nix
             ./modules/host/paperless.nix
             ./modules/host/photos.nix
-            ./modules/host/podcasts.nix
           ];
         };
       };

@@ -18,6 +18,7 @@ Not achieved perfectly yet.
 2. Goal 1 should be achieved in a modular way. This means users are defined and can be added to different hosts and services should be defined in standalone modules that can be added or removed from a hosts list of modules.
 ** Manual tweaks
 *** Setting up the network
+To set up adguard first go to <intranetIP>:3000 (this is different then the web app which is on port 80 so nginx will not send you to the correct place).
 New servers need to be assigned a static IP in the router's settings.
 With adguard running on a local server, a DNS rewrite should be set to send \*.home to the main server running nginx/adguard.
 *** Setting up SSH keys
