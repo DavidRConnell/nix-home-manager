@@ -27,7 +27,8 @@ Go into settings and select type in a directory relative to nextcloud's data dir
 *** Paperless needs a trash directory
 - Paperless may not automatically make a trash directory at ~/data/paperless/trash~. Additionally, this must be owned by the user.
 - It's also possible to set paperless's consume directory to a nextcloud directory if desired like is done with [[*Adding photos to photoview (http://photos.home)][Adding photos to photoview]]
-
+*** Users/configs
+As mention in [[* Todo][Todo]], my dotfiles are not linked in here. For setting up mercury, zsh configs need to added to ~.configs~. For voidee clone the [[https://github.com/DavidRConnell/dotfiles_and_friends][stow repo]] and use ~stow --dotfiles ...~ to add the needed files' configs.
 ** Notes / and needs improvement
 - The photos service (photoview) depends on nextcloud's data directory. It will likely create this itself and work fine without nextcloud but nextcloud's directory is hardcoded into it's definition to allow photoview and nextcloud to share data. This allows all photo importing to be performed through nextcloud (including automatic import of phone photos) and photoviews directories can then be read only.
 - Some problem with how docker containers resolve DNS requests is leading to the need to have the host's intranet IP hardcoded into the adguard container (see https://discourse.pi-hole.net/t/solve-dns-resolution-in-other-containers-when-using-docker-pihole/31413). It was working fine then all containers were getting bad name and try again errors and ~ping~ would work only if you gave it an IP address. However, adguard had the containers requests in it's logs and showed it gave a response (which could be passed to ~ping~ inside a container and succeeded), but for some reason the containers were unable to handle the response.

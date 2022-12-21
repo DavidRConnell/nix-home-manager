@@ -29,10 +29,11 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     initialPassword = "password";
+    shell = pkgs.zsh;
     openssh.authorizedKeys.keyFiles = [ ../../users/mercury/authorized_keys ];
   };
 
-  environment.systemPackages = with pkgs; [ vim git parted ];
+  environment.systemPackages = with pkgs; [ vim git ];
 
   sound.enable = false;
   hardware.pulseaudio.enable = false;

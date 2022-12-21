@@ -45,7 +45,6 @@
         "fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'";
       cat = "bat";
 
-      # TODO: Really should be with the tmux configuration.
       tmux = "direnv exec / tmux";
     };
 
