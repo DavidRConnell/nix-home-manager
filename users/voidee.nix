@@ -19,7 +19,7 @@
   imports = [
     ../modules/user/shell.nix
     ../modules/user/emacs
-    ../modules/user/mail.nix
+    # ../modules/user/mail.nix
     ../modules/user/gtk.nix
     ../modules/user/udiskie.nix
   ];
@@ -43,6 +43,7 @@
     man-pages-posix
     mpv
     neovim
+    nextcloud-client
     nushell
     pandoc
     pass
