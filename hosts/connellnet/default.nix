@@ -44,6 +44,11 @@
   networking.firewall.allowedTCPPorts = [ 53 80 443 ];
   networking.firewall.allowedUDPPorts = [ 53 443 ];
 
+  services.nginx.virtualHosts = {
+    "music.home".location."/".proxyPass = "http://192.168.4.125:9000";
+    "m2p.home".location."/".proxyPass = "http://192.168.4.125:80";
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

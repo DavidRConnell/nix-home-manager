@@ -122,8 +122,7 @@
             ./modules/host/headless.nix
             ./modules/host/reverse-proxy.nix
             ./modules/host/startpage.nix
-            # TODO: change when given IP in new home
-            (import ./modules/host/adguard.nix "192.168.0.14")
+            (import ./modules/host/adguard.nix "192.168.4.195")
             ./modules/host/nextcloud.nix
             ./modules/host/jellyfin.nix
             ./modules/host/recipes.nix
