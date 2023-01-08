@@ -92,6 +92,7 @@
             ./modules/host/desktop.nix
             ./modules/host/nix.nix
             ./modules/host/firejail.nix
+            ./modules/host/archivebox.nix
           ];
         };
 
