@@ -1,6 +1,6 @@
 { config, pkgs, ... }: {
 
-  home.packages = (with pkgs; [ tree exa bat tealdeer difftastic ]);
+  home.packages = (with pkgs; [ neovim tree exa bat tealdeer difftastic ]);
 
   programs.zsh = {
     enable = true;

@@ -42,7 +42,6 @@
     man-pages
     man-pages-posix
     mpv
-    neovim
     nextcloud-client
     nushell
     pandoc
