@@ -11,11 +11,6 @@ in emacsWithPackages (epkgs:
     blacken
     cape
     ccls
-    citar
-    citar-embark
-    citeproc
-    consult
-    consult-flycheck
     cython-mode
     deft
     direnv
@@ -28,22 +23,9 @@ in emacsWithPackages (epkgs:
     elisp-demos
     elpher
     elpy
-    embark
-    embark-consult
     emr
     ess
     ess-R-data-view
-    evil
-    evil-args
-    evil-collection
-    evil-easymotion
-    evil-exchange
-    evil-goggles
-    evil-lion
-    evil-nerd-commenter
-    evil-org
-    evil-smartparens
-    evil-surround
     eyebrowse
     flycheck
     flyspell-correct
@@ -74,20 +56,7 @@ in emacsWithPackages (epkgs:
     nix-mode
     no-littering
     nov
-    ob-async
     orderless
-    org-appear
-    org-cliplink
-    orgit
-    orgit-forge
-    org-ref
-    org-roam
-    org-roam-bibtex
-    org-roam-ui
-    org-superstar
-    ox-clip
-    ox-hugo
-    ox-pandoc
     pdf-tools
     popper
     prescient
@@ -108,10 +77,42 @@ in emacsWithPackages (epkgs:
   ]) ++ (with epkgs.elpaPackages; [ modus-themes vertico vundo ])
 
   ++ (with epkgs; [
-    org-contrib
+    citar
+    citar-embark
+    citeproc
+    consult
+    consult-flycheck
     corfu
     cypher-mode
+    embark
+    embark-consult
     ement
+    evil
+    evil-args
+    evil-collection
+    evil-easymotion
+    evil-exchange
+    evil-goggles
+    evil-lion
+    evil-nerd-commenter
+    evil-org
+    evil-smartparens
+    evil-surround
+    ob-async
+    org
+    org-appear
+    org-cliplink
+    org-contrib
+    orgit
+    orgit-forge
+    org-ref
+    org-roam
+    org-roam-bibtex
+    org-roam-ui
+    org-superstar
+    ox-clip
+    ox-hugo
+    ox-pandoc
     # visual-fill-column
     # undo-fu
     # undo-fu-session
