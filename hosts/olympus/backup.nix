@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 let
   mountpoint = "/backup";
@@ -15,7 +15,8 @@ in {
     repository = "${mountpoint}/olympus";
     passwordFile = "/etc/nixos/restic-password";
     initialize = true;
-    extraBackupArgs = [ "--no-scan" ]; # Can't see progress anyway
-    timerConfig = { OnCalendar = "daily"; };
+    # NOTE: Added in restic v0.15; nixpkgs on 0.14. Reenable when package bumped.
+    # extraBackupArgs = [ "--no-scan" ]; # Can't see progress anyway
+    timerConfig = { OnCalendar = "06:00"; };
   };
 }
