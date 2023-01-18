@@ -7,23 +7,23 @@
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot.initrd.availableKernelModules =
-    [ "xhci_pci" "ahci" "usbhid" "uas" "sd_mod" "sr_mod" ];
+    [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/d6835168-0039-47a1-b4b3-2e2e3a71eba5";
+    device = "/dev/disk/by-uuid/23d85ea1-b501-4e91-8504-32c9c1748116";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/49AA-D2CA";
+    device = "/dev/disk/by-uuid/2869-E542";
     fsType = "vfat";
   };
 
   swapDevices =
-    [{ device = "/dev/disk/by-uuid/17c1ad5a-cb6b-47cc-b64b-c12ab6a3ffb9"; }];
+    [{ device = "/dev/disk/by-uuid/492970bc-1705-49d5-9dd0-171d2c8c7fe8"; }];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode =
