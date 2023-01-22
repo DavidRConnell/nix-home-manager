@@ -112,7 +112,7 @@
             ./modules/host/pocket.nix
             ./modules/host/dozzle.nix
             ./modules/host/archivebox.nix
-            ./modules/host/onlyoffice.nix
+            ./modules/host/collabora.nix
           ];
         };
 
