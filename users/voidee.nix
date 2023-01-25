@@ -22,6 +22,7 @@
     # ../modules/user/mail.nix
     ../modules/user/gtk.nix
     ../modules/user/udiskie.nix
+    ../modules/user/passwords.nix
   ];
 
   home.packages = (with pkgs; [
@@ -34,7 +35,6 @@
     feh
     firefox
     git
-    gitAndTools.pass-git-helper
     google-cloud-sdk
     killall
     krita
@@ -45,7 +45,6 @@
     nextcloud-client
     nushell
     pandoc
-    pass
     pulseaudio-ctl
     qutebrowser
     rclone
