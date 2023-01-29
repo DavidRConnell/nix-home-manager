@@ -33,13 +33,28 @@
     openssh.authorizedKeys.keyFiles = [ ../../users/mercury/authorized_keys ];
   };
 
+  security.sudo.extraRules = [{
+    users = [ "mercury" ];
+    runAs = "ALL:ALL";
+    commands = [{
+      command = "ALL";
+      options = [ "NOPASSWD" ];
+    }];
+  }];
+
+  nix.settings.trusted-users = [ "mercury" ];
+
   environment.systemPackages = with pkgs; [ vim git ];
 
   sound.enable = false;
   hardware.pulseaudio.enable = false;
 
   # Enable the OpenSSH daemon.
-  services.openssh = { enable = true; };
+  services.openssh = {
+    enable = true;
+    permitRootLogin = "no";
+    passwordAuthentication = false;
+  };
 
   networking.firewall.allowedTCPPorts = [ 53 80 443 ];
   networking.firewall.allowedUDPPorts = [ 53 443 ];
