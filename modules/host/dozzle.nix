@@ -12,5 +12,6 @@ in {
     ports = [ "${port}:8080" ];
     volumes = [ "/var/run/docker.sock:/var/run/docker.sock" ];
     environment = { DOZZLE_NO_ANALYTICS = "true"; };
+    extraOptions = [ "--pull=always" ];
   };
 }

@@ -15,5 +15,6 @@ in {
       "/etc/timezone:/etc/timezone:ro"
       "/etc/localtime:/etc/localtime:ro"
     ];
+    extraOptions = [ "--pull=always" ];
   };
 }

@@ -23,5 +23,6 @@ in {
       "${dataPath}/work:/opt/adguardhome/work"
       "${dataPath}/conf:/opt/adguardhome/conf"
     ];
+    extraOptions = [ "--pull=always" ];
   };
 }

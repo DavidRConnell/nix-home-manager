@@ -17,5 +17,6 @@ in {
       "${dataPath}/audiobooks:/audiobooks"
       "${dataPath}/podcasts:/podcasts"
     ];
+    extraOptions = [ "--pull=always" ];
   };
 }

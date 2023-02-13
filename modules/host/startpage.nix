@@ -12,5 +12,6 @@ in {
     ports = [ "${port}:5005" ];
     volumes = [ "/data/flame/data:/app/data" ];
     environment = { PASSWORD = "password"; };
+    extraOptions = [ "--pull=always" ];
   };
 }

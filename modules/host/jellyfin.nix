@@ -18,5 +18,6 @@ in {
     ];
     ports = [ "${port}:8096" ];
     environment = { JELLYFIN_LOG_DIR = "/log"; };
+    extraOptions = [ "--pull=always" ];
   };
 }

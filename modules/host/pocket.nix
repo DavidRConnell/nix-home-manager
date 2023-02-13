@@ -20,5 +20,6 @@ in {
       SYMFONY__ENV__FOSUSER_CONFIRMATION = "false";
       SYMFONY__ENV__SERVER_NAME = "Wallabag";
     };
+    extraOptions = [ "--pull=always" ];
   };
 }

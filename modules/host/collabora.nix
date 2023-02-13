@@ -12,5 +12,6 @@ in {
     image = "collabora/code:latest";
     ports = [ "${port}:9980" ];
     environment = { extra_params = "--o:ssl.enable=false"; };
+    extraOptions = [ "--pull=always" ];
   };
 }

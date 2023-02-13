@@ -11,5 +11,6 @@ in {
     image = "alexta69/metube:latest";
     ports = [ "${port}:8081" ];
     volumes = [ "/data/metube/downloads:/downloads" ];
+    extraOptions = [ "--pull=always" ];
   };
 }
