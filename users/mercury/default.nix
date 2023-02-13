@@ -6,7 +6,7 @@
   home = rec {
     username = "mercury";
     homeDirectory = "/home/${username}";
-    packages = with pkgs; [ htop yt-dlp losslesscut-bin parted git ];
+    packages = with pkgs; [ htop yt-dlp parted git wget ];
     stateVersion = "22.11";
     sessionVariables = {
       XDG_DATA_HOME = homeDirectory + "/.local/share";
