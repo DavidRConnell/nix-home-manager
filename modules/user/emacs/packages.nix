@@ -16,7 +16,6 @@ in emacsWithPackages (epkgs:
     direnv
     dumb-jump
     ebib
-    eglot
     elfeed
     elfeed-org
     elisp-def
@@ -32,9 +31,6 @@ in emacsWithPackages (epkgs:
     forge
     format-all
     gcmh
-    geiser
-    geiser-guile
-    geiser-mit
     general
     git-gutter
     git-gutter-fringe
@@ -48,9 +44,6 @@ in emacsWithPackages (epkgs:
     link-hint
     lispy
     lispyville
-    magit
-    magit-annex
-    magit-delta
     marginalia
     markdown-mode
     nix-mode
@@ -64,6 +57,7 @@ in emacsWithPackages (epkgs:
     py-isort
     python-pytest
     rainbow-delimiters
+    reformatter
     sly
     smartparens
     transient
@@ -79,14 +73,18 @@ in emacsWithPackages (epkgs:
   ++ (with epkgs; [
     citar
     citar-embark
+    citar-org-roam
     citeproc
     consult
     consult-flycheck
     corfu
     cypher-mode
+    dired-narrow
+    # eglot
     embark
     embark-consult
     ement
+    engrave-faces
     evil
     evil-args
     evil-collection
@@ -98,6 +96,9 @@ in emacsWithPackages (epkgs:
     evil-org
     evil-smartparens
     evil-surround
+    jinx
+    magit
+    magit-annex
     ob-async
     org
     org-appear
@@ -113,10 +114,12 @@ in emacsWithPackages (epkgs:
     ox-clip
     ox-hugo
     ox-pandoc
-    # visual-fill-column
-    # undo-fu
-    # undo-fu-session
-    # git-timemachine
+    ox-reveal
+    saveplace-pdf-view
+    visual-fill-column
+    undo-fu
+    undo-fu-session
+    git-timemachine
     tree-sitter
     (tree-sitter-langs.withPlugins (p:
       tree-sitter-langs.plugins ++ (with p; [
