@@ -113,6 +113,7 @@
             ./modules/host/dozzle.nix
             ./modules/host/collabora.nix
             ./modules/host/fileflows.nix
+            ./modules/host/librarian.nix
           ];
         };
 
