@@ -112,6 +112,7 @@
             ./modules/host/pocket.nix
             ./modules/host/dozzle.nix
             ./modules/host/collabora.nix
+            ./modules/host/fileflows.nix
           ];
         };
 
