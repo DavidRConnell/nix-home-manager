@@ -8,9 +8,9 @@
     nix-linter
     rnix-lsp
 
+    (python3.withPackages (p: [ p.python-lsp-server ]))
     nodePackages.bash-language-server
     shfmt
-    rtags
     sqlite # For org-roam
     jdt-language-server
 
