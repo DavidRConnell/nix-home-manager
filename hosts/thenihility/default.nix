@@ -10,7 +10,10 @@
       grub.device = "/dev/sda";
     };
     enableContainers = false;
+    kernelModules = [ "kvm-intel" ];
   };
+
+  virtualisation.libvirtd.enable = true;
 
   system.stateVersion = "20.09";
 

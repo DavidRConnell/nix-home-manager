@@ -59,6 +59,7 @@
     stumpish
     tmux
     unzip
+    vagrant
     visidata
     w3m
     wget
