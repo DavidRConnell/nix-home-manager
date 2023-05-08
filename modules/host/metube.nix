@@ -10,7 +10,15 @@ in {
     autoStart = true;
     image = "alexta69/metube:latest";
     ports = [ "${port}:8081" ];
-    volumes = [ "/data/metube/downloads:/downloads" ];
+    volumes = [
+      "/data/metube/downloads:/downloads"
+      "/data/metube/downloads/media:/downloads/media"
+      "/data/metube/downloads/audio:/downloads/audio"
+    ];
+    environment = {
+      DOWNLOAD_DIR = "/downloads/media";
+      AUDIO_DOWNLOAD_DIR = "/downloads/audio";
+    };
     extraOptions = [ "--pull=always" ];
   };
 }
