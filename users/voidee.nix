@@ -23,6 +23,7 @@
     ../modules/user/gtk.nix
     ../modules/user/udiskie.nix
     ../modules/user/passwords.nix
+    ../modules/user/flameshot.nix
   ];
 
   home.packages = (with pkgs; [
