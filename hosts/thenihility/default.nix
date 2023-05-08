@@ -17,6 +17,11 @@
 
   system.stateVersion = "20.09";
 
+  fileSystems."/archives" = {
+    device = "/dev/disk/by-uuid/d57cc7ab-089f-4d14-9429-f4dc3128be84";
+    fsType = "ext4";
+  };
+
   networking.networkmanager.enable = true;
   time.timeZone = "America/Chicago";
 
