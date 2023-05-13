@@ -1,9 +1,10 @@
+username: imports:
 { pkgs, ... }:
 
 {
-  programs.home-manager.enable = true;
+  inherit imports;
   home = rec {
-    username = "voidee";
+    inherit username;
     homeDirectory = "/home/${username}";
     stateVersion = "20.09";
     sessionPath = [ "$HOME/bin" ];
@@ -14,64 +15,55 @@
       XDG_CONFIG_HOME = homeDirectory + "/.config";
     };
 
+    packages = (with pkgs; [
+      alacritty
+      anydesk
+      (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
+      binutils
+      cachix
+      fd
+      feh
+      firefox
+      git
+      google-cloud-sdk
+      killall
+      krita
+      libsForQt5.xdg-desktop-portal-kde
+      man-pages
+      man-pages-posix
+      mpv
+      nextcloud-client
+      nushell
+      pandoc
+      pulseaudio-ctl
+      qutebrowser
+      rclone
+      redshift
+      restic
+      ripgrep
+      rsync
+      sbcl
+      scrot
+      sdcv
+      stow
+      stumpish
+      tmux
+      unzip
+      vagrant
+      visidata
+      w3m
+      wget
+      wordnet
+      xclip
+      xfce.thunar
+      yt-dlp
+      zathura
+      zip
+      zoom-us
+    ]);
   };
 
-  imports = [
-    ../modules/user/shell.nix
-    ../modules/user/emacs
-    # ../modules/user/mail.nix
-    ../modules/user/gtk.nix
-    ../modules/user/udiskie.nix
-    ../modules/user/passwords.nix
-    ../modules/user/flameshot.nix
-  ];
-
-  home.packages = (with pkgs; [
-    alacritty
-    anydesk
-    (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
-    binutils
-    cachix
-    fd
-    feh
-    firefox
-    git
-    google-cloud-sdk
-    killall
-    krita
-    libsForQt5.xdg-desktop-portal-kde
-    man-pages
-    man-pages-posix
-    mpv
-    nextcloud-client
-    nushell
-    pandoc
-    pulseaudio-ctl
-    qutebrowser
-    rclone
-    redshift
-    restic
-    ripgrep
-    rsync
-    sbcl
-    scrot
-    sdcv
-    stow
-    stumpish
-    tmux
-    unzip
-    vagrant
-    visidata
-    w3m
-    wget
-    wordnet
-    xclip
-    xfce.thunar
-    yt-dlp
-    zathura
-    zip
-    zoom-us
-  ]);
+  programs.home-manager.enable = true;
 
   manual.manpages.enable = true;
   programs.info.enable = true;

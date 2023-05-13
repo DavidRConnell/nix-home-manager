@@ -42,15 +42,6 @@
   sound.enable = true;
   hardware = { pulseaudio.enable = true; };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.voidee = {
-    isNormalUser = true;
-    extraGroups =
-      [ "wheel" "networkmanager" "libvirtd" ]; # Enable ‘sudo’ for the user.
-    shell = pkgs.zsh;
-    initialPassword = "password";
-  };
-
   fonts.fonts = with pkgs; [
     hack-font
     roboto-mono

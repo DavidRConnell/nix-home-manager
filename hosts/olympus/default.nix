@@ -25,16 +25,6 @@
 
   services.xserver.enable = false;
 
-  users.users.mercury = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    initialPassword = "password";
-    shell = pkgs.zsh;
-    openssh.authorizedKeys.keyFiles = [ ../../users/mercury/authorized_keys ];
-  };
-
-  nix.settings.trusted-users = [ "mercury" ];
-
   environment.systemPackages = with pkgs; [ vim git ];
 
   sound.enable = false;
@@ -58,5 +48,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.11"; # Did you read the comment?
-
 }

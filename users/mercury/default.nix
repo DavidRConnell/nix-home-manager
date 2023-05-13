@@ -1,12 +1,14 @@
-{ config, pkgs, ... }:
+username: imports:
+{ pkgs, ... }:
 
 {
-  imports = [ ../../modules/user/udiskie.nix ../../modules/user/shell.nix ];
+  inherit imports;
 
   home = rec {
-    username = "mercury";
+    inherit username;
     homeDirectory = "/home/${username}";
-    packages = with pkgs; [ htop yt-dlp parted git wget ];
+    sessionPath = [ "$HOME/bin" ];
+    packages = with pkgs; [ htop yt-dlp parted git wget zip unzip ];
     stateVersion = "22.11";
     sessionVariables = {
       XDG_DATA_HOME = homeDirectory + "/.local/share";
