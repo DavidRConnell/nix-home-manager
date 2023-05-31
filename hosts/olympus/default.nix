@@ -8,18 +8,20 @@
   imports = [ ./hardware-configuration.nix ./backup.nix ./local-sites.nix ];
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.device = "/dev/sda";
-
-  networking.hostName = "olympus";
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+    grub.device = "/dev/sda";
+  };
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
 
-  networking.useDHCP = false;
-  networking.interfaces.enp2s0.useDHCP = true;
-  networking.interfaces.wlp1s0.useDHCP = true;
+  networking = {
+    hostName = "olympus";
+    useDHCP = false;
+    interfaces.enp2s0.useDHCP = true;
+  };
 
   powerManagement.powertop.enable = true;
 
