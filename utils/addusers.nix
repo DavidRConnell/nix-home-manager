@@ -16,4 +16,5 @@ let
 in {
   nix.settings.trusted-users = map (user: user.name) users;
   users.users = useraccounts;
+  programs.zsh.enable = true;
 }
