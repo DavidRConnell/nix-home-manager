@@ -22,7 +22,7 @@
       owner = "nix-community";
       repo = "emacs-overlay";
       ref = "master";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
     };
 
     ltex-ls = {
