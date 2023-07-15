@@ -2,7 +2,6 @@
 
   home.packages = (with pkgs; [
     ccls # For c-mode lsp
-    delta # For magit-delta
     ltex-ls
     nixfmt
     nix-linter
