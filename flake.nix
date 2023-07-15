@@ -160,6 +160,15 @@
             ./modules/host/photos.nix
           ];
         };
+
+        testvm = nixosSystem {
+          host = ./hosts/vm;
+          users = [ mercury ];
+          modules = [ ];
+        };
       };
+
+      packages."${system}".testvm =
+        self.nixosConfigurations.testvm.config.system.build.vm;
     };
 }
