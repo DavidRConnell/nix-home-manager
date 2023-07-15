@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  myEmacs = pkgs.emacsUnstable;
+  myEmacs = pkgs.emacs-unstable;
   emacsWithPackages = (pkgs.emacsPackagesFor myEmacs).emacsWithPackages;
 in emacsWithPackages (epkgs:
   (with epkgs.melpaPackages; [
