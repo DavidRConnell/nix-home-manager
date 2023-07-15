@@ -13,7 +13,7 @@ in {
   services.restic.backups.local = {
     paths = [ "/data" ];
     repository = "${mountpoint}/olympus";
-    passwordFile = "/etc/nixos/restic-password";
+    passwordFile = "/etc/nixos/keys/restic-password";
     initialize = true;
     extraBackupArgs = [ "--no-scan" ]; # Can't see progress anyway
     timerConfig = { OnCalendar = "06:00"; };
