@@ -91,7 +91,7 @@
       mercury = user {
         name = "mercury";
         home = ./users/mercury;
-        modules = [ ./modules/user/shell.nix ];
+        modules = [ ./modules/user/shell.nix ./modules/user/udiskie.nix ];
       };
     in {
       supportedSystems = [ system ];
