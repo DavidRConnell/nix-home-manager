@@ -8,7 +8,7 @@ in {
   services.nginx.virtualHosts = mkVHost { inherit subdomain port; };
   virtualisation.oci-containers.containers."${subdomain}" = {
     autoStart = true;
-    image = "alexta69/metube:latest";
+    image = "ghcr.io/alexta69/metube:latest";
     ports = [ "${port}:8081" ];
     volumes = [
       "/data/metube/downloads:/downloads"

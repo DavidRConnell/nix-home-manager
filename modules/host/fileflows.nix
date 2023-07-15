@@ -8,7 +8,7 @@ in {
   services.nginx.virtualHosts = mkVHost { inherit subdomain port; };
   virtualisation.oci-containers.containers."${subdomain}" = {
     autoStart = true;
-    image = "revenz/fileflows:latest";
+    image = "ghcr.io/revenz/fileflows:latest";
     ports = [ "${port}:5000" ];
     environment = { TempPathHost = "/tmp/fileflows"; };
     volumes = [
