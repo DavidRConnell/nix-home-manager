@@ -4,7 +4,12 @@
     ccls # For c-mode lsp
     ltex-ls
     nixfmt
+    nil
     nix-linter
+    enchant
+    pkgconf
+    statix
+    nixpkgs-hammering
     rnix-lsp
 
     (python3.withPackages (p: [ p.python-lsp-server ]))
