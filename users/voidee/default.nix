@@ -45,6 +45,7 @@ username: imports:
       sbcl
       scrot
       sdcv
+      spotify-player
       stow
       stumpish
       tmux
