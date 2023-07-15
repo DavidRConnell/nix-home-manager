@@ -80,7 +80,6 @@ in emacsWithPackages (epkgs:
     corfu
     cypher-mode
     dired-narrow
-    # eglot
     embark
     embark-consult
     ement
@@ -120,7 +119,7 @@ in emacsWithPackages (epkgs:
     undo-fu
     undo-fu-session
     git-timemachine
-    tree-sitter
+    temple
     (tree-sitter-langs.withPlugins (p:
       tree-sitter-langs.plugins ++ (with p; [
         tree-sitter-bibtex
@@ -128,6 +127,7 @@ in emacsWithPackages (epkgs:
         tree-sitter-make
         tree-sitter-markdown
         tree-sitter-toml
+        tree-sitter-r
       ])))
     evil-textobj-tree-sitter
   ]))
