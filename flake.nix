@@ -39,8 +39,11 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
       pkg-module.nixpkgs = {
-        overlays = [ inputs.emacs-overlay.overlay inputs.ltex-ls.overlay ]
-          ++ self.overlays;
+        overlays = [
+          inputs.emacs-overlay.overlay
+          inputs.ltex-ls.overlay
+          (import ./overlays/lib.nix)
+        ];
         config.allowUnfreePredicate = pkg:
           builtins.elem (pkgs.lib.getName pkg) [
             "anydesk"
@@ -94,10 +97,6 @@
         modules = [ ./modules/user/shell.nix ./modules/user/udiskie.nix ];
       };
     in {
-      supportedSystems = [ system ];
-
-      overlays = [ (import ./overlays/lib.nix) ];
-
       nixosConfigurations = {
         thevoidII = nixosSystem {
           host = ./hosts/thevoidII;
