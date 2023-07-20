@@ -29,7 +29,6 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     initialPassword = "password";
-    shell = pkgs.zsh;
     openssh.authorizedKeys.keyFiles = [ ../../users/mercury/authorized_keys ];
   };
 

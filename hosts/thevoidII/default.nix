@@ -43,7 +43,6 @@
   users.users.voidee = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
-    shell = pkgs.zsh;
     initialPassword = "password";
   };
 
