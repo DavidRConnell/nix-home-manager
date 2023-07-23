@@ -126,18 +126,15 @@
             ./modules/host/headless.nix
             ./modules/host/reverse-proxy.nix
             ./modules/host/startpage.nix
-            (import ./modules/host/adguard.nix "192.168.0.101")
+            ./modules/host/adguard.nix
             ./modules/host/nextcloud.nix
             ./modules/host/jellyfin.nix
-            ./modules/host/audiobook.nix
-            ./modules/host/metube.nix
-            ./modules/host/gitea.nix
-            ./modules/host/pocket.nix
-            ./modules/host/dozzle.nix
-            # ./modules/host/collabora.nix
             ./modules/host/kavita.nix
-            # ./modules/host/fileflows.nix
-            ./modules/host/librarian.nix
+            # ./modules/host/gitea.nix
+            # ./modules/host/audiobook.nix
+            # ./modules/host/metube.nix
+            # ./modules/host/pocket.nix
+            # ./modules/host/dozzle.nix
           ];
         };
 
@@ -163,7 +160,8 @@
         testvm = nixosSystem {
           host = ./hosts/vm;
           users = [ mercury ];
-          modules = [ ];
+          modules =
+            [ ./modules/host/reverse-proxy.nix ./modules/host/nextcloud.nix ];
         };
       };
 

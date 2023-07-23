@@ -1,23 +1,68 @@
 { pkgs, ... }:
 
 let
-  mkVHost = pkgs.lib.mkVHost;
   subdomain = "jellyfin";
-  port = "8084";
-  dataPath = "/data/jellyfin";
+  ipAddress = "10.0.2.21";
+  uid = 10002;
 in {
-  services.nginx.virtualHosts = mkVHost { inherit subdomain port; };
-  virtualisation.oci-containers.containers."${subdomain}" = {
-    autoStart = true;
-    image = "jellyfin/jellyfin:latest";
-    volumes = [
-      "${dataPath}/config:/config"
-      "${dataPath}/cache:/cache"
-      "/var/log/jellyfin:/log"
-      "${dataPath}/data:/media:ro"
-    ];
-    ports = [ "${port}:8096" ];
-    environment = { JELLYFIN_LOG_DIR = "/log"; };
-    extraOptions = [ "--pull=always" ];
+  users.users."${subdomain}" = {
+    home = "/data/${subdomain}";
+    createHome = true;
+    isSystemUser = true;
+    uid = uid;
+    group = subdomain;
   };
+  users.groups."${subdomain}" = { gid = uid; };
+
+  services.nginx.virtualHosts."${subdomain}.home".locations."/".proxyPass =
+    "http://${ipAddress}:8096";
+
+  containers."${subdomain}" = {
+    autoStart = true;
+    ephemeral = true;
+    privateNetwork = true;
+    hostAddress = "10.0.2.20";
+    localAddress = ipAddress;
+
+    bindMounts = {
+      "/var/lib/${subdomain}" = {
+        hostPath = "/data/${subdomain}/lib";
+        isReadOnly = false;
+      };
+      "/var/cache/${subdomain}" = {
+        hostPath = "/data/${subdomain}/cache";
+        isReadOnly = false;
+      };
+    };
+
+    config = { config, pkgs, ... }: {
+      users.users."${subdomain}" = {
+        home = "/var/lib/${subdomain}";
+        createHome = true;
+        isSystemUser = true;
+        uid = uid;
+        group = subdomain;
+      };
+      users.groups."${subdomain}" = { gid = uid; };
+
+      services.jellyfin = {
+        enable = true;
+        user = subdomain;
+      };
+
+      system.stateVersion = "22.05";
+
+      networking.firewall = {
+        enable = true;
+        allowedTCPPorts = [ 8096 ];
+        allowedUDPPorts = [ 1900 7359 ];
+      };
+
+      # Manually configure nameserver. Using resolved inside the container seems to fail
+      # currently
+      environment.etc."resolv.conf".text = "nameserver 9.9.9.9";
+    };
+  };
+
+  networking.firewall = { allowedUDPPorts = [ 1900 7359 ]; };
 }
