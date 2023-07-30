@@ -133,7 +133,6 @@
             ./modules/host/headless.nix
             # ./modules/host/startpage.nix
             # ./modules/host/unbound.nix
-            # ./modules/host/gitea.nix
             # ./modules/host/audiobook.nix
             # ./modules/host/metube.nix
             # ./modules/host/pocket.nix
@@ -145,7 +144,7 @@
               subdomain = "adguard";
               id = 1;
               port = 3000;
-              ipAddress = "192.168.0.101";
+              ipAddress = "127.0.0.1";
             }
             {
               name = "nextcloud";
@@ -158,7 +157,20 @@
             }
             {
               name = "kavita";
+              subdomain = "books";
               id = 4;
+              port = 3000;
+            }
+            {
+              name = "kavita";
+              subdomain = "comics";
+              id = 5;
+              port = 3000;
+            }
+            {
+              name = "gitea";
+              id = 6;
+              port = 3000;
             }
           ];
         };
@@ -185,10 +197,18 @@
         testvm = nixosSystem {
           host = ./hosts/vm;
           users = [ mercury ];
-          services = [{
-            name = "nextcloud";
-            id = 1;
-          }];
+          services = [
+            {
+              name = "gitea";
+              id = 1;
+              port = 3000;
+            }
+            {
+              name = "kavita";
+              id = 4;
+              port = 3000;
+            }
+          ];
         };
       };
 

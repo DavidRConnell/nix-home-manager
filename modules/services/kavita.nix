@@ -6,21 +6,20 @@
     privateNetwork = true;
 
     bindMounts = {
-      # "/var/lib/${name}" = {
-      #   hostPath = "/data/${subdomain}";
-      #   isReadOnly = false;
-      # };
+      "/var/lib/${name}" = {
+        hostPath = "/data/${subdomain}";
+        isReadOnly = false;
+      };
       "/etc/nixos/key.txt" = { hostPath = "/etc/nixos/keys/kavita-token.txt"; };
     };
 
     config = { config, pkgs, ... }: {
       users = users;
 
-      services.kavita = {
+      services."${name}" = {
         enable = true;
         user = name;
         dataDir = "/var/lib/${name}";
-        # ipAdresses = [ localAddress ];
         port = port;
         tokenKeyFile = "/etc/nixos/key.txt";
       };

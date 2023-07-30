@@ -1,20 +1,45 @@
-{ pkgs, ... }:
+{ name, subdomain, tld, users, port, hostAddress, localAddress }: {
+  networking.nat.forwardPorts = [{
+    sourcePort = 2222;
+    proto = "tcp";
+    destination = "${localAddress}:22";
+  }];
 
-let
-  mkVHost = pkgs.lib.mkVHost;
-  subdomain = "gitea";
-  port = "8085";
-in {
-  services.nginx.virtualHosts = mkVHost { inherit subdomain port; };
-  virtualisation.oci-containers.containers."${subdomain}" = {
+  containers."${subdomain}" = {
+    inherit hostAddress localAddress;
     autoStart = true;
-    image = "gitea/gitea:latest";
-    ports = [ "${port}:3000" "2285:22" ];
-    volumes = [
-      "/data/gitea/data:/data"
-      "/etc/timezone:/etc/timezone:ro"
-      "/etc/localtime:/etc/localtime:ro"
-    ];
-    extraOptions = [ "--pull=always" ];
+    ephemeral = true;
+    privateNetwork = true;
+
+    bindMounts = {
+      "/var/lib/${name}" = {
+        hostPath = "/data/${subdomain}";
+        isReadOnly = false;
+      };
+    };
+
+    config = { config, pkgs, ... }: {
+      users = users;
+
+      services."${name}" = {
+        enable = true;
+        user = name;
+        group = name;
+        stateDir = "/var/lib/${name}";
+        settings.server = {
+          DOMAIN = "${subdomain}.${tld}";
+          HTTP_PORT = port;
+          HTTP_ADDR = localAddress;
+        };
+        database = { user = name; };
+      };
+
+      system.stateVersion = "22.05";
+
+      networking.firewall = {
+        enable = true;
+        allowedTCPPorts = [ 22 port ];
+      };
+    };
   };
 }
