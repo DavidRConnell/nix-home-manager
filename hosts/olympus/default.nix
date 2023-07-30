@@ -21,6 +21,7 @@
     hostName = "olympus";
     useDHCP = false;
     interfaces.enp2s0.useDHCP = true;
+    firewall.enable = true;
   };
 
   powerManagement.powertop.enable = true;
@@ -47,9 +48,6 @@
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC1wHI+bkrCHgmxnrL0G4JKfZwDBwf0WYP+0zbPSOhhaeyfJGK9NkLKwbOkGEEtyFPsAL7vRnO4IGWf87N9h/lyfahspJ2Mgl21ijsRSbnEfwaf7xiW0IwQ4ensAqsKd1wJF/oSM2cQKTtK5tGQ9wJ7Sv5D2Nt7ITsgk3CvvaM46OMHbnm2gFjy4147IH62NK/E9EQ9MoxqfVN7C6fPvN9Ks0510+YH/ykF78BrTyy/WOjyKl1Fnfx4zcAI08fEK3ePEE+aNQqymsojYNj5ZXBYOqIy0tUrAXM7vYNgAhnDBBw17ySXf2HBjXUP3MiFlu70re0w84uiFYrN2oOCiZOtEACRjHZXaubxBtaIqmL4NI8tEgHhR3cQe3E1xQVi7X//c+Lk4aNbUhCFjrBJsH74/MEhZQ9TlhVc5VrzTzltI3SbPBJcBviDOVKy938/0blV6wdO72/3mSPSEp9q+eE9db4S43lsdRQw4zplljODWTeXIwE3hGUDu97/lpXJTd0= voidee@thenihility"
     ];
   };
-
-  networking.firewall.allowedTCPPorts = [ 53 80 443 ];
-  networking.firewall.allowedUDPPorts = [ 53 443 ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

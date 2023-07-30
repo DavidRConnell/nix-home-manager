@@ -137,4 +137,9 @@
       environment.etc."resolv.conf".text = "nameserver 9.9.9.9";
     };
   };
+
+  networking.firewall = {
+    allowedTCPPorts = [ 53 ];
+    allowedUDPPorts = [ 53 ];
+  };
 }
