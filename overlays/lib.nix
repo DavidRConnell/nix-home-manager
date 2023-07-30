@@ -1,8 +1,8 @@
 final: prev: {
   lib = prev.lib // {
-    mkVHost = { subdomain, port, domain ? "home" }: {
+    mkVHost = { subdomain, port ? "80", domain ? "home", url ? "127.0.0.1" }: {
       "${subdomain}.${domain}".locations."/".proxyPass =
-        "http://127.0.0.1:${port}";
+        "http://${url}:${port}";
     };
     mkDockerBridge = { subdomain }: {
       "init-${subdomain}-network" = let docker = "${prev.docker}/bin/docker";

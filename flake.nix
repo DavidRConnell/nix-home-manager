@@ -52,7 +52,7 @@
           ];
       };
 
-      nixosSystem = { host, users, modules }:
+      nixosSystem = { host, users, modules ? [ ], services ? [ ] }:
         let userConfigs = map (user: user.homeConfig) users;
         in nixpkgs.lib.nixosSystem {
           inherit system;
@@ -61,7 +61,12 @@
             home-manager.nixosModules.home-manager
             host
             (import utils/addusers.nix users)
-          ] ++ userConfigs ++ modules;
+          ] ++ userConfigs ++ modules ++ (if (builtins.length services > 0) then
+            ([ ./utils/serversetup.nix ]
+              ++ map (service: (import ./utils/expandservice.nix service))
+              services)
+          else
+            [ ]);
         };
 
       user = { name, home, modules }:
@@ -79,6 +84,7 @@
             home-manager.users."${name}" = (import home name modules);
           };
         };
+
       voidee = user {
         name = "voidee";
         home = ./users/voidee;
@@ -91,6 +97,7 @@
           ./modules/user/flameshot.nix
         ];
       };
+
       mercury = user {
         name = "mercury";
         home = ./users/mercury;
@@ -124,17 +131,35 @@
           modules = [
             ./modules/host/nix.nix
             ./modules/host/headless.nix
-            ./modules/host/reverse-proxy.nix
-            ./modules/host/startpage.nix
-            ./modules/host/adguard.nix
-            ./modules/host/nextcloud.nix
-            ./modules/host/jellyfin.nix
-            ./modules/host/kavita.nix
+            # ./modules/host/startpage.nix
+            # ./modules/host/unbound.nix
             # ./modules/host/gitea.nix
             # ./modules/host/audiobook.nix
             # ./modules/host/metube.nix
             # ./modules/host/pocket.nix
             # ./modules/host/dozzle.nix
+          ];
+          services = [
+            {
+              name = "AdGuardHome";
+              subdomain = "adguard";
+              id = 1;
+              port = 3000;
+              ipAddress = "192.168.0.101";
+            }
+            {
+              name = "nextcloud";
+              id = 2;
+            }
+            {
+              name = "jellyfin";
+              id = 3;
+              port = 8096;
+            }
+            {
+              name = "kavita";
+              id = 4;
+            }
           ];
         };
 
@@ -160,8 +185,10 @@
         testvm = nixosSystem {
           host = ./hosts/vm;
           users = [ mercury ];
-          modules =
-            [ ./modules/host/reverse-proxy.nix ./modules/host/nextcloud.nix ];
+          services = [{
+            name = "nextcloud";
+            id = 1;
+          }];
         };
       };
 

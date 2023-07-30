@@ -1,9 +1,8 @@
-{ pkgs, ... }:
-
+{ ... }:
 let
-  subdomain = "jellyfin";
-  ipAddress = "10.0.2.21";
-  uid = 10002;
+  subdomain = "unbound";
+  ipAddress = "10.0.2.19";
+  uid = 10004;
 in {
   users.users."${subdomain}" = {
     home = "/data/${subdomain}";
@@ -14,23 +13,16 @@ in {
   };
   users.groups."${subdomain}" = { gid = uid; };
 
-  services.nginx.virtualHosts."${subdomain}.home".locations."/".proxyPass =
-    "http://${ipAddress}:8096";
-
   containers."${subdomain}" = {
     autoStart = true;
     ephemeral = true;
     privateNetwork = true;
-    hostAddress = "10.0.2.20";
+    hostAddress = "10.0.2.18";
     localAddress = ipAddress;
 
     bindMounts = {
       "/var/lib/${subdomain}" = {
-        hostPath = "/data/${subdomain}/lib";
-        isReadOnly = false;
-      };
-      "/var/cache/${subdomain}" = {
-        hostPath = "/data/${subdomain}/cache";
+        hostPath = "/data/${subdomain}";
         isReadOnly = false;
       };
     };
@@ -45,17 +37,20 @@ in {
       };
       users.groups."${subdomain}" = { gid = uid; };
 
-      services.jellyfin = {
+      services.nextcloud = {
         enable = true;
-        user = subdomain;
+        package = pkgs.nextcloud27;
+        hostName = "${subdomain}.home";
+        home = "/var/lib/${subdomain}";
+        config.adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
+        enableBrokenCiphersForSSE = false;
       };
 
       system.stateVersion = "22.05";
 
       networking.firewall = {
         enable = true;
-        allowedTCPPorts = [ 8096 ];
-        allowedUDPPorts = [ 1900 7359 ];
+        allowedTCPPorts = [ 80 ];
       };
 
       # Manually configure nameserver. Using resolved inside the container seems to fail
@@ -63,6 +58,4 @@ in {
       environment.etc."resolv.conf".text = "nameserver 9.9.9.9";
     };
   };
-
-  networking.firewall = { allowedUDPPorts = [ 1900 7359 ]; };
 }

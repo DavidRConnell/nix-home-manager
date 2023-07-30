@@ -1,48 +1,24 @@
-{ ... }:
-
-let
-  subdomain = "adguardhome";
-  uid = 10001;
-in {
-  users.users."${subdomain}" = {
-    home = "/data/${subdomain}";
-    createHome = true;
-    isSystemUser = true;
-    uid = uid;
-    group = subdomain;
-  };
-  users.groups."${subdomain}" = { gid = uid; };
-
-  services.nginx.virtualHosts."adguard.home".locations."/".proxyPass =
-    "http://192.168.0.101:3000";
-
+{ name, subdomain ? name, users, port, ipAddress }: {
   containers."${subdomain}" = {
     autoStart = true;
     ephemeral = true;
 
     bindMounts = {
-      "/var/lib/private/AdGuardHome" = {
+      "/var/lib/private/${name}" = {
         hostPath = "/data/${subdomain}";
         isReadOnly = false;
       };
     };
 
     config = { config, pkgs, ... }: {
-      users.users."${subdomain}" = {
-        home = "/var/lib/private/AdGuardHome";
-        createHome = true;
-        isSystemUser = true;
-        uid = uid;
-        group = subdomain;
-      };
-      users.groups."${subdomain}" = { gid = uid; };
+      users = users;
 
       services.adguardhome = {
         enable = true;
         mutableSettings = false;
         settings = {
-          bind_host = "192.168.0.101";
-          bind_port = 3000;
+          bind_host = ipAddress;
+          bind_port = port;
           users = [{
             name = "voidee";
             password =
@@ -152,7 +128,7 @@ in {
 
       networking.firewall = {
         enable = true;
-        allowedTCPPorts = [ 53 80 3000 ];
+        allowedTCPPorts = [ 53 80 port ];
         allowedUDPPorts = [ 53 ];
       };
 

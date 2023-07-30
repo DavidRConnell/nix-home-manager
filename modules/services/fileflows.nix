@@ -16,9 +16,9 @@ in {
       "/data/fileflows/data:/app/Data"
       "/data/fileflows/logging:/app/Logs"
       "/tmp/fileflows:/temp"
-      "/data/fileflows/media:/media"
-      "/data/metube/downloads/audio:/media/audiobooks"
-      "/data/metube/downloads/media:/media/videos"
+      "/data/metube/downloads:/media"
+      # "/data/metube/downloads/audio:/media/audiobooks"
+      # "/data/metube/downloads/media:/media/videos"
     ];
     extraOptions = [ "--pull=always" ];
   };
