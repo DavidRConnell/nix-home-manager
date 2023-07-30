@@ -119,7 +119,7 @@ in emacsWithPackages (epkgs:
     undo-fu
     undo-fu-session
     git-timemachine
-    temple
+    tempel
     (tree-sitter-langs.withPlugins (p:
       tree-sitter-langs.plugins ++ (with p; [
         tree-sitter-bibtex

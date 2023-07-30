@@ -5,7 +5,7 @@
     ltex-ls
     nixfmt
     nil
-    nix-linter
+    # nix-linter
     enchant
     pkgconf
     statix
