@@ -143,12 +143,12 @@
               name = "AdGuardHome";
               subdomain = "adguard";
               id = 1;
-              port = 3000;
               ipAddress = "127.0.0.1";
             }
             {
               name = "nextcloud";
               id = 2;
+              port = 80;
             }
             {
               name = "jellyfin";
@@ -159,18 +159,15 @@
               name = "kavita";
               subdomain = "books";
               id = 4;
-              port = 3000;
             }
             {
               name = "kavita";
               subdomain = "comics";
               id = 5;
-              port = 3000;
             }
             {
               name = "gitea";
               id = 6;
-              port = 3000;
             }
           ];
         };

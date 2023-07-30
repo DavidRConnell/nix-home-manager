@@ -37,7 +37,7 @@ let
     localAddress = "10.0.4.${(builtins.toString set.id)}";
     ipAddress = localAddress;
     tld = "home";
-    port = 80;
+    port = 3000;
     subdomain = set.name;
     users = {
       users."${set.name}" = {
