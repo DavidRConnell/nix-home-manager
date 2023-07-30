@@ -131,12 +131,11 @@
           modules = [
             ./modules/host/nix.nix
             ./modules/host/headless.nix
-            # ./modules/host/startpage.nix
-            # ./modules/host/unbound.nix
-            # ./modules/host/audiobook.nix
-            # ./modules/host/metube.nix
-            # ./modules/host/pocket.nix
-            # ./modules/host/dozzle.nix
+            ./modules/host/startpage.nix
+            ./modules/host/audiobook.nix
+            ./modules/host/metube.nix
+            ./modules/host/pocket.nix
+            ./modules/host/dozzle.nix
           ];
           services = [
             {
