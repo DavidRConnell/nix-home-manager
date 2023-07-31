@@ -36,6 +36,15 @@
 
       system.stateVersion = "22.05";
 
+      services.openssh = {
+        enable = true;
+        settings = {
+          PasswordAuthentication = false;
+          KbdInteractiveAuthentication = false;
+          PermitRootLogin = "no";
+        };
+      };
+
       networking.firewall = {
         enable = true;
         allowedTCPPorts = [ 22 port ];
