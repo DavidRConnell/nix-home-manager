@@ -1,1 +1,1 @@
-[ "wheel" ]
+[ "wheel" "comics" "books" "jellyfin" ]
