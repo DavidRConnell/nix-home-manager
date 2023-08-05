@@ -169,6 +169,10 @@
               name = "gitea";
               id = 6;
             }
+            {
+              name = "searx";
+              id = 7;
+            }
           ];
         };
 
