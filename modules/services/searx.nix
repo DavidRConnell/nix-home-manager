@@ -28,8 +28,12 @@
             secret_key = "@SEARX_SECRET_KEY@";
           };
           redis.url = "unix:///run/redis-${name}/redis.sock?db=0";
-          ui.query_in_title = true;
-          enabled_plugins = [ "Open Access DOI rewrite" "Vim-like hotkeys" ];
+          enabled_plugins = [
+            "Open Access DOI rewrite"
+            "Vim-like hotkeys"
+            "Search on category select"
+            "Tracker URL remover"
+          ];
           engines = [
             {
               name = "bitbucket";
@@ -57,11 +61,11 @@
               categories = [ "science" "article" ];
             }
             {
-              name = "marginalla";
+              name = "marginalia";
               disabled = false;
             }
             {
-              name = "wilby";
+              name = "wiby";
               disabled = false;
             }
             {
