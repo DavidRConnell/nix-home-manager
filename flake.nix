@@ -144,6 +144,7 @@
               subdomain = "adguard";
               id = 1;
               ipAddress = "127.0.0.1";
+              unboundPort = 5353;
             }
             {
               name = "nextcloud";
@@ -172,6 +173,12 @@
             {
               name = "searx";
               id = 7;
+            }
+            {
+              name = "unbound";
+              id = 8;
+              ipAddress = "127.0.0.1";
+              port = 5353;
             }
           ];
         };

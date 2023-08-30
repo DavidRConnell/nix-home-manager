@@ -1,7 +1,8 @@
-{ name, subdomain ? name, users, port, ipAddress }: {
+{ name, subdomain ? name, users, port, ipAddress, unboundPort }: {
   containers."${subdomain}" = {
     autoStart = true;
     ephemeral = true;
+    privateNetwork = false;
 
     bindMounts = {
       "/var/lib/private/${name}" = {
@@ -11,7 +12,7 @@
     };
 
     config = { config, pkgs, ... }: {
-      users = users;
+      inherit users;
 
       services.adguardhome = {
         enable = true;
@@ -27,17 +28,8 @@
           dns = {
             bind_hosts = [ "0.0.0.0" ];
             port = 53;
-            bootstrap_dns =
-              [ "9.9.9.10" "149.112.112.10" "2620:fe::10" "2620:fe::fe:10" ];
-            upstream_dns = [
-              "https://dns10.quad9.net/dns-query"
-              "tls://1.1.1.1:853"
-              "tls://1.0.0.1:853"
-              "https://dns.switch.ch/dns-query"
-              "https://unfiltered.adguard-dns.com/dns-query"
-              "tls://dns.switch.ch"
-              "tls://dns10.quad9.net"
-            ];
+            bootstrap_dns = [ "127.0.0.1:${(builtins.toString unboundPort)}" ];
+            upstream_dns = [ "127.0.0.1:${(builtins.toString unboundPort)}" ];
             rewrites = [
               {
                 domain = "routerlogin.net";
