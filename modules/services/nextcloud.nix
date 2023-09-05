@@ -13,7 +13,7 @@
     };
 
     config = { config, pkgs, ... }: {
-      users = users;
+      inherit users;
 
       services.nextcloud = {
         enable = true;

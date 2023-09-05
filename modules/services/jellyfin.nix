@@ -17,7 +17,7 @@
     };
 
     config = { config, pkgs, ... }: {
-      users = users;
+      inherit users;
 
       services.jellyfin = {
         enable = true;
