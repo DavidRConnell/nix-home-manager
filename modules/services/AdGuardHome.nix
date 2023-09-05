@@ -25,6 +25,10 @@
             password =
               "$2a$10$Hoxzo9u2FMDGtHXMzDwLSO16FS1HZZ4GkldmH1F71ZSiihsk6E.HG";
           }];
+          statistics = {
+            enabled = true;
+            interval = "168h";
+          };
           dns = {
             bind_hosts = [ "0.0.0.0" ];
             port = 53;
