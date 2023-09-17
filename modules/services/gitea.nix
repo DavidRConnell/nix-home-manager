@@ -16,7 +16,7 @@
     config = { config, pkgs, ... }: {
       inherit users environment;
 
-      services."${name}" = {
+      services.gitea = {
         enable = true;
         user = name;
         group = name;

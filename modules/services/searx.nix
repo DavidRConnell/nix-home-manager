@@ -15,7 +15,7 @@
     config = { config, pkgs, ... }: {
       inherit users environment;
 
-      services."${name}" = {
+      services.searx = {
         enable = true;
         package = pkgs.searxng;
         environmentFile = "/var/lib/${name}/env.txt";

@@ -16,7 +16,7 @@
     config = { config, pkgs, ... }: {
       inherit users environment;
 
-      services."${name}" = {
+      services.kavita = {
         enable = true;
         user = name;
         dataDir = "/var/lib/${name}";
