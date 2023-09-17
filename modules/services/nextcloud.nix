@@ -1,4 +1,5 @@
-{ name, subdomain ? name, tld, users, hostAddress, localAddress }: {
+{ name, subdomain ? name, tld, users, environment, hostAddress, localAddress
+}: {
   containers."${subdomain}" = {
     inherit hostAddress localAddress;
     autoStart = true;
@@ -13,7 +14,7 @@
     };
 
     config = { config, pkgs, ... }: {
-      inherit users;
+      inherit users environment;
 
       services.nextcloud = {
         enable = true;

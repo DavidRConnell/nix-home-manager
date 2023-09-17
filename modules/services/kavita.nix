@@ -1,4 +1,4 @@
-{ name, subdomain, users, port, hostAddress, localAddress }: {
+{ name, subdomain, users, environment, port, hostAddress, localAddress }: {
   containers."${subdomain}" = {
     inherit hostAddress localAddress;
     autoStart = true;
@@ -14,7 +14,7 @@
     };
 
     config = { config, pkgs, ... }: {
-      inherit users;
+      inherit users environment;
 
       services."${name}" = {
         enable = true;

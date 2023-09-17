@@ -1,9 +1,9 @@
-{ name, subdomain, tld, users, port, hostAddress, localAddress }: {
   networking.nat.forwardPorts = [{
     sourcePort = 2222;
     proto = "tcp";
     destination = "${localAddress}:22";
   }];
+{ name, subdomain, tld, users, environment, port, hostAddress, localAddress }: {
 
   containers."${subdomain}" = {
     inherit hostAddress localAddress;
@@ -19,7 +19,7 @@
     };
 
     config = { config, pkgs, ... }: {
-      inherit users;
+      inherit users environment;
 
       services."${name}" = {
         enable = true;

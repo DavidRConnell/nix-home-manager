@@ -48,6 +48,7 @@ let
       };
       groups."${set.name}" = { gid = uid; };
     };
+    environment.etc."resolv.conf".text = "nameserver 192.168.0.101";
   } // set;
   callPackage = f: values:
     f (builtins.intersectAttrs (builtins.functionArgs f) values);
@@ -64,12 +65,6 @@ let
         group = subdomain;
       };
       groups."${subdomain}" = { gid = uid; };
-    };
-
-    containers."${subdomain}" = {
-      # Manually configure nameserver. Using resolved inside the container seems to fail
-      # currently
-      environment.etc."resolv.conf".text = "nameserver 9.9.9.9";
     };
   };
 
