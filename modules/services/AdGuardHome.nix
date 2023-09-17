@@ -1,24 +1,46 @@
-{ name, subdomain ? name, users, port, ipAddress, unboundPort }: {
+{ name, subdomain ? name, users, uid, port, hostAddress, localAddress }:
+let unboundPort = 5353;
+in {
   containers."${subdomain}" = {
+    inherit hostAddress localAddress;
     autoStart = true;
     ephemeral = true;
-    privateNetwork = false;
+    privateNetwork = true;
 
     bindMounts = {
       "/var/lib/private/${name}" = {
         hostPath = "/data/${subdomain}";
         isReadOnly = false;
       };
+      "/var/lib/unbound" = {
+        hostPath = "/data/unbound";
+        isReadOnly = false;
+      };
     };
+
+    forwardPorts = [
+      {
+        containerPort = 53;
+        hostPort = 53;
+        protocol = "tcp";
+      }
+      {
+        containerPort = 53;
+        hostPort = 53;
+        protocol = "udp";
+      }
+    ];
 
     config = { config, pkgs, ... }: {
       inherit users;
+
+      environment = { systemPackages = with pkgs; [ dig ]; };
 
       services.adguardhome = {
         enable = true;
         mutableSettings = false;
         settings = {
-          bind_host = ipAddress;
+          bind_host = localAddress;
           bind_port = port;
           users = [{
             name = "voidee";
@@ -120,6 +142,41 @@
         };
       };
 
+      services.unbound = {
+        enable = true;
+        # Adguard user owns unbound but adguard is owned by random system user ^\_O_/^
+        user = name;
+        group = name;
+        stateDir = "/var/lib/unbound";
+        # Largely taken from https://docs.pi-hole.net/guides/dns/unbound/
+        settings.server = {
+          port = unboundPort;
+          interface = [ "127.0.0.1" ];
+          do-ip4 = true;
+          do-ip6 = false;
+          prefer-ip6 = false;
+          do-udp = true;
+          do-tcp = true;
+          harden-glue = true;
+          harden-dnssec-stripped = true;
+          use-caps-for-id = false;
+          edns-buffer-size = 1232;
+          prefetch = true;
+          num-threads = 1;
+          logfile = "/var/lib/unbound/unbound.log";
+          log-time-ascii = true;
+          verbosity = 0;
+          private-address = [
+            "192.168.0.0/16"
+            "169.254.0.0/16"
+            "172.16.0.0/12"
+            "10.0.0.0/8"
+            "fd00::/8"
+            "fe80::/10"
+          ];
+        };
+      };
+
       system.stateVersion = "22.05";
 
       networking.firewall = {
@@ -127,10 +184,6 @@
         allowedTCPPorts = [ 53 80 port ];
         allowedUDPPorts = [ 53 ];
       };
-
-      # Manually configure nameserver. Using resolved inside the container seems to fail
-      # currently
-      environment.etc."resolv.conf".text = "nameserver 9.9.9.9";
     };
   };
 
