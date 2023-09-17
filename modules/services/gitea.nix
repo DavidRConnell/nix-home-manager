@@ -1,14 +1,9 @@
-  networking.nat.forwardPorts = [{
-    sourcePort = 2222;
-    proto = "tcp";
-    destination = "${localAddress}:22";
-  }];
 { name, subdomain, tld, users, environment, port, hostAddress, localAddress }: {
 
   containers."${subdomain}" = {
     inherit hostAddress localAddress;
     autoStart = true;
-    ephemeral = true;
+    ephemeral = false; # Attempt to stop host fingerprint from changing for ssh.
     privateNetwork = true;
 
     bindMounts = {
@@ -50,5 +45,11 @@
         allowedTCPPorts = [ 22 port ];
       };
     };
+
+    forwardPorts = [{
+      containerPort = 22;
+      hostPort = 2222;
+      protocol = "tcp";
+    }];
   };
 }
