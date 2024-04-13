@@ -67,6 +67,7 @@
     liberation_ttf
   ];
 
+  programs.ssh.askPassword = "";
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
