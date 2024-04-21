@@ -136,6 +136,7 @@
             ./modules/host/metube.nix
             ./modules/host/pocket.nix
             ./modules/host/dozzle.nix
+            ./modules/host/lubelog.nix
             ./modules/host/tubearchivist.nix
           ];
           services = [
