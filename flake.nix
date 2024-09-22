@@ -6,14 +6,16 @@
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
-      ref = "nixos-23.05";
+      ref = "nixos-24.05";
     };
+
+    nixpkgs-unstable = { url = "/home/voidee/clones/nixpkgs"; };
 
     home-manager = {
       type = "github";
       owner = "nix-community";
       repo = "home-manager";
-      ref = "release-23.05";
+      ref = "release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -34,7 +36,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
