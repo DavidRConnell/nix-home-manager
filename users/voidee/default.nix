@@ -7,7 +7,7 @@ username: imports:
     inherit username;
     homeDirectory = "/home/${username}";
     stateVersion = "20.09";
-    sessionPath = [ "$HOME/bin" ];
+    sessionPath = [ "$HOME/bin" "$HOME/.local/bin" ];
     sessionVariables = {
       RESTIC_PASSWORD_COMMAND = "${pkgs.pass}/bin/pass show restic/thenihility";
       XDG_DATA_HOME = homeDirectory + "/.local/share";
@@ -17,15 +17,14 @@ username: imports:
 
     packages = (with pkgs; [
       alacritty
-      anydesk
       (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
       binutils
       cachix
+      caffeine-ng
       fd
       feh
       firefox
       git
-      google-cloud-sdk
       killall
       krita
       libsForQt5.xdg-desktop-portal-kde
@@ -33,8 +32,8 @@ username: imports:
       man-pages-posix
       mpv
       nextcloud-client
-      nushell
       pandoc
+      pinentry-curses
       pulseaudio-ctl
       qutebrowser
       rclone
@@ -42,6 +41,7 @@ username: imports:
       restic
       ripgrep
       rsync
+      rustdesk-flutter
       sbcl
       scrot
       sdcv
@@ -49,6 +49,7 @@ username: imports:
       stow
       stumpish
       tmux
+      tomb
       unzip
       vagrant
       visidata
@@ -87,6 +88,18 @@ username: imports:
   };
 
   programs.gpg.enable = true;
+  services.gpg-agent = {
+    enable = true;
+    defaultCacheTtl = 3600 * 24;
+    pinentryPackage = pkgs.pinentry-curses;
+  };
+
+  systemd.user.sessionVariables = {
+    # TEMP HACK while enchant can't find dictionaries.
+    ASPELL_CONF = "dict-dir ${
+        pkgs.aspellWithDicts (dicts: with dicts; [ en en-computers en-science ])
+      }/lib/aspell";
+  };
 
   xdg = {
     enable = true;

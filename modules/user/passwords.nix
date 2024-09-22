@@ -1,6 +1,6 @@
 { pkgs, ... }: {
 
-  home.packages = [ pkgs.gitAndTools.pass-git-helper ];
+  home.packages = [ pkgs.gitAndTools.pass-git-helper pkgs.zbar ];
   programs.password-store = {
     enable = true;
     package = pkgs.pass.withExtensions

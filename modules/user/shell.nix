@@ -1,6 +1,6 @@
 { config, pkgs, ... }: {
 
-  home.packages = (with pkgs; [ neovim tree exa bat tealdeer difftastic ]);
+  home.packages = (with pkgs; [ neovim tree eza bat tealdeer difftastic ]);
 
   programs.zsh = {
     enable = true;
@@ -28,9 +28,9 @@
       du = "du -h";
       free = "free -h";
 
-      ls = "exa --group-directories-first";
-      l = "exa -la --git --group-directories-first";
-      lt = "exa --tree --level=2 --group-directories-first";
+      ls = "eza --group-directories-first";
+      l = "eza -la --git --group-directories-first";
+      lt = "eza --tree --level=2 --group-directories-first";
 
       chgrp = "chgrp --preserve-root";
       chown = "chown --preserve-root";
@@ -52,7 +52,7 @@
       source $ZDOTDIR/realrc.zsh
     '';
 
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     enableCompletion = false;
     plugins = with pkgs; [
       {
@@ -78,12 +78,12 @@
       {
         name = "zsh-autopair";
         file = "autopair.zsh";
-        src = fetchFromGitHub {
-          owner = "hlissner";
-          repo = "zsh-autopair";
-          rev = "v1.0";
-          sha256 = "1h0vm2dgrmb8i2pvsgis3lshc5b0ad846836m62y8h3rdb3zmpy1";
-        };
+        src = "${pkgs.zsh-autopair}/share/zsh/zsh-autopair";
+      }
+      {
+        name = "zsh-system-clipboard";
+        file = "zsh-system-clipboard.plugin.zsh";
+        src = "${pkgs.zsh-clipboard}/share/zsh/zsh-clipboard";
       }
     ];
   };

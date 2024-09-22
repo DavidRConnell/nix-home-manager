@@ -2,21 +2,23 @@
 
   home.packages = (with pkgs; [
     ccls # For c-mode lsp
-    ltex-ls
-    nixfmt
+    nixfmt-classic
     nil
-    # nix-linter
-    enchant
     pkgconf
     statix
     nixpkgs-hammering
-    rnix-lsp
-
+    readability-cli
+    emacs-lsp-booster
+    proselint
     (python3.withPackages (p: [ p.python-lsp-server ]))
     nodePackages.bash-language-server
+    shellcheck
     shfmt
+    prettierd
+    yaml-language-server
+    cmake-language-server
+    cmake-format
     sqlite # For org-roam
-    jdt-language-server
 
     (makeDesktopItem {
       name = "org-protocol";

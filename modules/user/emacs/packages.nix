@@ -1,16 +1,15 @@
 { pkgs, ... }:
 
 let
-  myEmacs = pkgs.emacs-unstable;
+  myEmacs = pkgs.emacs;
   emacsWithPackages = (pkgs.emacsPackagesFor myEmacs).emacsWithPackages;
 in emacsWithPackages (epkgs:
   (with epkgs.melpaPackages; [
     ace-window
-    avy
     bats-mode
     blacken
     cape
-    ccls
+    # ccls
     cython-mode
     deft
     direnv
@@ -20,13 +19,11 @@ in emacsWithPackages (epkgs:
     elfeed-org
     elisp-def
     elisp-demos
-    elpher
     elpy
     emr
     ess
     ess-R-data-view
     eyebrowse
-    flycheck
     flyspell-correct
     forge
     format-all
@@ -44,16 +41,17 @@ in emacsWithPackages (epkgs:
     link-hint
     lispy
     lispyville
+    magit
+    magit-todos
     marginalia
     markdown-mode
     nix-mode
     no-littering
-    nov
     orderless
     pdf-tools
-    popper
+    poetry
+    matlab-mode
     prescient
-    projectile
     py-isort
     python-pytest
     rainbow-delimiters
@@ -61,14 +59,13 @@ in emacsWithPackages (epkgs:
     sly
     smartparens
     transient
-    use-package
     vlf
     which-key
     wiki-summary
     wordnut
     yasnippet
     yatemplate
-  ]) ++ (with epkgs.elpaPackages; [ modus-themes vertico vundo ])
+  ]) ++ (with epkgs.elpaPackages; [ modus-themes vertico vundo popper jinx ])
 
   ++ (with epkgs; [
     citar
@@ -80,6 +77,13 @@ in emacsWithPackages (epkgs:
     corfu
     cypher-mode
     dired-narrow
+    dirvish
+    elpher
+    flycheck
+    nov
+    projectile
+    edit-indirect
+    avy
     embark
     embark-consult
     ement
@@ -95,14 +99,18 @@ in emacsWithPackages (epkgs:
     evil-org
     evil-smartparens
     evil-surround
-    jinx
-    magit
-    magit-annex
+    evil-textobj-tree-sitter
+    flymake-proselint
+    git-timemachine
+    mermaid-mode
     ob-async
+    ob-mermaid
     org
     org-appear
     org-cliplink
     org-contrib
+    org-modern
+    sdcv
     orgit
     orgit-forge
     org-ref
@@ -114,20 +122,19 @@ in emacsWithPackages (epkgs:
     ox-hugo
     ox-pandoc
     ox-reveal
+    poly-markdown
     saveplace-pdf-view
-    visual-fill-column
+    tempel
+    toml-mode
+    tree-sitter-indent
+    treesit-auto
     undo-fu
     undo-fu-session
-    git-timemachine
-    tempel
-    (tree-sitter-langs.withPlugins (p:
-      tree-sitter-langs.plugins ++ (with p; [
-        tree-sitter-bibtex
-        tree-sitter-elisp
-        tree-sitter-make
-        tree-sitter-markdown
-        tree-sitter-toml
-        tree-sitter-r
-      ])))
-    evil-textobj-tree-sitter
+    use-package
+    visual-fill-column
+    yaml-mode
+    wgrep
+
+    tree-sitter-ess-r
+    treesit-grammars.with-all-grammars
   ]))
