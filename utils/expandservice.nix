@@ -29,12 +29,16 @@
 # instead of setting up port 53 forwarding).
 
 set:
-{ ... }:
+{ config, ... }:
 let
   values = rec {
     uid = set.id + 10000;
     hostAddress = "10.0.3.${(builtins.toString set.id)}";
     localAddress = "10.0.4.${(builtins.toString set.id)}";
+    nameserver = if builtins.hasAttr "nameserver" set then
+      set.nameserver
+    else
+      "192.168.0.101";
     ipAddress = localAddress;
     tld = "home";
     port = 3000;
@@ -55,7 +59,7 @@ let
       };
       groups."${set.name}" = { gid = uid; };
     };
-    environment.etc."resolv.conf".text = "nameserver 192.168.0.101";
+    environment.etc."resolv.conf".text = "nameserver ${nameserver}";
   } // set;
   callPackage = f: values:
     f (builtins.intersectAttrs (builtins.functionArgs f) values);
