@@ -18,11 +18,15 @@
 
       services.nextcloud = {
         enable = true;
-        package = pkgs.nextcloud27;
+        package = pkgs.nextcloud29;
         hostName = "${subdomain}.${tld}";
         home = "/var/lib/${subdomain}";
         config.adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
-        enableBrokenCiphersForSSE = false;
+        settings.default_phone_region = "US";
+        maxUploadSize = "5G";
+        configureRedis = true;
+        phpOptions."maintenance_window_start" = 8;
+        phpOptions."opcache.interned_strings_buffer" = 9;
       };
 
       system.stateVersion = "22.05";
