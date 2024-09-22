@@ -17,5 +17,6 @@ in {
     initialize = true;
     extraBackupArgs = [ "--no-scan" ]; # Can't see progress anyway
     timerConfig = { OnCalendar = "06:00"; };
+    exclude = [ "/data/jellyfin/lib/data" ];
   };
 }
