@@ -218,20 +218,10 @@
         };
 
         testvm = nixosSystem {
+          pkgs = nixpkgs;
           host = ./hosts/vm;
           users = [ mercury ];
-          services = [
-            {
-              name = "gitea";
-              id = 1;
-              port = 3000;
-            }
-            {
-              name = "kavita";
-              id = 4;
-              port = 3000;
-            }
-          ];
+          modules = [ pkg-module ];
         };
       };
 
