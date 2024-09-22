@@ -27,11 +27,10 @@
       inputs.nixpkgs-stable.follows = "nixpkgs";
     };
 
-    ltex-ls = {
-      type = "gitlab";
-      owner = "davidrconnell";
-      repo = "ltex-ls-flake";
-      ref = "master";
+    emacs-lsp-booster = {
+      type = "github";
+      owner = "slotThe";
+      repo = "emacs-lsp-booster-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -43,30 +42,41 @@
       pkg-module.nixpkgs = {
         overlays = [
           inputs.emacs-overlay.overlay
-          inputs.ltex-ls.overlay
-          (import ./overlays/lib.nix)
+          inputs.emacs-lsp-booster.overlays.default
+          (final: prev: {
+            anydesk = prev.anydesk.overrideAttrs (old: {
+              version = "6.3.3";
+              src = prev.fetchurl {
+                urls = [
+                  "https://download.anydesk.com/linux/${old.pname}-6.3.3-amd64.tar.gz"
+                  "https://download.anydesk.com/linux/generic-linux/${old.pname}-6.3.3-amd64.tar.gz"
+                ];
+                hash = "sha256-uSotkFOpuC2a2sRTagY9KFx3F2VJmgrsn+dBa5ycdck=";
+              };
+            });
+          })
         ];
         config.allowUnfreePredicate = pkg:
-          builtins.elem (pkgs.lib.getName pkg) [
-            "anydesk"
-            "zoom"
-            "facetimehd-firmware"
-          ];
+          builtins.elem (pkgs.lib.getName pkg) [ "anydesk" "zoom" "vagrant" ];
+      };
+      server-pkg-module.nixpkgs = {
+        overlays = [ (import ./overlays/lib.nix) ];
       };
 
-      nixosSystem = { host, users, modules ? [ ], services ? [ ] }:
+      nixosSystem = { host, users, pkgs, modules ? [ ], services ? [ ] }:
         let userConfigs = map (user: user.homeConfig) users;
-        in nixpkgs.lib.nixosSystem {
+        in pkgs.lib.nixosSystem {
           inherit system;
           modules = [
-            pkg-module
             home-manager.nixosModules.home-manager
             host
             (import utils/addusers.nix users)
           ] ++ userConfigs ++ modules ++ (if (builtins.length services > 0) then
-            ([ ./utils/serversetup.nix ]
-              ++ map (service: (import ./utils/expandservice.nix service))
-              services)
+            ([ ./utils/serversetup.nix ] ++ map (service:
+              if (builtins.hasAttr "disabled" service && service.disabled) then
+                { }
+              else
+                (import ./utils/expandservice.nix service)) services)
           else
             [ ]);
         };
@@ -108,9 +118,11 @@
     in {
       nixosConfigurations = {
         thevoidII = nixosSystem {
+          pkgs = nixpkgs;
           host = ./hosts/thevoidII;
           users = [ voidee ];
           modules = [
+            pkg-module
             ./modules/host/desktop.nix
             ./modules/host/nix.nix
             ./modules/host/firejail.nix
@@ -118,9 +130,11 @@
         };
 
         thenihility = nixosSystem {
+          pkgs = nixpkgs;
           host = ./hosts/thenihility;
           users = [ voidee ];
           modules = [
+            pkg-module
             ./modules/host/desktop.nix
             ./modules/host/nix.nix
             ./modules/host/firejail.nix
@@ -128,9 +142,11 @@
         };
 
         olympus = nixosSystem {
+          pkgs = nixpkgs;
           host = ./hosts/olympus;
           users = [ mercury ];
           modules = [
+            server-pkg-module
             ./modules/host/nix.nix
             ./modules/host/headless.nix
             ./modules/host/startpage.nix
@@ -141,6 +157,7 @@
             ./modules/host/lubelog.nix
             ./modules/host/tubearchivist.nix
           ];
+
           services = [
             {
               name = "AdGuardHome";
@@ -179,9 +196,11 @@
         };
 
         connellnet = nixosSystem {
+          pkgs = nixpkgs;
           host = ./hosts/connellnet;
           users = [ mercury ];
           modules = [
+            pkg-module
             ./modules/host/nix.nix
             ./modules/host/headless.nix
             ./modules/host/reverse-proxy.nix
