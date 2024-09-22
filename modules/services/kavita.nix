@@ -20,7 +20,7 @@
         enable = true;
         user = name;
         dataDir = "/var/lib/${name}";
-        port = port;
+        settings.Port = port;
         tokenKeyFile = "/etc/nixos/key.txt";
       };
 

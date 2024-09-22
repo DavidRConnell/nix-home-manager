@@ -1,5 +1,4 @@
-{ name, subdomain ? name, tld, users, environment, hostAddress, localAddress
-}: {
+{ name, subdomain, tld, users, environment, hostAddress, localAddress }: {
   containers."${subdomain}" = {
     inherit hostAddress localAddress;
     autoStart = true;
@@ -20,7 +19,7 @@
         enable = true;
         package = pkgs.nextcloud29;
         hostName = "${subdomain}.${tld}";
-        home = "/var/lib/${subdomain}";
+        home = "/var/lib/${name}";
         config.adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
         settings.default_phone_region = "US";
         maxUploadSize = "5G";

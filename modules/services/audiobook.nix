@@ -17,9 +17,10 @@
 
       services.audiobookshelf = {
         enable = true;
-        user = subdomain;
-        group = subdomain;
-        dataDir = "/var/lib/${name}";
+        host = localAddress;
+        user = name;
+        group = name;
+        dataDir = name;
         port = port;
       };
 

@@ -6,13 +6,17 @@
     privateNetwork = true;
 
     bindMounts = {
-      "/var/lib/${subdomain}" = {
+      "/var/lib/${name}" = {
         hostPath = "/data/${subdomain}/lib";
         isReadOnly = false;
       };
-      "/var/cache/${subdomain}" = {
+      "/var/cache/${name}" = {
         hostPath = "/data/${subdomain}/cache";
         isReadOnly = false;
+      };
+      "/var/lib/${name}/data/youtube" = {
+        hostPath = "/data/tubearchivist/media";
+        isReadOnly = true;
       };
     };
 

@@ -2,7 +2,7 @@
 
 let
   mkVHost = pkgs.lib.mkVHost;
-  subdomain = "audio";
+  subdomain = "audiobook";
   port = "8083";
   dataPath = "/data/audiobook";
 in {
