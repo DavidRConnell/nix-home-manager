@@ -20,7 +20,11 @@
         package = pkgs.searxng;
         environmentFile = "/var/lib/${name}/env.txt";
         settings = {
-          search = { autocomplete = "duckduckgo"; };
+          search = {
+            autocomplete = "duckduckgo";
+            default_lang = "en-US";
+            languages = [ "all" "en" "en-US" ];
+          };
           server = {
             inherit port;
             base_url = "http://${subdomain}.${tld}";
@@ -35,6 +39,86 @@
             "Tracker URL remover"
           ];
           engines = [
+            # general
+            {
+              name = "google";
+              disabled = true;
+            }
+            {
+              name = "duckduckgo";
+              disabled = true;
+            }
+            {
+              name = "ddg definitions";
+              disabled = true;
+            }
+            {
+              name = "marginalia";
+              disabled = true;
+            }
+            {
+              name = "yahoo";
+              disabled = false;
+            }
+            {
+              name = "wiby";
+              disabled = true;
+            }
+            {
+              name = "currency";
+              disabled = true;
+            }
+            {
+              name = "qwant";
+              disabled = true;
+            }
+            {
+              name = "alexendria";
+              disabled = false;
+            }
+            {
+              name = "startpage";
+              disabled = true;
+            }
+            {
+              name = "brave";
+              disabled = false;
+            }
+            # images
+            {
+              name = "google images";
+              disabled = true;
+            }
+            {
+              name = "bing images";
+              disabled = true;
+            }
+            {
+              name = "qwant images";
+              disabled = false;
+            }
+            {
+              name = "artic";
+              disabled = true;
+            }
+            {
+              name = "flickr";
+              disabled = true;
+            }
+            {
+              name = "library of congress";
+              disabled = true;
+            }
+            # videos
+            {
+              name = "google videos";
+              disabled = true;
+            }
+            {
+              name = "bing videos";
+              disabled = true;
+            }
+            # it
             {
               name = "bitbucket";
               disabled = false;
@@ -44,9 +128,18 @@
               disabled = false;
             }
             {
-              name = "google";
+              name = "codeberg";
+              disabled = false;
+            }
+            {
+              name = "sourcehut";
+              disabled = false;
+            }
+            {
+              name = "hoogle";
               disabled = true;
             }
+            # science
             {
               name = "google scholar";
               shortcut = "scholar";
@@ -59,18 +152,6 @@
             {
               name = "arxiv";
               categories = [ "science" "article" ];
-            }
-            {
-              name = "marginalia";
-              disabled = false;
-            }
-            {
-              name = "wiby";
-              disabled = false;
-            }
-            {
-              name = "currency";
-              disabled = true;
             }
           ];
         };
@@ -87,6 +168,7 @@
         enable = true;
         allowedTCPPorts = [ port ];
       };
+
     };
   };
 }
