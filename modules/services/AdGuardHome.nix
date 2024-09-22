@@ -38,10 +38,10 @@ in {
 
       services.adguardhome = {
         enable = true;
-        mutableSettings = false;
+        mutableSettings = true;
+        host = localAddress;
+        port = port;
         settings = {
-          bind_host = localAddress;
-          bind_port = port;
           users = [{
             name = "voidee";
             password =
@@ -70,17 +70,35 @@ in {
                 answer = "192.168.0.100";
               }
             ];
-            blocked_services = [
-              "tiktok"
-              "instagram"
-              "twitch"
-              "pinterest"
-              "facebook"
-              "vk"
-              "zhihu"
-              "ok"
-              "twitter"
-            ];
+            blocked_services = {
+              ids = [
+                "tiktok"
+                "instagram"
+                "twitch"
+                "pinterest"
+                "facebook"
+                "vk"
+                "zhihu"
+                "ok"
+                "twitter"
+              ];
+              schedule = {
+                sun.start = "0m";
+                sun.end = "24h";
+                mon.start = "0m";
+                mon.end = "24h";
+                tue.start = "0m";
+                tue.end = "24h";
+                wed.start = "0m";
+                wed.end = "24h";
+                thu.start = "0m";
+                thu.end = "24h";
+                fri.start = "0m";
+                fri.end = "24h";
+                sat.start = "0m";
+                sat.end = "24h";
+              };
+            };
           };
           filters = [
             {
