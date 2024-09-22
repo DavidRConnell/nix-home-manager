@@ -46,7 +46,7 @@
     initialPassword = "password";
   };
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     hack-font
     roboto-mono
     roboto
