@@ -39,12 +39,12 @@
     };
   };
 
-  networking.networkmanager.enable = true;
   time.timeZone = "America/Chicago";
 
   networking = {
+    networkmanager.enable = true;
     useDHCP = false;
-    interfaces.enp0s31f6.useDHCP = true;
+    interfaces.eno1.useDHCP = true;
     hostName = "thenihility";
   };
 
@@ -65,7 +65,7 @@
     pulse.enable = true;
   };
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     hack-font
     roboto-mono
     roboto
