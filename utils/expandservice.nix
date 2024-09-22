@@ -39,6 +39,13 @@ let
     tld = "home";
     port = 3000;
     subdomain = set.name;
+    extraConfig = if builtins.hasAttr "allowedIps" set then
+      builtins.concatStringsSep "\n" (builtins.concatLists [
+        (map (ip: "allow ${ip};") set.allowedIps)
+        [ "deny all;" ]
+      ])
+    else
+      "";
     users = {
       users."${set.name}" = {
         isSystemUser = true;
@@ -53,9 +60,11 @@ let
   callPackage = f: values:
     f (builtins.intersectAttrs (builtins.functionArgs f) values);
 
-  setup = { ipAddress, uid, tld, subdomain, port }: {
-    services.nginx.virtualHosts."${subdomain}.${tld}".locations."/".proxyPass =
-      "http://${ipAddress}:${(builtins.toString port)}";
+  setup = { ipAddress, uid, tld, subdomain, port, extraConfig }: {
+    services.nginx.virtualHosts."${subdomain}.${tld}".locations."/" = {
+      inherit extraConfig;
+      proxyPass = "http://${ipAddress}:${(builtins.toString port)}";
+    };
 
     users = {
       users."${subdomain}" = {

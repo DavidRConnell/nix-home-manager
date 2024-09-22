@@ -183,6 +183,7 @@
               name = "kavita";
               subdomain = "comics";
               id = 5;
+              allowedIps = [ "192.168.0.100" "192.168.0.103" "192.168.0.104" ];
             }
             {
               name = "gitea";
