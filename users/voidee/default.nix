@@ -35,7 +35,7 @@ username: imports:
       nextcloud-client
       pandoc
       pinentry-curses
-      pulseaudio-ctl
+      poetry
       podman-compose
       qutebrowser
       rclone
@@ -53,6 +53,7 @@ username: imports:
       tmux
       tomb
       unzip
+      uv
       vagrant
       visidata
       w3m
