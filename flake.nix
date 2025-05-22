@@ -6,16 +6,21 @@
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
-      ref = "nixos-24.05";
+      ref = "nixos-24.11";
     };
 
-    nixpkgs-unstable = { url = "/home/voidee/clones/nixpkgs"; };
+    nixpkgs-unstable = {
+      type = "github";
+      owner = "NixOS";
+      repo = "nixpkgs";
+      ref = "nixos-unstable";
+    };
 
     home-manager = {
       type = "github";
       owner = "nix-community";
       repo = "home-manager";
-      ref = "release-24.05";
+      ref = "release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -26,36 +31,23 @@
       ref = "master";
       inputs.nixpkgs-stable.follows = "nixpkgs";
     };
-
-    emacs-lsp-booster = {
-      type = "github";
-      owner = "slotThe";
-      repo = "emacs-lsp-booster-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs { inherit system; };
+      unstable = import nixpkgs-unstable { inherit system; };
       pkg-module.nixpkgs = {
         overlays = [
           inputs.emacs-overlay.overlay
-          inputs.emacs-lsp-booster.overlays.default
           (final: prev: {
-            anydesk = prev.anydesk.overrideAttrs (old: {
-              version = "6.3.3";
-              src = prev.fetchurl {
-                urls = [
-                  "https://download.anydesk.com/linux/${old.pname}-6.3.3-amd64.tar.gz"
-                  "https://download.anydesk.com/linux/generic-linux/${old.pname}-6.3.3-amd64.tar.gz"
-                ];
-                hash = "sha256-uSotkFOpuC2a2sRTagY9KFx3F2VJmgrsn+dBa5ycdck=";
-              };
-            });
+            spotify-player = unstable.spotify-player;
+            uv = unstable.uv;
+            poetry = unstable.poetry;
           })
         ];
+
         config.allowUnfreePredicate = pkg:
           builtins.elem (pkgs.lib.getName pkg) [
             "anydesk"
