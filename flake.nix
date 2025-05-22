@@ -57,8 +57,38 @@
           })
         ];
         config.allowUnfreePredicate = pkg:
-          builtins.elem (pkgs.lib.getName pkg) [ "anydesk" "zoom" "vagrant" ];
+          builtins.elem (pkgs.lib.getName pkg) [
+            "anydesk"
+            "zoom"
+            "vagrant"
+            "aspell-dict-en-science"
+            "nvidia-x11"
+            "cuda-merged"
+            "cuda_cuobjdump"
+            "cuda_gdb"
+            "cuda_nvcc"
+            "cuda_nvdisasm"
+            "cuda_nvprune"
+            "cuda_cccl"
+            "cuda_cudart"
+            "cuda_cupti"
+            "cuda_cuxxfilt"
+            "cuda_nvml_dev"
+            "cuda_nvrtc"
+            "cuda_nvtx"
+            "cuda_profiler_api"
+            "cuda_sanitizer_api"
+            "libcublas"
+            "libcufft"
+            "libcurand"
+            "libcusolver"
+            "libnvjitlink"
+            "libcusparse"
+            "libnpp"
+            "nvidia-settings"
+          ];
       };
+
       server-pkg-module.nixpkgs = {
         overlays = [ (import ./overlays/lib.nix) ];
       };

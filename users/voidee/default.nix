@@ -31,6 +31,7 @@ username: imports:
       man-pages
       man-pages-posix
       mpv
+      nvtopPackages.nvidia
       nextcloud-client
       pandoc
       pinentry-curses

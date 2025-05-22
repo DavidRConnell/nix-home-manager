@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ./local_sites.nix ];
@@ -56,7 +56,32 @@
 
   services.fstrim.enable = true;
 
-  sound.enable = false;
+  # GPU
+  services.xserver = {
+    videoDrivers = [ "nvidia" ];
+    displayManager.setupCommands = ''
+      ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-1 --auto --output HDMI-1-0 --auto --right-of HDMI-1
+    '';
+  };
+
+  hardware = {
+    graphics.enable = true;
+    nvidia = {
+      modesetting.enable = true;
+      powerManagement.enable = false;
+      powerManagement.finegrained = true;
+      open = true;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      prime = {
+        offload.enable = true;
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
+      };
+    };
+    nvidia-container-toolkit.enable = true;
+  };
+
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
