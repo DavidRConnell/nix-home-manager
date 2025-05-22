@@ -36,7 +36,7 @@
             "Open Access DOI rewrite"
             "Vim-like hotkeys"
             "Search on category select"
-            "Tracker URL remover"
+            # "Tracker URL remover"
           ];
           engines = [
             # general
@@ -46,7 +46,7 @@
             }
             {
               name = "duckduckgo";
-              disabled = true;
+              disabled = false;
             }
             {
               name = "ddg definitions";
@@ -70,7 +70,7 @@
             }
             {
               name = "qwant";
-              disabled = true;
+              disabled = false;
             }
             {
               name = "alexendria";
@@ -87,11 +87,11 @@
             # images
             {
               name = "google images";
-              disabled = true;
+              disabled = false;
             }
             {
               name = "bing images";
-              disabled = true;
+              disabled = false;
             }
             {
               name = "qwant images";
@@ -116,7 +116,7 @@
             }
             {
               name = "bing videos";
-              disabled = true;
+              disabled = false;
             }
             # it
             {
