@@ -17,13 +17,13 @@ in {
         "/data/${subdomain}/cache:/cache"
       ];
       environment = {
-        TA_HOST = "${subdomain}.home";
+        TA_HOST = "http://${subdomain}.home";
         TA_USERNAME = "voidee";
         TA_PASSWORD = "password";
         HOST_UID = "1000";
         HOST_GID = "100";
         ELASTIC_PASSWORD = "password";
-        REDIS_HOST = "${subdomain}-redis";
+        REDIS_CON = "redis://${subdomain}-redis";
         ES_URL = "http://${subdomain}-es:9200";
         TZ = "UTC";
       };
@@ -32,7 +32,7 @@ in {
     };
     "${subdomain}-redis" = {
       autoStart = true;
-      image = "redis/redis-stack-server";
+      image = "redis/redis-stack-server:6.2.6-v9";
       volumes = [ "/data/${subdomain}/redis:/data" ];
       dependsOn = [ "${subdomain}-es" ];
       extraOptions =
