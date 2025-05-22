@@ -8,7 +8,17 @@ username: imports:
     inherit username;
     homeDirectory = "/home/${username}";
     sessionPath = [ "$HOME/bin" ];
-    packages = with pkgs; [ htop yt-dlp parted git wget zip unzip ];
+    packages = with pkgs; [
+      htop
+      yt-dlp
+      ffmpeg
+      parted
+      git
+      wget
+      zip
+      unzip
+      restic
+    ];
     stateVersion = "22.11";
     sessionVariables = {
       XDG_DATA_HOME = homeDirectory + "/.local/share";
