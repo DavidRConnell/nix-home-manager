@@ -32,7 +32,6 @@
 
   environment.systemPackages = with pkgs; [ vim git ];
 
-  sound.enable = false;
   hardware.pulseaudio.enable = false;
 
   # Enable the OpenSSH daemon.
@@ -62,27 +61,28 @@
 
   services.samba = {
     enable = true;
-    enableNmbd = false;
-    enableWinbindd = false;
+    nmbd.enable = false;
+    winbindd.enable = false;
     openFirewall = true;
-    securityType = "user";
-    extraConfig = ''
-      workgroup = WORKGROUP
-      server string = Samba server
-      server role = standalone server
-      netbios name = smbnix
-      security = user
-      hosts deny = 0.0.0.0/0
-      hosts allow = 192.168.0.100
-      map to guest = Bad User
-    '';
-    shares.public = {
-      path = "/data";
-      browsable = "yes";
-      "writable" = "yes";
-      "force user" = "share";
-      "guest ok" = "yes";
-      "public" = "yes";
+    settings = {
+      global = {
+        "workgroup" = "WORKGROUP";
+        "server string" = "Samba server";
+        "server role" = "standalone server";
+        "netbios name" = "smbnix";
+        security = "user";
+        "hosts deny" = "0.0.0.0/0";
+        "hosts allow" = "192.168.0.100";
+        "map to guest" = "Bad User";
+      };
+      public = {
+        path = "/data";
+        browsable = "yes";
+        "writable" = "yes";
+        "force user" = "share";
+        "guest ok" = "yes";
+        "public" = "yes";
+      };
     };
   };
 
