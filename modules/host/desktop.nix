@@ -1,14 +1,13 @@
 { ... }:
 
 {
-  imports = [ ./stumpwm.nix ];
+  # imports = [ ./stumpwm.nix ];
   services.xserver = {
     enable = true;
-    layout = "dvorak";
-    xkbOptions = "ctrl:nocaps";
+    xkb.variant = "dvorak";
+    xkb.options = "ctrl:nocaps";
     displayManager.lightdm.enable = true;
-    desktopManager.gnome.enable = true;
-    # windowManager.stumpwm.enable = true;
-    windowManager.stumpwm-custom.enable = true;
+    desktopManager.lxqt.enable = true;
+    windowManager.stumpwm.enable = true;
   };
 }
