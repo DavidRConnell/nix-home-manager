@@ -93,7 +93,7 @@ username: imports:
   services.gpg-agent = {
     enable = true;
     defaultCacheTtl = 3600 * 24;
-    pinentryPackage = pkgs.pinentry-curses;
+    pinentryPackage = pkgs.pinentry-gtk2;
   };
 
   systemd.user.sessionVariables = {
