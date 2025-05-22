@@ -7,9 +7,7 @@ in emacsWithPackages (epkgs:
   (with epkgs.melpaPackages; [
     ace-window
     bats-mode
-    blacken
     cape
-    # ccls
     cython-mode
     deft
     direnv
@@ -59,15 +57,14 @@ in emacsWithPackages (epkgs:
     sly
     smartparens
     transient
-    vlf
     which-key
     wiki-summary
     wordnut
     yasnippet
     yatemplate
   ]) ++ (with epkgs.elpaPackages; [ modus-themes vertico vundo popper jinx ])
-
   ++ (with epkgs; [
+    avy
     citar
     citar-embark
     citar-org-roam
@@ -78,12 +75,9 @@ in emacsWithPackages (epkgs:
     cypher-mode
     dired-narrow
     dirvish
-    elpher
-    flycheck
-    nov
-    projectile
     edit-indirect
-    avy
+    ellama
+    elpher
     embark
     embark-consult
     ement
@@ -100,19 +94,21 @@ in emacsWithPackages (epkgs:
     evil-smartparens
     evil-surround
     evil-textobj-tree-sitter
+    flycheck
     flymake-proselint
     git-timemachine
+    gptel
     mermaid-mode
+    nov
     ob-async
     ob-mermaid
     org
     org-appear
     org-cliplink
     org-contrib
-    org-modern
-    sdcv
     orgit
     orgit-forge
+    org-modern
     org-ref
     org-roam
     org-roam-bibtex
@@ -123,17 +119,19 @@ in emacsWithPackages (epkgs:
     ox-pandoc
     ox-reveal
     poly-markdown
+    projectile
     saveplace-pdf-view
+    sdcv
     tempel
     toml-mode
-    tree-sitter-indent
     treesit-auto
+    tree-sitter-indent
     undo-fu
     undo-fu-session
     use-package
     visual-fill-column
-    yaml-mode
     wgrep
+    yaml-mode
 
     tree-sitter-ess-r
     treesit-grammars.with-all-grammars
