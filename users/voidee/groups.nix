@@ -1,1 +1,1 @@
-[ "wheel" "networkmanager" "libvirtd" "audio" ]
+[ "wheel" "networkmanager" "libvirtd" "audio" "podman" ]

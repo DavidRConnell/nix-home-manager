@@ -36,6 +36,7 @@ username: imports:
       pandoc
       pinentry-curses
       pulseaudio-ctl
+      podman-compose
       qutebrowser
       rclone
       redshift
