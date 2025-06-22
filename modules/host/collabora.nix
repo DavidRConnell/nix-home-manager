@@ -6,7 +6,7 @@ let
   port = "9000";
   datadir = "/data/${subdomain}";
 in {
-  services.nginx.virtualHosts = mkVHost { inherit subdomain port; };
+  services.caddy.virtualHosts = mkVHost { inherit subdomain port; };
   virtualisation.oci-containers.containers."${subdomain}" = {
     autoStart = true;
     image = "collabora/code:latest";

@@ -82,6 +82,7 @@
     nvidia-container-toolkit.enable = true;
   };
 
+  security.pki.certificateFiles = [ ../../ca-certs/olympus.crt ];
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;

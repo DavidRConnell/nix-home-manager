@@ -5,7 +5,7 @@ let
   subdomain = "archivebox";
   port = "8094";
 in {
-  services.nginx.virtualHosts = mkVHost { inherit subdomain port; };
+  services.caddy.virtualHosts = mkVHost { inherit subdomain port; };
   virtualisation.oci-containers.containers."${subdomain}" = {
     autoStart = true;
     image = "archivebox/archivebox:master";

@@ -18,7 +18,7 @@ let
     ENABLE_SIGNUP = "no";
   };
 in {
-  services.nginx.virtualHosts = mkVHost { inherit subdomain port; };
+  services.caddy.virtualHosts = mkVHost { inherit subdomain port; };
   systemd.services = pkgs.lib.mkDockerBridge { inherit subdomain; };
   virtualisation.oci-containers.containers = {
     "${subdomain}" = {

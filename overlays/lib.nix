@@ -1,9 +1,14 @@
 final: prev: {
   lib = prev.lib // {
-    mkVHost = { subdomain, port ? "80", domain ? "home", url ? "127.0.0.1" }: {
-      "${subdomain}.${domain}".locations."/".proxyPass =
-        "http://${url}:${port}";
-    };
+    mkVHost = { subdomain, port ? "443", domain ? "home", url ? "127.0.0.1"
+      , tls ? false }: {
+        "${if tls then "" else "http://"}${subdomain}.${domain}".extraConfig =
+          ''
+            reverse_proxy ${url}:${port}
+            ${if tls then "tls internal" else ""}
+          '';
+      };
+
     mkDockerBridge = { subdomain }: {
       "init-${subdomain}-network" = let docker = "${prev.docker}/bin/docker";
       in {

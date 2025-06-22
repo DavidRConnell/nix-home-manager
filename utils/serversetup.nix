@@ -1,11 +1,7 @@
 { ... }:
 
 {
-  services.nginx = {
-    recommendedProxySettings = true;
-    enable = true;
-    clientMaxBodySize = "5G";
-  };
+  services.caddy = { enable = true; };
 
   networking = {
     nat = {

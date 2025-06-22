@@ -5,7 +5,7 @@ let
   subdomain = "start";
   port = "8081";
 in {
-  services.nginx.virtualHosts = mkVHost { inherit subdomain port; };
+  services.caddy.virtualHosts = mkVHost { inherit subdomain port; };
   virtualisation.oci-containers.containers."${subdomain}" = {
     autoStart = true;
     image = "pawelmalak/flame:latest";

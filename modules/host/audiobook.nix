@@ -6,7 +6,7 @@ let
   port = "8083";
   dataPath = "/data/audiobook";
 in {
-  services.nginx.virtualHosts = mkVHost { inherit subdomain port; };
+  services.caddy.virtualHosts = mkVHost { inherit subdomain port; };
   virtualisation.oci-containers.containers."${subdomain}" = {
     autoStart = true;
     image = "ghcr.io/advplyr/audiobookshelf";

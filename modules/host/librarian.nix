@@ -5,7 +5,7 @@ let
   subdomain = "librarian";
   port = "9015";
 in {
-  services.nginx.virtualHosts = mkVHost { inherit subdomain port; };
+  services.caddy.virtualHosts = mkVHost { inherit subdomain port; };
   virtualisation.oci-containers.containers."${subdomain}" = {
     autoStart = true;
     image = "cgrima/i-librarian:latest";

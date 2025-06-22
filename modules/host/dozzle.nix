@@ -5,7 +5,7 @@ let
   subdomain = "dozzle";
   port = "8090";
 in {
-  services.nginx.virtualHosts = mkVHost { inherit subdomain port; };
+  services.caddy.virtualHosts = mkVHost { inherit subdomain port; };
   virtualisation.oci-containers.containers."${subdomain}" = {
     autoStart = false;
     image = "amir20/dozzle";

@@ -5,7 +5,7 @@ let
   subdomain = "metube";
   port = "8086";
 in {
-  services.nginx.virtualHosts = mkVHost { inherit subdomain port; };
+  services.caddy.virtualHosts = mkVHost { inherit subdomain port; };
   virtualisation.oci-containers.containers."${subdomain}" = {
     autoStart = true;
     image = "docker.io/alexta69/metube:latest";

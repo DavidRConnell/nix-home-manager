@@ -5,7 +5,7 @@ let
   subdomain = "fileflows";
   port = "9014";
 in {
-  services.nginx.virtualHosts = mkVHost { inherit subdomain port; };
+  services.caddy.virtualHosts = mkVHost { inherit subdomain port; };
   virtualisation.oci-containers.containers."${subdomain}" = {
     autoStart = true;
     image = "ghcr.io/revenz/fileflows:latest";

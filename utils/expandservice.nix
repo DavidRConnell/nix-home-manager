@@ -42,14 +42,19 @@ let
     ipAddress = localAddress;
     tld = "home";
     port = 3000;
+    package = set.package;
     subdomain = set.name;
     extraConfig = if builtins.hasAttr "allowedIps" set then
-      builtins.concatStringsSep "\n" (builtins.concatLists [
-        (map (ip: "allow ${ip};") set.allowedIps)
-        [ "deny all;" ]
-      ])
+      let
+        ipWhiteList = builtins.concatStringsSep " "
+          (builtins.concatLists [ (map (ip: "${ip}") set.allowedIps) ]);
+      in ''
+        @blocked not remote_ip ${ipWhiteList}
+        respond @blocked "Forbidden" 403
+      ''
     else
       "";
+    tls = if builtins.hasAttr "tls" set then set.tls else false;
     users = {
       users."${set.name}" = {
         isSystemUser = true;
@@ -64,11 +69,14 @@ let
   callPackage = f: values:
     f (builtins.intersectAttrs (builtins.functionArgs f) values);
 
-  setup = { ipAddress, uid, tld, subdomain, port, extraConfig }: {
-    services.nginx.virtualHosts."${subdomain}.${tld}".locations."/" = {
-      inherit extraConfig;
-      proxyPass = "http://${ipAddress}:${(builtins.toString port)}";
-    };
+  setup = { ipAddress, uid, tld, subdomain, port, extraConfig, tls }: {
+    services.caddy.virtualHosts."${
+      if tls then "" else "http://"
+    }${subdomain}.${tld}".extraConfig = ''
+      ${extraConfig}
+      reverse_proxy ${ipAddress}:${(builtins.toString port)}
+      ${if tls then "tls internal" else ""}
+    '';
 
     users = {
       users."${subdomain}" = {
