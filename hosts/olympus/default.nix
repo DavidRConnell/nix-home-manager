@@ -32,7 +32,7 @@
 
   environment.systemPackages = with pkgs; [ vim git ];
 
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
 
   # Enable the OpenSSH daemon.
   services.openssh = {

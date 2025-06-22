@@ -9,15 +9,17 @@ username: imports:
     homeDirectory = "/home/${username}";
     sessionPath = [ "$HOME/bin" ];
     packages = with pkgs; [
-      htop
-      yt-dlp
       ffmpeg
-      parted
       git
-      wget
-      zip
-      unzip
+      htop
+      parted
+      (python3.withPackages (ps: [ ps.requests ps.tqdm ]))
       restic
+      tmux
+      unzip
+      wget
+      yt-dlp
+      zip
     ];
     stateVersion = "22.11";
     sessionVariables = {

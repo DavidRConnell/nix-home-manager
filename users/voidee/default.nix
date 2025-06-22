@@ -70,6 +70,24 @@ username: imports:
 
   programs.home-manager.enable = true;
 
+  systemd.user.targets = {
+    graphical-sessionpre = {
+      Unit = {
+        Description = "Dummpy pre session";
+        BindsTo = [ "graphical-session.target" ];
+        Before = [ "graphical-session.target" ];
+      };
+    };
+
+    tray = {
+      # Needed for some services that require tray.
+      Unit = {
+        Description = "Home Manager System Tray";
+        Requires = [ "graphical-session-pre.target" ];
+      };
+    };
+  };
+
   manual.manpages.enable = true;
   programs.info.enable = true;
   fonts.fontconfig.enable = true;
@@ -94,7 +112,7 @@ username: imports:
   services.gpg-agent = {
     enable = true;
     defaultCacheTtl = 3600 * 24;
-    pinentryPackage = pkgs.pinentry-gtk2;
+    pinentry.package = pkgs.pinentry-gtk2;
   };
 
   systemd.user.sessionVariables = {

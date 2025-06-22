@@ -48,7 +48,7 @@
       tmux = "direnv exec / tmux";
     };
 
-    initExtra = ''
+    initContent = ''
       source $ZDOTDIR/realrc.zsh
     '';
 

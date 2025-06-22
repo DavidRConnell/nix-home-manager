@@ -1,14 +1,6 @@
 { ... }:
 
 {
-  systemd.user.targets.tray = {
-    # Needed for some services that require tray.
-    Unit = {
-      Description = "Home Manager System Tray";
-      Requires = [ "graphical-session-pre.target" ];
-    };
-  };
-
   services.flameshot = {
     enable = true;
     settings = {
@@ -16,6 +8,7 @@
         disabledTrayIcon = true;
         showStartupLaunchMessage = false;
       };
+
       Shortcuts = {
         TYPE_COPY = "Y";
         TYPE_MOVE_DOWN = "J";

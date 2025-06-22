@@ -6,7 +6,7 @@
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
-      ref = "nixos-24.11";
+      ref = "nixos-25.05";
     };
 
     nixpkgs-unstable = {
@@ -20,7 +20,7 @@
       type = "github";
       owner = "nix-community";
       repo = "home-manager";
-      ref = "release-24.11";
+      ref = "release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -45,6 +45,7 @@
             spotify-player = unstable.spotify-player;
             uv = unstable.uv;
             poetry = unstable.poetry;
+            # qutebrowser = unstable.qutebrowser;
           })
         ];
 
@@ -82,7 +83,13 @@
       };
 
       server-pkg-module.nixpkgs = {
-        overlays = [ (import ./overlays/lib.nix) ];
+        overlays = [
+          (import ./overlays/lib.nix)
+          (final: prev: {
+            searxng = unstable.searxng;
+            websurfx = unstable.websurfx;
+          })
+        ];
       };
 
       nixosSystem = { host, users, pkgs, modules ? [ ], services ? [ ] }:
@@ -176,8 +183,10 @@
             ./modules/host/metube.nix
             ./modules/host/pocket.nix
             ./modules/host/dozzle.nix
-            ./modules/host/lubelog.nix
-            ./modules/host/tubearchivist.nix
+            ./modules/host/actual.nix
+            # ./modules/host/habittrove.nix
+            # ./modules/host/lubelog.nix
+            # ./modules/host/tubearchivist.nix
           ];
 
           services = [
@@ -214,7 +223,17 @@
             {
               name = "searx";
               id = 7;
+              package = unstable.searxng;
             }
+            # {
+            #   name = "seafile";
+            #   id = 8;
+            #   port = 443;
+            # }
+            # {
+            #   name = "navidrome";
+            #   id = 9;
+            # }
           ];
         };
 
