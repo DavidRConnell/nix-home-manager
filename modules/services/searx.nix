@@ -168,6 +168,8 @@
           ];
 
           hostnames = {
+            replace = { "(.*.)?reddit.com" = "redlib.home"; };
+
             remove = [
               "(.*.)?facebook.com$"
               "(.*.)?instagram.com$"

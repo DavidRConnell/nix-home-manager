@@ -225,6 +225,11 @@
               id = 7;
               package = unstable.searxng;
             }
+            {
+              name = "redlib";
+              id = 8;
+              tls = true;
+            }
             # {
             #   name = "seafile";
             #   id = 8;
