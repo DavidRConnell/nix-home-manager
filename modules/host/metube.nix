@@ -10,15 +10,20 @@ in {
     autoStart = true;
     image = "docker.io/alexta69/metube:latest";
     ports = [ "${port}:8081" ];
+
     volumes = [
       "/data/metube/downloads:/downloads"
       "/data/metube/downloads/media:/downloads/media"
       "/data/metube/downloads/audio:/downloads/audio"
     ];
+
     environment = {
       DOWNLOAD_DIR = "/downloads/media";
       AUDIO_DOWNLOAD_DIR = "/downloads/audio";
+      YTDL_OPTIONS =
+        ''{"extractor_args": {"generic": {"impersonate": ["chrome-110"]}}}'';
     };
+
     extraOptions = [ "--pull=always" ];
   };
 }
