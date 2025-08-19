@@ -1,4 +1,5 @@
-{ name, subdomain, tld, users, environment, port, hostAddress, localAddress }: {
+{ name, subdomain, package, tld, users, environment, port, hostAddress
+, localAddress }: {
   containers."${subdomain}" = {
     inherit hostAddress localAddress;
     autoStart = true;
@@ -17,7 +18,7 @@
 
       services.searx = {
         enable = true;
-        package = pkgs.searxng;
+        package = package;
         environmentFile = "/var/lib/${name}/env.txt";
         settings = {
           search = {
@@ -25,12 +26,14 @@
             default_lang = "en-US";
             languages = [ "all" "en" "en-US" ];
           };
+
           server = {
             inherit port;
             base_url = "http://${subdomain}.${tld}";
             bind_address = localAddress;
             secret_key = "@SEARX_SECRET_KEY@";
           };
+
           redis.url = "unix:///run/redis-${name}/redis.sock?db=0";
           enabled_plugins = [
             "Open Access DOI rewrite"
@@ -38,6 +41,7 @@
             "Search on category select"
             # "Tracker URL remover"
           ];
+
           engines = [
             # general
             {
@@ -49,8 +53,16 @@
               disabled = false;
             }
             {
-              name = "ddg definitions";
+              name = "presearch";
+              disabled = false;
+            }
+            {
+              name = "mojeek";
               disabled = true;
+            }
+            {
+              name = "ddg definitions";
+              disabled = false;
             }
             {
               name = "marginalia";
@@ -70,7 +82,7 @@
             }
             {
               name = "qwant";
-              disabled = false;
+              disabled = true;
             }
             {
               name = "alexendria";
@@ -154,6 +166,22 @@
               categories = [ "science" "article" ];
             }
           ];
+
+          hostnames = {
+            remove = [
+              "(.*.)?facebook.com$"
+              "(.*.)?instagram.com$"
+              "(.*.)?medium.com$"
+              "(.*.)?geeksforgeeks.com$"
+              "(.*.)?linkedin.com$"
+              "(.*.)?researchgate.net"
+              "(.*.)?kaggle.com$"
+              "(.*.)?pintrest.com$"
+              "(.*.)?twitter.com$"
+              "(.*.)?x.com$"
+              "(.*.)?wikihow.com$"
+            ];
+          };
         };
       };
 
