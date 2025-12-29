@@ -14,6 +14,8 @@
     grub.device = "/dev/sda";
   };
 
+  boot.tmp.cleanOnBoot = true;
+
   virtualisation.docker.enable = true;
 
   # Set your time zone.

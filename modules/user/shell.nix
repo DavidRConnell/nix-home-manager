@@ -6,7 +6,7 @@
     enable = true;
     history.ignoreDups = true;
     history.path = "${config.xdg.dataHome}/zsh/history";
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
     defaultKeymap = "viins";
     oh-my-zsh.enable = false;
 
@@ -103,5 +103,5 @@
     enableZshIntegration = true;
   };
 
-  programs.git.delta = { enable = true; };
+  # programs.git.delta = { enable = true; };
 }

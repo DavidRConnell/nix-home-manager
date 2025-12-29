@@ -7,7 +7,6 @@ in emacsWithPackages (epkgs:
   (with epkgs.melpaPackages; [
     ace-window
     bats-mode
-    cape
     cython-mode
     deft
     direnv
@@ -17,18 +16,12 @@ in emacsWithPackages (epkgs:
     elfeed-org
     elisp-def
     elisp-demos
-    elpy
-    emr
     ess
-    ess-R-data-view
-    eyebrowse
     flyspell-correct
     forge
     format-all
     gcmh
     general
-    git-gutter
-    git-gutter-fringe
     gnuplot-mode
     helpful
     highlight-defined
@@ -41,46 +34,44 @@ in emacsWithPackages (epkgs:
     lispyville
     magit
     magit-todos
-    marginalia
     markdown-mode
     nix-mode
     no-littering
-    orderless
-    pdf-tools
-    poetry
-    matlab-mode
-    prescient
-    py-isort
+    package-lint
     python-pytest
     rainbow-delimiters
     reformatter
-    sly
     smartparens
     transient
     which-key
     wiki-summary
     wordnut
     yasnippet
+    yasnippet-capf
     yatemplate
-  ]) ++ (with epkgs.elpaPackages; [ modus-themes vertico vundo popper jinx ])
-  ++ (with epkgs; [
+  ]) ++ (with epkgs.elpaPackages; [
+    cape
+    consult
+    corfu
+    jinx
+    marginalia
+    orderless
+    popper
+    vertico
+    vundo
+  ]) ++ (with epkgs; [
     avy
     citar
     citar-embark
     citar-org-roam
     citeproc
-    consult
-    consult-flycheck
-    corfu
+    corfu-prescient
     cypher-mode
+    diff-hl
     dired-narrow
-    dirvish
-    edit-indirect
-    ellama
-    elpher
+    # edit-indirect
     embark
     embark-consult
-    ement
     engrave-faces
     evil
     evil-args
@@ -94,45 +85,32 @@ in emacsWithPackages (epkgs:
     evil-smartparens
     evil-surround
     evil-textobj-tree-sitter
-    flycheck
     flymake-proselint
     git-timemachine
     gptel
+    matlab-mode
     mermaid-mode
     nov
-    ob-async
     ob-mermaid
     org
     org-appear
     org-cliplink
     org-contrib
-    orgit
-    orgit-forge
-    org-modern
+    org-pomodoro
     org-ref
     org-roam
     org-roam-bibtex
-    org-roam-ui
     org-superstar
-    ox-clip
-    ox-hugo
     ox-pandoc
-    ox-reveal
-    poly-markdown
+    # poly-markdown
+    prescient
     projectile
-    saveplace-pdf-view
+    scad-mode
     sdcv
-    tempel
-    toml-mode
-    treesit-auto
-    tree-sitter-indent
-    undo-fu
     undo-fu-session
-    use-package
+    vertico-prescient
     visual-fill-column
     wgrep
-    yaml-mode
 
-    tree-sitter-ess-r
     treesit-grammars.with-all-grammars
   ]))

@@ -23,11 +23,11 @@ username: imports:
       caffeine-ng
       fd
       feh
+      ffmpeg-full
       firefox
       git
       killall
-      krita
-      libsForQt5.xdg-desktop-portal-kde
+      lxqt.xdg-desktop-portal-lxqt
       man-pages
       man-pages-posix
       mpv
@@ -35,7 +35,6 @@ username: imports:
       nextcloud-client
       pandoc
       pinentry-curses
-      poetry
       podman-compose
       qutebrowser
       rclone
@@ -54,7 +53,6 @@ username: imports:
       tomb
       unzip
       uv
-      vagrant
       visidata
       w3m
       wget
@@ -71,7 +69,7 @@ username: imports:
   programs.home-manager.enable = true;
 
   systemd.user.targets = {
-    graphical-sessionpre = {
+    graphical-session-pre = {
       Unit = {
         Description = "Dummpy pre session";
         BindsTo = [ "graphical-session.target" ];

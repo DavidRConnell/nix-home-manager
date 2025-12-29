@@ -34,7 +34,7 @@
             secret_key = "@SEARX_SECRET_KEY@";
           };
 
-          redis.url = "unix:///run/redis-${name}/redis.sock?db=0";
+          valkey.url = "unix:///run/redis-${name}/redis.sock?db=0";
           enabled_plugins = [
             "Open Access DOI rewrite"
             "Vim-like hotkeys"
@@ -174,7 +174,8 @@
               "(.*.)?facebook.com$"
               "(.*.)?instagram.com$"
               "(.*.)?medium.com$"
-              "(.*.)?geeksforgeeks.com$"
+              "(.*.)?emacsdocs.org"
+              "(.*.)?geeksforgeeks.org"
               "(.*.)?linkedin.com$"
               "(.*.)?researchgate.net"
               "(.*.)?kaggle.com$"
@@ -182,6 +183,8 @@
               "(.*.)?twitter.com$"
               "(.*.)?x.com$"
               "(.*.)?wikihow.com$"
+              "(.*.)?programiz.com$"
+              "(.*.)?grokipedia.com$"
             ];
           };
         };

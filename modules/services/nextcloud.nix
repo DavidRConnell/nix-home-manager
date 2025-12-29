@@ -17,8 +17,9 @@
 
       services.nextcloud = {
         enable = true;
-        package = pkgs.nextcloud31;
+        package = pkgs.nextcloud32;
         hostName = "${subdomain}.${tld}";
+        https = false;
         home = "/var/lib/${name}";
         config.adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
         settings.default_phone_region = "US";

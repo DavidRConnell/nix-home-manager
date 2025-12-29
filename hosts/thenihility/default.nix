@@ -11,6 +11,7 @@
     };
     enableContainers = false;
     kernelModules = [ "kvm-intel" ];
+    tmp.cleanOnBoot = true;
   };
 
   virtualisation.libvirtd.enable = true;

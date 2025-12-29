@@ -6,7 +6,7 @@
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
-      ref = "nixos-25.05";
+      ref = "nixos-25.11";
     };
 
     nixpkgs-unstable = {
@@ -20,7 +20,7 @@
       type = "github";
       owner = "nix-community";
       repo = "home-manager";
-      ref = "release-25.05";
+      ref = "release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -45,15 +45,14 @@
             spotify-player = unstable.spotify-player;
             uv = unstable.uv;
             poetry = unstable.poetry;
-            # qutebrowser = unstable.qutebrowser;
+            qutebrowser = unstable.qutebrowser;
+            redlib = unstable.redlib;
           })
         ];
 
         config.allowUnfreePredicate = pkg:
           builtins.elem (pkgs.lib.getName pkg) [
-            "anydesk"
             "zoom"
-            "vagrant"
             "aspell-dict-en-science"
             "nvidia-x11"
             "cuda-merged"
@@ -183,10 +182,12 @@
             ./modules/host/metube.nix
             ./modules/host/pocket.nix
             ./modules/host/dozzle.nix
-            ./modules/host/actual.nix
-            # ./modules/host/habittrove.nix
+            ./modules/host/habittrove.nix
+            ./modules/host/tubearchivist.nix
+            # ./modules/host/wger.nix
+            # ./modules/host/calibreweb.nix
+            # ./modules/host/actual.nix
             # ./modules/host/lubelog.nix
-            # ./modules/host/tubearchivist.nix
           ];
 
           services = [
@@ -209,6 +210,7 @@
               name = "kavita";
               subdomain = "books";
               id = 4;
+              tls = true;
             }
             {
               name = "kavita";
@@ -230,15 +232,26 @@
               id = 8;
               tls = true;
             }
+            {
+              name = "matrix";
+              id = 9;
+            }
+            # {
+            #   name = "invidious";
+            #   id = 9;
+            #   tls = true;
+            # }
+
             # {
             #   name = "seafile";
-            #   id = 8;
+            #   id = 10;
             #   port = 443;
             # }
-            # {
-            #   name = "navidrome";
-            #   id = 9;
-            # }
+            {
+              name = "navidrome";
+              id = 11;
+              tls = true;
+            }
           ];
         };
 
