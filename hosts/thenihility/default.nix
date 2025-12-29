@@ -25,18 +25,9 @@
       fsType = "ext4";
     };
     "/mnt/nfs" = {
-      device = "//192.168.0.101/public";
-      fsType = "cifs";
-      options = let
-        # this line prevents hanging on network split
-        automount_opts =
-          "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
-
-        # uid 1001 is "voidee". This is implicitly created. Ideally
-        # there is a better way to set the user.
-      in [
-        "${automount_opts},credentials=/etc/nixos/smb-secrets.txt,uid=1001"
-      ];
+      device = "olympus:/data";
+      fsType = "sshfs";
+      options = [ "nodev" "noatime" "allow_other" ];
     };
   };
 

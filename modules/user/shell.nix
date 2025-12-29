@@ -54,7 +54,7 @@
 
     autosuggestion.enable = true;
     enableCompletion = false;
-    plugins = with pkgs; [
+    plugins = [
       {
         name = "zsh-vi-mode";
         file = "zsh-vi-mode.plugin.zsh";
@@ -73,7 +73,8 @@
       {
         name = "fast-syntax-highlighting";
         file = "fast-syntax-highlighting.plugin.zsh";
-        src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions";
+        src =
+          "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting";
       }
       {
         name = "zsh-autopair";
@@ -102,6 +103,4 @@
     enable = true;
     enableZshIntegration = true;
   };
-
-  # programs.git.delta = { enable = true; };
 }
