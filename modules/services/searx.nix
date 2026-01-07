@@ -13,7 +13,7 @@
       };
     };
 
-    config = { config, pkgs, ... }: {
+    config = { config, pkgs, lib, ... }: {
       inherit users environment;
 
       services.searx = {
@@ -22,8 +22,8 @@
         environmentFile = "/var/lib/${name}/env.txt";
         settings = {
           search = {
-            autocomplete = "duckduckgo";
-            default_lang = "en-US";
+            autocomplete = "startpage";
+            default_lang = "en";
             languages = [ "all" "en" "en-US" ];
           };
 
@@ -34,18 +34,32 @@
             secret_key = "@SEARX_SECRET_KEY@";
           };
 
-          valkey.url = "unix:///run/redis-${name}/redis.sock?db=0";
-          enabled_plugins = [
-            "Open Access DOI rewrite"
-            "Vim-like hotkeys"
-            "Search on category select"
-            # "Tracker URL remover"
-          ];
+          ui.query_in_title = true;
+          redis.url = "unix:///run/redis-${name}/redis.sock?db=0";
+          search_on_category_select = true;
+          hotkeys = "vim";
+
+          plugins = lib.mapAttrs' (name: active:
+            lib.nameValuePair "searx.plugins.${name}.SXNGPlugin" {
+              inherit active;
+            }) {
+              calculator = true;
+              hash_plugin = true;
+              self_info = true;
+              tracker_url_remover = true;
+              unit_converter = true;
+              oa_doi_rewrite = true;
+              hostnames = true;
+            };
 
           engines = [
             # general
             {
-              name = "google";
+              name = "bing";
+              disabled = true;
+            }
+            {
+              name = "brave";
               disabled = true;
             }
             {
@@ -53,19 +67,27 @@
               disabled = false;
             }
             {
-              name = "presearch";
-              disabled = false;
+              name = "google";
+              disabled = true;
             }
             {
               name = "mojeek";
               disabled = true;
             }
             {
-              name = "ddg definitions";
+              name = "presearch";
               disabled = false;
             }
             {
-              name = "marginalia";
+              name = "qwant";
+              disabled = true;
+            }
+            {
+              name = "startpage";
+              disabled = false;
+            }
+            {
+              name = "wlby";
               disabled = true;
             }
             {
@@ -73,27 +95,19 @@
               disabled = false;
             }
             {
-              name = "wiby";
-              disabled = true;
+              name = "yandex";
+              disabled = false;
+            }
+            {
+              name = "ddg definitions";
+              disabled = false;
             }
             {
               name = "currency";
               disabled = true;
             }
             {
-              name = "qwant";
-              disabled = true;
-            }
-            {
               name = "alexendria";
-              disabled = false;
-            }
-            {
-              name = "startpage";
-              disabled = true;
-            }
-            {
-              name = "brave";
               disabled = false;
             }
             # images
@@ -115,7 +129,15 @@
             }
             {
               name = "flickr";
+              disabled = false;
+            }
+            {
+              name = "pinterest";
               disabled = true;
+            }
+            {
+              name = "yandex images";
+              disabled = false;
             }
             {
               name = "library of congress";
@@ -201,7 +223,6 @@
         enable = true;
         allowedTCPPorts = [ port ];
       };
-
     };
   };
 }
