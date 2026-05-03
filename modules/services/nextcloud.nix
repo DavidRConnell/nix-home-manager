@@ -7,7 +7,7 @@
 
     bindMounts = {
       "/var/lib/${name}" = {
-        hostPath = "/data/${subdomain}";
+        hostPath = "/data/${subdomain}/nextcloud";
         isReadOnly = false;
       };
     };
@@ -17,17 +17,29 @@
 
       services.nextcloud = {
         enable = true;
-        package = pkgs.nextcloud32;
+        package = pkgs.nextcloud33;
         hostName = "${subdomain}.${tld}";
-        https = false;
+        https = true;
         home = "/var/lib/${name}";
         config.adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
-        settings.default_phone_region = "US";
-        settings.trusted_proxies = [ "127.0.0.1" ];
         maxUploadSize = "5G";
         configureRedis = true;
-        phpOptions."maintenance_window_start" = 8;
-        phpOptions."opcache.interned_strings_buffer" = 9;
+
+        settings = {
+          default_phone_region = "US";
+          trusted_proxies = [ "127.0.0.1" "${hostAddress}" ];
+          maintenance_window_start = 8;
+          server_id = "1234";
+        };
+
+        phpOptions = {
+          "opcache.interned_strings_buffer" = "16";
+          "opcache.max_accelerated_files" = "10000";
+          "opcache.memory_consumption" = "128";
+          "opcache.save_comments" = "1";
+          "opcache.revalidate_freq" = "1";
+        };
+
         config = {
           dbtype = "sqlite";
           dbname = "nextcloud";
@@ -38,7 +50,7 @@
 
       networking.firewall = {
         enable = true;
-        allowedTCPPorts = [ 80 ];
+        allowedTCPPorts = [ 80 443 ];
       };
     };
   };

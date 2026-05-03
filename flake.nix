@@ -200,6 +200,7 @@
               name = "nextcloud";
               id = 2;
               port = 80;
+              tls = true;
             }
             {
               name = "jellyfin";
