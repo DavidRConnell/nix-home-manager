@@ -185,7 +185,7 @@
             ./modules/host/habittrove.nix
             ./modules/host/tubearchivist.nix
             # ./modules/host/wger.nix
-            # ./modules/host/calibreweb.nix
+            ./modules/host/calibreweb.nix
             # ./modules/host/actual.nix
             # ./modules/host/lubelog.nix
           ];
