@@ -18,6 +18,11 @@
         hostPath = "/data/${subdomain}/nextcloud";
         isReadOnly = false;
       };
+
+      "/var/lib/postgresql" = {
+        hostPath = "/data/${subdomain}/postgres";
+        isReadOnly = false;
+      };
     };
 
     config = { config, pkgs, ... }: {
@@ -29,7 +34,6 @@
         hostName = "${subdomain}.${tld}";
         https = true;
         home = "/var/lib/${name}";
-        config.adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
         maxUploadSize = "5G";
         configureRedis = true;
 
@@ -50,9 +54,13 @@
           "opcache.revalidate_freq" = "1";
         };
 
+        database.createLocally = true;
         config = {
-          dbtype = "sqlite";
+          dbtype = "pgsql";
           dbname = "nextcloud";
+          dbuser = "nextcloud";
+
+          adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
         };
       };
 
