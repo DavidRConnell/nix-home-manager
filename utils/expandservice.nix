@@ -35,25 +35,25 @@ let
     uid = set.id + 10000;
     hostAddress = "10.0.3.${(builtins.toString set.id)}";
     localAddress = "10.0.4.${(builtins.toString set.id)}";
-    nameserver = if builtins.hasAttr "nameserver" set then
-      set.nameserver
-    else
-      "192.168.0.101";
+    nameserver = if builtins.hasAttr "nameserver" set then set.nameserver else "192.168.0.101";
     ipAddress = localAddress;
     tld = "home";
     port = 3000;
     package = set.package;
     subdomain = set.name;
-    extraConfig = if builtins.hasAttr "allowedIps" set then
-      let
-        ipWhiteList = builtins.concatStringsSep " "
-          (builtins.concatLists [ (map (ip: "${ip}") set.allowedIps) ]);
-      in ''
-        @blocked not remote_ip ${ipWhiteList}
-        respond @blocked "Forbidden" 403
-      ''
-    else
-      "";
+    extraConfig =
+      if builtins.hasAttr "allowedIps" set then
+        let
+          ipWhiteList = builtins.concatStringsSep " " (
+            builtins.concatLists [ (map (ip: "${ip}") set.allowedIps) ]
+          );
+        in
+        ''
+          @blocked not remote_ip ${ipWhiteList}
+          respond @blocked "Forbidden" 403
+        ''
+      else
+        "";
     tls = if builtins.hasAttr "tls" set then set.tls else false;
     users = {
       users."${set.name}" = {
@@ -62,32 +62,45 @@ let
         uid = uid;
         group = set.name;
       };
-      groups."${set.name}" = { gid = uid; };
-    };
-    environment.etc."resolv.conf".text = "nameserver ${nameserver}";
-  } // set;
-  callPackage = f: values:
-    f (builtins.intersectAttrs (builtins.functionArgs f) values);
-
-  setup = { ipAddress, uid, tld, subdomain, port, extraConfig, tls }: {
-    services.caddy.virtualHosts."${
-      if tls then "" else "http://"
-    }${subdomain}.${tld}".extraConfig = ''
-      ${extraConfig}
-      reverse_proxy ${ipAddress}:${(builtins.toString port)}
-      ${if tls then "tls internal" else ""}
-    '';
-
-    users = {
-      users."${subdomain}" = {
-        isSystemUser = true;
-        home = "/data/${subdomain}";
-        uid = uid;
-        group = subdomain;
+      groups."${set.name}" = {
+        gid = uid;
       };
-      groups."${subdomain}" = { gid = uid; };
     };
-  };
+    networking.nameservers = [ nameserver ];
+  }
+  // set;
+  callPackage = f: values: f (builtins.intersectAttrs (builtins.functionArgs f) values);
+
+  setup =
+    {
+      ipAddress,
+      uid,
+      tld,
+      subdomain,
+      port,
+      extraConfig,
+      tls,
+    }:
+    {
+      services.caddy.virtualHosts."${if tls then "" else "http://"}${subdomain}.${tld}".extraConfig = ''
+        ${extraConfig}
+        reverse_proxy ${ipAddress}:${(builtins.toString port)}
+        ${if tls then "tls internal" else ""}
+      '';
+
+      users = {
+        users."${subdomain}" = {
+          isSystemUser = true;
+          home = "/data/${subdomain}";
+          uid = uid;
+          group = subdomain;
+        };
+        groups."${subdomain}" = {
+          gid = uid;
+        };
+      };
+    };
 
   service = import (../modules/services + "/${values.name}" + ".nix");
-in (callPackage setup values) // (callPackage service values)
+in
+(callPackage setup values) // (callPackage service values)

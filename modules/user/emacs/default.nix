@@ -1,7 +1,7 @@
 { pkgs, ... }: {
 
   home.packages = (with pkgs; [
-    nixfmt-classic
+    nixfmt
     nil
     pkgconf
     statix
@@ -12,7 +12,7 @@
     (python3.withPackages (p: [ p.python-lsp-server ]))
     matlab-language-server
     dockfmt
-    nodePackages.bash-language-server
+    bash-language-server
     shellcheck
     shfmt
     html-tidy

@@ -58,7 +58,7 @@ username: imports:
       wget
       wordnet
       xclip
-      xfce.thunar
+      thunar
       yt-dlp
       zathura
       zip

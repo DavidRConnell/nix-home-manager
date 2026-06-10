@@ -1,4 +1,12 @@
-{ name, subdomain, users, environment, port, hostAddress, localAddress }: {
+{
+  name,
+  subdomain,
+  users,
+  port,
+  hostAddress,
+  localAddress,
+}:
+{
   containers."${subdomain}" = {
     inherit hostAddress localAddress;
     autoStart = true;
@@ -13,7 +21,7 @@
     };
 
     config = { config, pkgs, ... }: {
-      inherit users environment;
+      inherit users;
 
       services.navidrome = {
         enable = true;

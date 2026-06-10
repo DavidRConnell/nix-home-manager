@@ -1,4 +1,12 @@
-{ name, subdomain, users, environment, port, hostAddress, localAddress }: {
+{
+  name,
+  subdomain,
+  users,
+  port,
+  hostAddress,
+  localAddress,
+}:
+{
   containers."${subdomain}" = {
     inherit hostAddress localAddress;
     autoStart = true;
@@ -21,7 +29,7 @@
     };
 
     config = { config, pkgs, ... }: {
-      inherit users environment;
+      inherit users;
 
       services.jellyfin = {
         enable = true;
@@ -33,11 +41,19 @@
       networking.firewall = {
         enable = true;
         allowedTCPPorts = [ port ];
-        allowedUDPPorts = [ 1900 7359 ];
+        allowedUDPPorts = [
+          1900
+          7359
+        ];
       };
     };
   };
 
   # Hardcoded in jellyfin
-  networking.firewall = { allowedUDPPorts = [ 1900 7359 ]; };
+  networking.firewall = {
+    allowedUDPPorts = [
+      1900
+      7359
+    ];
+  };
 }

@@ -1,4 +1,12 @@
-{ name, subdomain, tld, users, environment, hostAddress, localAddress }: {
+{
+  name,
+  subdomain,
+  tld,
+  users,
+  hostAddress,
+  localAddress,
+}:
+{
   containers."${subdomain}" = {
     inherit hostAddress localAddress;
     autoStart = true;
@@ -13,7 +21,7 @@
     };
 
     config = { config, pkgs, ... }: {
-      inherit users environment;
+      inherit users;
 
       services.nextcloud = {
         enable = true;
@@ -27,9 +35,11 @@
 
         settings = {
           default_phone_region = "US";
-          trusted_proxies = [ "127.0.0.1" "${hostAddress}" ];
+          trusted_proxies = [
+            "127.0.0.1"
+            "${hostAddress}"
+          ];
           maintenance_window_start = 8;
-          server_id = "1234";
         };
 
         phpOptions = {
@@ -50,7 +60,10 @@
 
       networking.firewall = {
         enable = true;
-        allowedTCPPorts = [ 80 443 ];
+        allowedTCPPorts = [
+          80
+          443
+        ];
       };
     };
   };

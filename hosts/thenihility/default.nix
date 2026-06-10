@@ -31,7 +31,7 @@
     };
   };
 
-  time.timeZone = "America/Chicago";
+  time.timeZone = "America/New_York";
 
   networking = {
     networkmanager.enable = true;
@@ -52,7 +52,7 @@
   services.xserver = {
     videoDrivers = [ "nvidia" ];
     displayManager.setupCommands = ''
-      ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-1 --auto --output HDMI-1-0 --auto --right-of HDMI-1
+      ${pkgs.xrandr}/bin/xrandr --output HDMI-1 --auto --output HDMI-1-0 --auto --right-of HDMI-1
     '';
   };
 
@@ -89,6 +89,7 @@
     roboto
     noto-fonts
     liberation_ttf
+    dejavu_fonts
   ];
 
   programs.ssh.askPassword = "";

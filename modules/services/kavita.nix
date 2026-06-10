@@ -1,4 +1,12 @@
-{ name, subdomain, users, environment, port, hostAddress, localAddress }: {
+{
+  name,
+  subdomain,
+  users,
+  port,
+  hostAddress,
+  localAddress,
+}:
+{
   containers."${subdomain}" = {
     inherit hostAddress localAddress;
     autoStart = true;
@@ -10,11 +18,13 @@
         hostPath = "/data/${subdomain}";
         isReadOnly = false;
       };
-      "/etc/nixos/key.txt" = { hostPath = "/etc/nixos/keys/kavita-token.txt"; };
+      "/etc/nixos/key.txt" = {
+        hostPath = "/etc/nixos/keys/kavita-token.txt";
+      };
     };
 
     config = { config, pkgs, ... }: {
-      inherit users environment;
+      inherit users;
 
       services.kavita = {
         enable = true;

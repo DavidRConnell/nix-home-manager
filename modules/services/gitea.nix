@@ -1,4 +1,13 @@
-{ name, subdomain, tld, users, environment, port, hostAddress, localAddress }: {
+{
+  name,
+  subdomain,
+  tld,
+  users,
+  port,
+  hostAddress,
+  localAddress,
+}:
+{
 
   containers."${subdomain}" = {
     inherit hostAddress localAddress;
@@ -14,7 +23,7 @@
     };
 
     config = { config, pkgs, ... }: {
-      inherit users environment;
+      inherit users;
 
       services.gitea = {
         enable = true;
@@ -26,7 +35,9 @@
           HTTP_PORT = port;
           HTTP_ADDR = localAddress;
         };
-        database = { user = name; };
+        database = {
+          user = name;
+        };
       };
 
       system.stateVersion = "22.05";
@@ -42,14 +53,19 @@
 
       networking.firewall = {
         enable = true;
-        allowedTCPPorts = [ 22 port ];
+        allowedTCPPorts = [
+          22
+          port
+        ];
       };
     };
 
-    forwardPorts = [{
-      containerPort = 22;
-      hostPort = 2222;
-      protocol = "tcp";
-    }];
+    forwardPorts = [
+      {
+        containerPort = 22;
+        hostPort = 2222;
+        protocol = "tcp";
+      }
+    ];
   };
 }

@@ -1,4 +1,18 @@
-{ name, subdomain, users, environment, port, hostAddress, localAddress }: {
+{
+  name,
+  subdomain,
+  users,
+  port,
+  hostAddress,
+  localAddress,
+}:
+{
+
+  services.nginx.virtualHosts."${subdomain}.home".locations."/" = {
+    proxyWebsockets = true;
+    proxyPass = "http://${localAddress}:${(builtins.toString port)}";
+  };
+
   containers."${subdomain}" = {
     inherit hostAddress localAddress;
     autoStart = true;
@@ -13,7 +27,7 @@
     };
 
     config = { config, pkgs, ... }: {
-      inherit users environment;
+      inherit users;
 
       services.audiobookshelf = {
         enable = true;

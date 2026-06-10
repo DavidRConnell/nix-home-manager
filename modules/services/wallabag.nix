@@ -1,4 +1,13 @@
-{ name, subdomain, tld, users, environment, port, hostAddress, localAddress }: {
+{
+  name,
+  subdomain,
+  tld,
+  users,
+  port,
+  hostAddress,
+  localAddress,
+}:
+{
   containers."${subdomain}" = {
     inherit hostAddress localAddress;
     autoStart = true;
@@ -13,7 +22,7 @@
     };
 
     config = { config, pkgs, ... }: {
-      inherit users environment;
+      inherit users;
 
       services.wallabag = {
         inherit port;
