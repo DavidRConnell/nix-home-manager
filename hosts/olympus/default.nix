@@ -61,33 +61,6 @@
     groups.share = { };
   };
 
-  services.samba = {
-    enable = true;
-    nmbd.enable = false;
-    winbindd.enable = false;
-    openFirewall = true;
-    settings = {
-      global = {
-        "workgroup" = "WORKGROUP";
-        "server string" = "Samba server";
-        "server role" = "standalone server";
-        "netbios name" = "smbnix";
-        security = "user";
-        "hosts deny" = "0.0.0.0/0";
-        "hosts allow" = "192.168.0.100";
-        "map to guest" = "Bad User";
-      };
-      public = {
-        path = "/data";
-        browsable = "yes";
-        "writable" = "yes";
-        "force user" = "share";
-        "guest ok" = "yes";
-        "public" = "yes";
-      };
-    };
-  };
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
