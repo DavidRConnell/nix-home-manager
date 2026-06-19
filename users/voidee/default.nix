@@ -110,7 +110,16 @@ username: imports:
   services.gpg-agent = {
     enable = true;
     defaultCacheTtl = 3600 * 24;
-    pinentry.package = pkgs.pinentry-gtk2;
+    pinentry.package = pkgs.writeShellScriptBin "pinentry-pass-bridge" ''
+      if echo "$@" | ${pkgs.gnugrep}/bin/grep -q "GET_PIN"; then
+          # For git commit signing.
+          echo "D $(${pkgs.pass}/bin/pass gpg/git)"
+          echo "OK"
+      else
+          # Otherwise manual entry.
+          exec ${pkgs.pinentry-gtk2}/bin/pinentry-gtk2 "$@"
+      fi
+    '';
   };
 
   systemd.user.sessionVariables = {
