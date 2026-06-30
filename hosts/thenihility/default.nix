@@ -40,6 +40,7 @@
 
   time.timeZone = "America/New_York";
 
+  programs.nm-applet.enable = true;
   networking = {
     networkmanager.enable = true;
     networkmanager.plugins = [ pkgs.networkmanager-openconnect ];
