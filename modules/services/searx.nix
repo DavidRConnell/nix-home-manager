@@ -255,6 +255,8 @@
                 "(.*.)?programiz.com$"
                 "(.*.)?grokipedia.com$"
                 "(.*.)?howtogeek.com$"
+                "(.*.)?thelinuxcode.com$"
+                "(.*.)?freecodecamp.org"
               ];
             };
           };
