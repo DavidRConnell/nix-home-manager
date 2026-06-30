@@ -33,7 +33,14 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixpkgs-unstable,
+      home-manager,
+      ...
+    }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
@@ -44,13 +51,13 @@
           (final: prev: {
             spotify-player = unstable.spotify-player;
             uv = unstable.uv;
-            poetry = unstable.poetry;
             qutebrowser = unstable.qutebrowser;
-            redlib = unstable.redlib;
+            yt-dlp = unstable.yt-dlp;
           })
         ];
 
-        config.allowUnfreePredicate = pkg:
+        config.allowUnfreePredicate =
+          pkg:
           builtins.elem (pkgs.lib.getName pkg) [
             "zoom"
             "aspell-dict-en-science"
@@ -86,35 +93,64 @@
           (import ./overlays/lib.nix)
           (final: prev: {
             searxng = unstable.searxng;
-            websurfx = unstable.websurfx;
+            metube = unstable.metube;
+            yt-dlp = unstable.yt-dlp;
           })
         ];
       };
 
-      nixosSystem = { host, users, pkgs, modules ? [ ], services ? [ ] }:
-        let userConfigs = map (user: user.homeConfig) users;
-        in pkgs.lib.nixosSystem {
+      nixosSystem =
+        {
+          host,
+          users,
+          pkgs,
+          modules ? [ ],
+          services ? [ ],
+        }:
+        let
+          userConfigs = map (user: user.homeConfig) users;
+        in
+        pkgs.lib.nixosSystem {
           inherit system;
           modules = [
             home-manager.nixosModules.home-manager
             host
             (import utils/addusers.nix users)
-          ] ++ userConfigs ++ modules ++ (if (builtins.length services > 0) then
-            ([ ./utils/serversetup.nix ] ++ map (service:
-              if (builtins.hasAttr "disabled" service && service.disabled) then
-                { }
-              else
-                (import ./utils/expandservice.nix service)) services)
-          else
-            [ ]);
+          ]
+          ++ userConfigs
+          ++ modules
+          ++ (
+            if (builtins.length services > 0) then
+              (
+                [ ./utils/serversetup.nix ]
+                ++ map (
+                  service:
+                  if (builtins.hasAttr "disabled" service && service.disabled) then
+                    { }
+                  else
+                    (import ./utils/expandservice.nix service)
+                ) services
+              )
+            else
+              [ ]
+          );
         };
 
-      user = { name, home, modules }:
+      user =
+        {
+          name,
+          home,
+          modules,
+        }:
         let
-          importList = fname:
-            let fpath = home + ("/" + fname);
-            in (if (builtins.pathExists fpath) then (import fpath) else [ ]);
-        in {
+          importList =
+            fname:
+            let
+              fpath = home + ("/" + fname);
+            in
+            (if (builtins.pathExists fpath) then (import fpath) else [ ]);
+        in
+        {
           inherit name home modules;
           groups = importList "groups.nix";
           authorizedKeysFiles = importList "authorizedKeys.nix";
@@ -141,9 +177,13 @@
       mercury = user {
         name = "mercury";
         home = ./users/mercury;
-        modules = [ ./modules/user/shell.nix ./modules/user/udiskie.nix ];
+        modules = [
+          ./modules/user/shell.nix
+          ./modules/user/udiskie.nix
+        ];
       };
-    in {
+    in
+    {
       nixosConfigurations = {
         thevoidII = nixosSystem {
           pkgs = nixpkgs;
@@ -217,7 +257,11 @@
               name = "kavita";
               subdomain = "comics";
               id = 5;
-              allowedIps = [ "192.168.0.100" "192.168.0.103" "192.168.0.104" ];
+              allowedIps = [
+                "192.168.0.100"
+                "192.168.0.103"
+                "192.168.0.104"
+              ];
             }
             {
               name = "gitea";
@@ -227,31 +271,6 @@
               name = "searx";
               id = 7;
               package = unstable.searxng;
-            }
-            {
-              name = "redlib";
-              id = 8;
-              tls = true;
-            }
-            {
-              name = "matrix";
-              id = 9;
-            }
-            # {
-            #   name = "invidious";
-            #   id = 9;
-            #   tls = true;
-            # }
-
-            # {
-            #   name = "seafile";
-            #   id = 10;
-            #   port = 443;
-            # }
-            {
-              name = "navidrome";
-              id = 11;
-              tls = true;
             }
           ];
         };
@@ -285,7 +304,6 @@
         };
       };
 
-      packages."${system}".testvm =
-        self.nixosConfigurations.testvm.config.system.build.vm;
+      packages."${system}".testvm = self.nixosConfigurations.testvm.config.system.build.vm;
     };
 }

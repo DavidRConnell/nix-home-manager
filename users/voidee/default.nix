@@ -7,7 +7,10 @@ username: imports:
     inherit username;
     homeDirectory = "/home/${username}";
     stateVersion = "20.09";
-    sessionPath = [ "$HOME/bin" "$HOME/.local/bin" ];
+    sessionPath = [
+      "$HOME/bin"
+      "$HOME/.local/bin"
+    ];
     sessionVariables = {
       RESTIC_PASSWORD_COMMAND = "${pkgs.pass}/bin/pass show restic/thenihility";
       XDG_DATA_HOME = homeDirectory + "/.local/share";
@@ -15,55 +18,65 @@ username: imports:
       XDG_CONFIG_HOME = homeDirectory + "/.config";
     };
 
-    packages = (with pkgs; [
-      alacritty
-      (aspellWithDicts (dicts: with dicts; [ en en-computers en-science ]))
-      binutils
-      cachix
-      caffeine-ng
-      fd
-      feh
-      ffmpeg-full
-      firefox
-      git
-      killall
-      lxqt.xdg-desktop-portal-lxqt
-      man-pages
-      man-pages-posix
-      mpv
-      nvtopPackages.nvidia
-      nextcloud-client
-      pandoc
-      pinentry-curses
-      podman-compose
-      qutebrowser
-      rclone
-      redshift
-      restic
-      ripgrep
-      rsync
-      rustdesk-flutter
-      sbcl
-      scrot
-      sdcv
-      spotify-player
-      stow
-      stumpish
-      tmux
-      tomb
-      unzip
-      uv
-      visidata
-      w3m
-      wget
-      wordnet
-      xclip
-      thunar
-      yt-dlp
-      zathura
-      zip
-      zoom-us
-    ]);
+    packages = (
+      with pkgs;
+      [
+        alacritty
+        (aspellWithDicts (
+          dicts: with dicts; [
+            en
+            en-computers
+            en-science
+          ]
+        ))
+        binutils
+        cachix
+        caffeine-ng
+        fd
+        feh
+        ffmpeg-full
+        firefox
+        git
+        killall
+        lxqt.xdg-desktop-portal-lxqt
+        man-pages
+        man-pages-posix
+        mpv
+        networkmanagerapplet
+        nextcloud-client
+        nvtopPackages.nvidia
+        pandoc
+        pinentry-curses
+        podman-compose
+        qutebrowser
+        rclone
+        redshift
+        restic
+        ripgrep
+        rsync
+        rustdesk-flutter
+        sbcl
+        scrot
+        sdcv
+        spotify-player
+        stow
+        stumpish
+        tmux
+        tomb
+        unzip
+        uv
+        visidata
+        w3m
+        wget
+        wordnet
+        xclip
+        thunar
+        yt-dlp
+        zathura
+        zip
+        zoom-us
+      ]
+    );
   };
 
   programs.home-manager.enable = true;
@@ -98,7 +111,10 @@ username: imports:
   services.unclutter = {
     enable = true;
     timeout = 3;
-    extraOptions = [ "ignore-scrolling" "exclude-root" ];
+    extraOptions = [
+      "ignore-scrolling"
+      "exclude-root"
+    ];
   };
 
   programs.direnv = {
@@ -107,26 +123,18 @@ username: imports:
   };
 
   programs.gpg.enable = true;
-  services.gpg-agent = {
-    enable = true;
-    defaultCacheTtl = 3600 * 24;
-    pinentry.package = pkgs.writeShellScriptBin "pinentry-pass-bridge" ''
-      if echo "$@" | ${pkgs.gnugrep}/bin/grep -q "GET_PIN"; then
-          # For git commit signing.
-          echo "D $(${pkgs.pass}/bin/pass gpg/git)"
-          echo "OK"
-      else
-          # Otherwise manual entry.
-          exec ${pkgs.pinentry-gtk2}/bin/pinentry-gtk2 "$@"
-      fi
-    '';
-  };
 
   systemd.user.sessionVariables = {
     # TEMP HACK while enchant can't find dictionaries.
     ASPELL_CONF = "dict-dir ${
-        pkgs.aspellWithDicts (dicts: with dicts; [ en en-computers en-science ])
-      }/lib/aspell";
+      pkgs.aspellWithDicts (
+        dicts: with dicts; [
+          en
+          en-computers
+          en-science
+        ]
+      )
+    }/lib/aspell";
   };
 
   xdg = {

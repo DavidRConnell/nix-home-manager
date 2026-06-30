@@ -1,7 +1,6 @@
 { ... }:
 
 {
-  # imports = [ ./stumpwm.nix ];
   services.xserver = {
     enable = true;
     xkb.variant = "dvorak";

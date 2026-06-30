@@ -1,7 +1,10 @@
 { pkgs, config, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ./local_sites.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ./local_sites.nix
+  ];
 
   boot = {
     loader = {
@@ -27,7 +30,11 @@
     "/mnt/nfs" = {
       device = "olympus:/data";
       fsType = "sshfs";
-      options = [ "nodev" "noatime" "allow_other" ];
+      options = [
+        "nodev"
+        "noatime"
+        "allow_other"
+      ];
     };
   };
 
@@ -35,6 +42,7 @@
 
   networking = {
     networkmanager.enable = true;
+    networkmanager.plugins = [ pkgs.networkmanager-openconnect ];
     useDHCP = false;
     interfaces.eno1.useDHCP = true;
     hostName = "thenihility";
@@ -96,6 +104,14 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+    pinentryPackage = pkgs.pinentry-gtk2;
+
+    settings = {
+      default-cache-ttl = 3600 * 24;
+      max-cache-ttl = 3600 * 24;
+      default-cache-ttl-ssh = 3600 * 24;
+      max-cache-ttl-ssh = 3600 * 24;
+    };
   };
 
   virtualisation = {
