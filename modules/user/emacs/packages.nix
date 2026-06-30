@@ -50,6 +50,7 @@ in emacsWithPackages (epkgs:
     yasnippet-capf
     yatemplate
   ]) ++ (with epkgs.elpaPackages; [
+    aggressive-indent
     cape
     consult
     corfu
@@ -97,7 +98,6 @@ in emacsWithPackages (epkgs:
     org-cliplink
     org-contrib
     org-pomodoro
-    org-ref
     org-roam
     org-roam-bibtex
     org-superstar
