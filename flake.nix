@@ -209,6 +209,17 @@
           ];
         };
 
+        thehollows = nixosSystem {
+          pkgs = nixpkgs;
+          host = ./hosts/thehollows;
+          users = [ voidee ];
+          modules = [
+            pkg-module
+            ./modules/host/desktop.nix
+            ./modules/host/nix.nix
+          ];
+        };
+
         olympus = nixosSystem {
           pkgs = nixpkgs;
           host = ./hosts/olympus;
