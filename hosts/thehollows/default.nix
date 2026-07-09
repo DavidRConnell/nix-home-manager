@@ -73,6 +73,14 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+    pinentryPackage = pkgs.pinentry-gtk2;
+
+    settings = {
+      default-cache-ttl = 3600 * 24;
+      max-cache-ttl = 3600 * 24;
+      default-cache-ttl-ssh = 3600 * 24;
+      max-cache-ttl-ssh = 3600 * 24;
+    };
   };
 
   virtualisation = {
