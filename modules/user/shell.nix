@@ -1,6 +1,16 @@
 { config, pkgs, ... }: {
 
-  home.packages = (with pkgs; [ neovim tree eza bat tealdeer difftastic ]);
+  home.packages = (
+    with pkgs;
+    [
+      neovim
+      tree
+      eza
+      bat
+      tealdeer
+      difftastic
+    ]
+  );
 
   programs.zsh = {
     enable = true;
@@ -18,6 +28,7 @@
       e = "emacsclient -ca ''";
       vi = "nvim";
       stow = "stow --dotfiles";
+      feh = "feh -Tdefault";
 
       gs = "git status";
       gc = "git commit";
@@ -37,12 +48,10 @@
       chmod = "chmod --preserve-root";
 
       svg = "feh -x --reload 1 --conversion-timeout 1";
-      md2pdf =
-        "pandoc -V geometry:margin=1in --pdf-engine=xelatex --variable mainfont=Helvetica -t pdf -f gfm -i";
+      md2pdf = "pandoc -V geometry:margin=1in --pdf-engine=xelatex --variable mainfont=Helvetica -t pdf -f gfm -i";
       open = "xdg-open";
 
-      fzf =
-        "fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'";
+      fzf = "fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'";
       cat = "bat";
 
       tmux = "direnv exec / tmux";
@@ -73,8 +82,7 @@
       {
         name = "fast-syntax-highlighting";
         file = "fast-syntax-highlighting.plugin.zsh";
-        src =
-          "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting";
+        src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/plugins/fast-syntax-highlighting";
       }
       {
         name = "zsh-autopair";
