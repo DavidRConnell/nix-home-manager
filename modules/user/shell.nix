@@ -5,12 +5,40 @@
     [
       neovim
       tree
-      eza
-      bat
-      tealdeer
       difftastic
     ]
   );
+
+  programs.eza = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.tealdeer = {
+    enable = true;
+    enableAutoUpdates = true;
+    settings = {
+      display = {
+        compact = false;
+        use_pager = true;
+      };
+    };
+  };
+
+  programs.bat = {
+    enable = true;
+    config = {
+      theme = "ansi";
+      style = "changes";
+      italic-text = "always";
+    };
+
+    extraPackages = with pkgs.bat-extras; [
+      batdiff
+      batman
+      batgrep
+    ];
+  };
 
   programs.zsh = {
     enable = true;
@@ -46,6 +74,8 @@
       chgrp = "chgrp --preserve-root";
       chown = "chown --preserve-root";
       chmod = "chmod --preserve-root";
+
+      man = "batman";
 
       svg = "feh -x --reload 1 --conversion-timeout 1";
       md2pdf = "pandoc -V geometry:margin=1in --pdf-engine=xelatex --variable mainfont=Helvetica -t pdf -f gfm -i";

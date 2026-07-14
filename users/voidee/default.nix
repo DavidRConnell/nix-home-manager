@@ -1,5 +1,5 @@
 username: imports:
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   inherit imports;
@@ -35,14 +35,12 @@ username: imports:
         fd
         feh
         ffmpeg-full
-        firefox
         git
         killall
         lxqt.xdg-desktop-portal-lxqt
         man-pages
         man-pages-posix
         mpv
-        networkmanagerapplet
         nextcloud-client
         nvtopPackages.nvidia
         pandoc
@@ -123,6 +121,79 @@ username: imports:
   };
 
   programs.gpg.enable = true;
+
+  programs.firefox = {
+    enable = true;
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
+
+    profiles = {
+      default = {
+        id = 0;
+        name = "default";
+        isDefault = true;
+        userChrome = ''
+          #TabsToolbar {
+            visibility: collapse !important;
+          }
+        '';
+
+        settings = {
+          "browser.tabs.tabmanager.enabled" = false;
+          "browser.tabs.loadInBackground" = false;
+          "browser.tabs.inTitlebar" = 1;
+          "browser.link.open_newwindow" = 2;
+          "browser.link.open_newwindow.restriction" = 0;
+          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+        };
+      };
+    };
+
+    policies = {
+      AIControls = {
+        Default = "blocked";
+      };
+      DisableFirefoxStudies = true;
+      DisablePocket = true;
+      DisableTelemetry = true;
+      DisplayBookmarksToolbar = "never";
+      DisplayMenuBar = "never";
+      DontCheckDefaultBrowser = true;
+      FirefoxHome = {
+        Search = true;
+        TopSites = false;
+        SponsoredTopSites = false;
+        Highlights = false;
+        Pocket = false;
+        Stories = false;
+        SponsoredPockets = false;
+        SponsoredStories = false;
+        Snippets = false;
+        Locked = true;
+      };
+      FirefoxSuggest = {
+        WebSuggestions = true;
+        SponsoredSuggestions = false;
+        ImproveSuggest = false;
+        Locked = true;
+      };
+      GenerativeAI.Enabled = false;
+      HardwareAcceleration = true;
+      Homepage.URL = "http://start.home";
+      NoDefaultBookmarks = true;
+      OfferToSaveLogins = false;
+      PasswordManagerEnabled = false;
+      PromptForDownloadLocation = true;
+      UserMessaging = {
+        ExtensionRecommendations = false;
+        FeatureRecommendations = false;
+        UrlbarInterventions = false;
+        SkipOnBoarding = true;
+        MoreFromMozilla = false;
+        FirefoxLabs = false;
+        Locked = true;
+      };
+    };
+  };
 
   systemd.user.sessionVariables = {
     # TEMP HACK while enchant can't find dictionaries.
