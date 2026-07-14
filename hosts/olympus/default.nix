@@ -5,7 +5,11 @@
 { pkgs, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ./backup.nix ./local-sites.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ./backup.nix
+    ./local-sites.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader = {
@@ -19,7 +23,7 @@
   virtualisation.docker.enable = true;
 
   # Set your time zone.
-  time.timeZone = "America/Chicago";
+  time.timeZone = "America/New_York";
 
   networking = {
     hostName = "olympus";
@@ -32,7 +36,10 @@
 
   services.xserver.enable = false;
 
-  environment.systemPackages = with pkgs; [ vim git ];
+  environment.systemPackages = with pkgs; [
+    vim
+    git
+  ];
 
   services.pulseaudio.enable = false;
 
