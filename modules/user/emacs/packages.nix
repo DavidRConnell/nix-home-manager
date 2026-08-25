@@ -3,7 +3,9 @@
 let
   myEmacs = pkgs.emacs;
   emacsWithPackages = (pkgs.emacsPackagesFor myEmacs).emacsWithPackages;
-in emacsWithPackages (epkgs:
+in
+emacsWithPackages (
+  epkgs:
   (with epkgs.melpaPackages; [
     ace-window
     bats-mode
@@ -38,6 +40,7 @@ in emacsWithPackages (epkgs:
     nix-mode
     no-littering
     package-lint
+    python-cell
     python-pytest
     rainbow-delimiters
     reformatter
@@ -49,7 +52,8 @@ in emacsWithPackages (epkgs:
     yasnippet
     yasnippet-capf
     yatemplate
-  ]) ++ (with epkgs.elpaPackages; [
+  ])
+  ++ (with epkgs.elpaPackages; [
     aggressive-indent
     cape
     consult
@@ -60,7 +64,8 @@ in emacsWithPackages (epkgs:
     popper
     vertico
     vundo
-  ]) ++ (with epkgs; [
+  ])
+  ++ (with epkgs; [
     avy
     citar
     citar-embark
@@ -113,4 +118,5 @@ in emacsWithPackages (epkgs:
     wgrep
 
     treesit-grammars.with-all-grammars
-  ]))
+  ])
+)
