@@ -32,8 +32,6 @@ emacsWithPackages (
     hl-todo
     iedit
     link-hint
-    lispy
-    lispyville
     magit
     magit-todos
     markdown-mode
@@ -75,7 +73,6 @@ emacsWithPackages (
     cypher-mode
     diff-hl
     dired-narrow
-    # edit-indirect
     embark
     embark-consult
     engrave-faces
@@ -107,7 +104,6 @@ emacsWithPackages (
     org-roam-bibtex
     org-superstar
     ox-pandoc
-    # poly-markdown
     prescient
     projectile
     scad-mode
