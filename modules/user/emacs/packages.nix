@@ -106,12 +106,14 @@ emacsWithPackages (
     ox-pandoc
     prescient
     projectile
+    request
     scad-mode
     sdcv
     undo-fu-session
     vertico-prescient
     visual-fill-column
     wgrep
+    zoutline
 
     treesit-grammars.with-all-grammars
   ])
