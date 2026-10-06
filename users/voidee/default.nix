@@ -115,6 +115,8 @@ username: imports:
     ];
   };
 
+  services.mpris-proxy.enable = true;
+
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;

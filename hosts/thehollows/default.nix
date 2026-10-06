@@ -51,7 +51,14 @@
 
   services.printing.enable = true;
 
-  services.pulseaudio.enable = false;
+  hardware = {
+    bluetooth = {
+      enable = true;
+      powerOnBoot = false;
+    };
+  };
+  services.blueman.enable = true;
+
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
